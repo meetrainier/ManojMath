@@ -1,19 +1,18 @@
 #pragma once
-
+#include <memory> 
 #include "MnjSmoothableSegment.h"
 #include "MnjPoint.h"
 #include "MnjInfiniteLine.h"
-#include <boost/shared_ptr.hpp>
-
+ 
 class MnjSmoothableLine: public MnjSmoothableSegment {
 public:
-  typedef boost::shared_ptr<MnjSmoothableLine> shared_ptr;
+  typedef std::shared_ptr<MnjSmoothableLine> shared_ptr;
 	
-	typedef vector<boost::shared_ptr<MnjSmoothableLine>> shared_ptr_vec;
-	typedef vector<boost::shared_ptr<MnjSmoothableLine>>::iterator shared_ptr_vec_it;
+	typedef vector<std::shared_ptr<MnjSmoothableLine>> shared_ptr_vec;
+	typedef vector<std::shared_ptr<MnjSmoothableLine>>::iterator shared_ptr_vec_it;
     
-	typedef list<boost::shared_ptr<MnjSmoothableLine>> shared_ptr_list;
-	typedef list<boost::shared_ptr<MnjSmoothableLine>>::iterator shared_ptr_list_it;
+	typedef list<std::shared_ptr<MnjSmoothableLine>> shared_ptr_list;
+	typedef list<std::shared_ptr<MnjSmoothableLine>>::iterator shared_ptr_list_it;
 
   MnjSmoothableLine(){mstatus =MnjSmoothableSegment::UNKNOWN;}
   MnjSmoothableLine(MnjPoint<double> &s, MnjPoint<double> &e );//,ICSAttribute &attr);
@@ -50,9 +49,9 @@ public:
 	  return mline.TangentAtEnd(p); 
 	}
 
-  boost::shared_ptr<MnjLine> GetLine(void)const;
+  std::shared_ptr<MnjLine> GetLine(void)const;
   
-  boost::shared_ptr<Segment> GetSegment(void);
+  std::shared_ptr<Segment> GetSegment(void);
 	double GetDistance(MnjPoint<double> &p);
 
 	// returns 0 when the two lines do not intersect 
@@ -64,7 +63,7 @@ public:
 
 	void CreateParallelLine( double r,
 					                 const MnjPoint<double>  &p,
-							             boost::shared_ptr<MnjLine> &l);
+							             std::shared_ptr<MnjLine> &l);
 
 	int GetPointOnLine(const MnjPoint<double>  &eitherEnd,
                      const double &distance_from_the_arg1,
@@ -79,7 +78,7 @@ public:
 	}
     virtual int ResetThePoint(MnjPoint<double> &icornerPoint,MnjPoint<double> &ip);
     /////////////////////////////////////////////////////////////////////////////////
-    int Partition(const unsigned int &n, list<boost::shared_ptr<MnjSmoothableSegment>> &ol);
+    int Partition(const unsigned int &n, list<std::shared_ptr<MnjSmoothableSegment>> &ol);
 #if _DEBUG 
 	virtual void Print(void);
 #endif 

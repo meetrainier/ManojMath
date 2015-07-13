@@ -2,12 +2,13 @@
 //#include "icspath.h"
 #include <vector>
 #include <list>
-#include <boost/shared_ptr.hpp>
-#include <boost/weak_ptr.hpp>
+#include <memory>
+//#include <boost/shared_ptr.hpp>
+//#include <boost/weak_ptr.hpp>
 
 #include "MnjPoint.h"
 
-
+using namespace std; 
 /*
 Exaansion note: 
 Ideally a class SmoothableSegment should be derived from Segment. 
@@ -18,13 +19,13 @@ class Segment {
 
 public:
 
-  typedef boost::shared_ptr<Segment> shared_ptr;
+  typedef shared_ptr<Segment> shared_ptr;
 	
-	typedef vector<boost::shared_ptr<Segment>> shared_ptr_vec;
-	typedef vector<boost::shared_ptr<Segment>>::iterator shared_ptr_vec_it;
+	typedef vector<std::shared_ptr<Segment>> shared_ptr_vec;
+	typedef vector<std::shared_ptr<Segment>>::iterator shared_ptr_vec_it;
     
-	typedef list<boost::shared_ptr<Segment>> shared_ptr_list;
-	typedef list<boost::shared_ptr<Segment>>::iterator shared_ptr_list_it;
+	typedef list<std::shared_ptr<Segment>> shared_ptr_list;
+	typedef list<std::shared_ptr<Segment>>::iterator shared_ptr_list_it;
   ///////////////////////////////////////////////////////////////////////////////////////////////
   enum  SegmentChange{UNKNOWN, //default value ( if constructor argument doesn't specify anything) 
                        ORIGINAL,//No change took place. 
@@ -52,7 +53,7 @@ public:
   virtual void GetEndPoint(MnjPoint<double> &p)const=0 ;
   virtual void GetEnds(MnjPoint<double> &s,MnjPoint<double> &e)const=0 ;
   virtual double GetMaxDistance(MnjPoint<double> &p)=0;// do we really need it?
-  virtual  MnjPoint<double> Segment::GetCommonPoint(boost::shared_ptr<Segment> seg2,int &oerror);
+  virtual  MnjPoint<double> Segment::GetCommonPoint(std::shared_ptr<Segment> seg2,int &oerror);
   virtual MnjPoint<double> GetOtherEnd(const MnjPoint<double> &ip,int &oerror)const=0;
    //virtual SegmentType GetType()=0;
 

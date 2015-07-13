@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{7CB0440D-89F9-4997-8A5E-F4B5B3706E2A}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <Optimization>Disabled</Optimization>
+    </ClCompile>
+    <Link>
+      <TargetMachine>MachineX86</TargetMachine>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <TargetMachine>MachineX86</TargetMachine>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="CreateArc.cpp" />
+    <ClCompile Include="GeomUtils.cpp" />
+    <ClCompile Include="Mnj4x4Matrix.cpp" />
+    <ClCompile Include="MnjArc.cpp" />
+    <ClCompile Include="MnjArc1.cpp" />
+    <ClCompile Include="MnjBiDirectionalMerge.cpp" />
+    <ClCompile Include="MnjCircle.cpp" />
+    <ClCompile Include="MnjDirection.cpp" />
+    <ClCompile Include="MnjInfiniteLine.cpp" />
+    <ClCompile Include="MnjInterval.cpp" />
+    <ClCompile Include="MnjLine.cpp" />
+    <ClCompile Include="MnjMainDev.cpp" />
+    <ClCompile Include="MnjOperators.cpp" />
+    <ClCompile Include="MnjPlane.cpp" />
+    <ClCompile Include="MnjPoint.cpp" />
+    <ClCompile Include="MnjSmoothableArc.cpp" />
+    <ClCompile Include="MnjSmoothableLine.cpp" />
+    <ClCompile Include="MnjSmoothableSegment.cpp" />
+    <ClCompile Include="MnjSmoother.cpp" />
+    <ClCompile Include="MnjSmootherUtils.cpp" />
+    <ClCompile Include="MnjVector.cpp" />
+    <ClCompile Include="opennurbs_arc.cpp" />
+    <ClCompile Include="opennurbs_circle.cpp" />
+    <ClCompile Include="opennurbs_crc.cpp" />
+    <ClCompile Include="opennurbs_plane.cpp" />
+    <ClCompile Include="Segment.cpp" />
+    <ClCompile Include="TestGeomUtils.cpp" />
+    <ClCompile Include="TestManojMath.cpp" />
+    <ClCompile Include="TestMnjSmoother.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ErrorUtils.h" />
+    <ClInclude Include="GeomUtils.h" />
+    <ClInclude Include="GeomUtils2D.h" />
+    <ClInclude Include="MathConstant.h" />
+    <ClInclude Include="Mnj4x4Matrix.h" />
+    <ClInclude Include="MnjArc.h" />
+    <ClInclude Include="MnjBiDirectionalMerge.h" />
+    <ClInclude Include="MnjCircle.h" />
+    <ClInclude Include="MnjDebug.h" />
+    <ClInclude Include="MnjDirection.h" />
+    <ClInclude Include="MnjInfiniteLine.h" />
+    <ClInclude Include="MnjInterval.h" />
+    <ClInclude Include="MnjLine.h" />
+    <ClInclude Include="MnjMathNamespace.h" />
+    <ClInclude Include="MnjOperators.h" />
+    <ClInclude Include="MnjPlane.h" />
+    <ClInclude Include="MnjPoint.h" />
+    <ClInclude Include="MnjSmoothableArc.h" />
+    <ClInclude Include="MnjSmoothableLine.h" />
+    <ClInclude Include="MnjSmoothableSegment.h" />
+    <ClInclude Include="MnjSmoother.h" />
+    <ClInclude Include="MnjSmootherUtils.h" />
+    <ClInclude Include="MnjVector.h" />
+    <ClInclude Include="opennurbs.h" />
+    <ClInclude Include="opennurbs_3dm.h" />
+    <ClInclude Include="opennurbs_arc.h" />
+    <ClInclude Include="opennurbs_circle.h" />
+    <ClInclude Include="opennurbs_crc.h" />
+    <ClInclude Include="opennurbs_defines.h" />
+    <ClInclude Include="opennurbs_error.h" />
+    <ClInclude Include="opennurbs_memory.h" />
+    <ClInclude Include="opennurbs_plane.h" />
+    <ClInclude Include="opennurbs_rand.h" />
+    <ClInclude Include="opennurbs_system.h" />
+    <ClInclude Include="opennurbs_uuid.h" />
+    <ClInclude Include="Segment.h" />
+    <ClInclude Include="TestGeomUtils.h" />
+    <ClInclude Include="TestMnjSmoother.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

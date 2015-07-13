@@ -40,8 +40,8 @@ MnjSmoothableArc::MnjSmoothableArc(MnjArc &iarc//, ICSAttribute &iattr
 
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////
-MnjSmoothableArc::MnjSmoothableArc(const boost::shared_ptr<MnjSmoothableArc> &iSeg1, 
-                                   const boost::shared_ptr<MnjSmoothableArc> &iSeg2,
+MnjSmoothableArc::MnjSmoothableArc(const std::shared_ptr<MnjSmoothableArc> &iSeg1, 
+                                   const std::shared_ptr<MnjSmoothableArc> &iSeg2,
                                    //ICSAttribute &iAttr,             
                                     MnjSmoothableSegment::SegmentChange iStatus){
   try {
@@ -60,8 +60,8 @@ MnjSmoothableArc::MnjSmoothableArc(const boost::shared_ptr<MnjSmoothableArc> &iS
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
-MnjSmoothableArc::MnjSmoothableArc(const boost::shared_ptr<MnjSmoothableLine> &iSeg1,
-                                   const boost::shared_ptr<MnjSmoothableArc> &iSeg2,
+MnjSmoothableArc::MnjSmoothableArc(const std::shared_ptr<MnjSmoothableLine> &iSeg1,
+                                   const std::shared_ptr<MnjSmoothableArc> &iSeg2,
                          //ICSAttribute &iAttr,
                          MnjSmoothableSegment::SegmentChange iStatus){
     
@@ -78,8 +78,8 @@ MnjSmoothableArc::MnjSmoothableArc(const boost::shared_ptr<MnjSmoothableLine> &i
     */
   }
 /////////////////////////////////////////////////////////////
-MnjSmoothableArc::MnjSmoothableArc(const boost::shared_ptr<MnjSmoothableArc> &iSeg1,
-                                   const boost::shared_ptr<MnjSmoothableLine> &iSeg2,
+MnjSmoothableArc::MnjSmoothableArc(const std::shared_ptr<MnjSmoothableArc> &iSeg1,
+                                   const std::shared_ptr<MnjSmoothableLine> &iSeg2,
                          //ICSAttribute &iAttr,
                          MnjSmoothableSegment::SegmentChange iStatus){
     
@@ -177,7 +177,7 @@ double MnjSmoothableArc::GetRadius(void){
 	}
 #endif 
 
-int MnjSmoothableArc::Intersect(MnjInfiniteLine &il, vector<boost::shared_ptr<MnjPoint<double>>> &opt_vec){
+int MnjSmoothableArc::Intersect(MnjInfiniteLine &il, shared_ptr_vec_pt &opt_vec){
 	return	marc.Intersect(il,opt_vec);
 	
 }
@@ -225,27 +225,27 @@ int MnjSmoothableArc::ResetThePoint(MnjPoint<double> &icornerPoint,MnjPoint<doub
     return error;
 }
  ///////////////////////////////////////////////////////////////////////////////////////////////////
- boost::shared_ptr<MnjArc> MnjSmoothableArc::GetArc(int dummy)const{
-	   boost::shared_ptr<MnjArc> a(new MnjArc(marc));
+ std::shared_ptr<MnjArc> MnjSmoothableArc::GetArc(int dummy)const{
+	   std::shared_ptr<MnjArc> a(new MnjArc(marc));
        return a;
 }
  ///////////////////////////////////////////////////////////////////////////////////////////////////////
 //int MnjSmoothableArc::Partition(const unsigned int &n, list<boost::shared_ptr<MnjSmoothableArc>> &ol){
-int MnjSmoothableArc::Partition(const unsigned int &n, list<boost::shared_ptr<MnjSmoothableSegment>> &ol){
+int MnjSmoothableArc::Partition(const unsigned int &n, list<std::shared_ptr<MnjSmoothableSegment>> &ol){
     int error =0;
-    list<boost::shared_ptr<MnjArc>> arcList;
+    list<std::shared_ptr<MnjArc>> arcList;
     marc.Partition(n, arcList);
-    list<boost::shared_ptr<MnjArc>>::iterator it=arcList.begin();
+    list<std::shared_ptr<MnjArc>>::iterator it=arcList.begin();
     
     ICSAttribute attr;
     GetICSAttribute(attr);
     
     for ( ;it!= arcList.end(); it++ ) {
-        ol.push_back(boost::shared_ptr<MnjSmoothableArc>(new MnjSmoothableArc(**it)));//,attr)));
+        ol.push_back(std::shared_ptr<MnjSmoothableArc>(new MnjSmoothableArc(**it)));//,attr)));
     }
     return error;
 }
 /////////////////////////////////////////////////////////
-boost::shared_ptr<Segment> MnjSmoothableArc::GetSegment(void){
+std::shared_ptr<Segment> MnjSmoothableArc::GetSegment(void){
     return GetArc(0);
 }

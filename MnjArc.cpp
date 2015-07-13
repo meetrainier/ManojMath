@@ -99,7 +99,7 @@ void MnjArc::CreateErrorString(char *file, int line_no,char *func, string &imsg,
 }
 */
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
-MnjArc::MnjArc(boost::shared_ptr<MnjLine> &iSeg1, shared_ptr& iSeg2){
+MnjArc::MnjArc(std::shared_ptr<MnjLine> &iSeg1, shared_ptr& iSeg2){
   int error = 0;
   MnjPoint<double> commonPoint = iSeg1->GetCommonPoint(iSeg2,error);
   if(error>=0){
@@ -351,8 +351,8 @@ void MnjArc::GetNormalAtEndPoint(MnjLine &l){
 
 }
 */
-int MnjArc::CreateSmallestArc(vector<boost::shared_ptr<MnjPoint<double>>> &pt_vec,MnjArc &oa){
-		 vector<boost::shared_ptr<MnjPoint<double>>>::iterator  it;
+int MnjArc::CreateSmallestArc(shared_ptr_vec_pt &pt_vec,MnjArc &oa){
+		 shared_ptr_vec_pt::iterator  it;
 		 oa = *this;
 		 MnjArc tmp_arc=*this;
 		 int error = 0;
@@ -371,16 +371,16 @@ int MnjArc::CreateSmallestArc(vector<boost::shared_ptr<MnjPoint<double>>> &pt_ve
 		 return 0;
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////
-int MnjArc::Intersect(MnjInfiniteLine &il, vector<boost::shared_ptr<MnjPoint<double>>> &opt_vec){
+int MnjArc::Intersect(MnjInfiniteLine &il, shared_ptr_vec_pt &opt_vec){
 		int error = 0;
 		MnjDirection X = GetXAxis();
 		MnjDirection Y = GetYAxis();
 		MnjPlane plane(centerPoint,X,Y);
 		MnjCircle circle(plane,GetRadius());
-        vector<boost::shared_ptr<MnjPoint<double>>> pt_vec;
+        shared_ptr_vec_pt pt_vec;
 		error = circle.Intersect(il,pt_vec);
         if(!(error<0)){
-            vector<boost::shared_ptr<MnjPoint<double>>>::iterator it=pt_vec.begin();
+            shared_ptr_vec_pt::iterator it=pt_vec.begin();
             for (it; it != pt_vec.end(); it++){
                if(IsPointOnArc(**it)){
                    opt_vec.push_back(*it);
@@ -535,7 +535,7 @@ bool MnjArc::PointProjectOnArc(MnjPoint<double> &ip,int &oerror) {
 
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////
- int MnjArc::Partition(const unsigned int &n, list<boost::shared_ptr<MnjArc>> &ol){
+ int MnjArc::Partition(const unsigned int &n, list<std::shared_ptr<MnjArc>> &ol){
     int error =0;
     if(n<=0 || ol.size()> 0)
         error = -1;
@@ -546,7 +546,7 @@ bool MnjArc::PointProjectOnArc(MnjPoint<double> &ip,int &oerror) {
         for(  unsigned int i = 0; i < n ; i++ ) {
             MnjPoint<double> stmp = GetPointAtAngle(startA + ((endA -startA)*i)/n);
             MnjPoint<double> etmp = GetPointAtAngle(startA + ((endA-startA)*(i+1))/n);
-            boost::shared_ptr<MnjArc> ltmp(new MnjArc(stmp,centerPoint,etmp));
+            std::shared_ptr<MnjArc> ltmp(new MnjArc(stmp,centerPoint,etmp));
             ol.push_back(ltmp);
         }
     }

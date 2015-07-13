@@ -2,8 +2,7 @@
 
 #include <vector>
 #include <list>
-
-#include <boost/shared_ptr.hpp>
+#include <memory>
 
 #include "Segment.h" 
 #include "MnjPoint.h"
@@ -12,31 +11,37 @@
 #include "GeomUtils.h"
 #include "MnjPlane.h"
 //#include "Mnj4x4Matrix.h"
+
+
 class MnjInfiniteLine;
 class Mnj4x4Matrix;
 //class MnjPlane;
 class MnjDirection;
 
+using namespace std;
+
 
 class MnjLine: public Segment {
 
 public:
-  typedef boost::shared_ptr<MnjLine> shared_ptr;
+
+    typedef std::shared_ptr<MnjLine> shared_ptr;
 	
-	typedef vector<boost::shared_ptr<MnjLine>> shared_ptr_vec;
-	typedef vector<boost::shared_ptr<MnjLine>>::iterator shared_ptr_vec_it;
+	typedef vector<std::shared_ptr<MnjLine>> shared_ptr_vec;
+	typedef vector<std::shared_ptr<MnjLine>>::iterator shared_ptr_vec_it;
     
-	typedef list<boost::shared_ptr<MnjLine>> shared_ptr_list;
-	typedef list<boost::shared_ptr<MnjLine>>::iterator shared_ptr_list_it;
+	typedef list<std::shared_ptr<MnjLine>> shared_ptr_list;
+	typedef list<std::shared_ptr<MnjLine>>::iterator shared_ptr_list_it;
 
 	MnjLine(){ }
-  MnjLine(const MnjLine &l){ 
+
+	MnjLine(const MnjLine &l){ 
          startPoint = l.startPoint;
          endPoint = l.endPoint;
   }
 
   MnjLine(Segment &iSeg1, Segment &iSeg2);
-	MnjLine(MnjPoint<double> &s,MnjPoint<double> &e);
+  MnjLine(MnjPoint<double> &s,MnjPoint<double> &e);
   MnjLine(Segment::shared_ptr &iSeg1, Segment::shared_ptr& iSeg2);
   MnjLine(shared_ptr &iSeg1, shared_ptr& iSeg2);
 
@@ -44,9 +49,9 @@ public:
 
 	void Set(MnjPoint<double> &s,MnjPoint<double> &e);
 	void GetStartPoint(MnjPoint<double> &p)const;
-  void GetEndPoint(MnjPoint<double> &p)const;
+    void GetEndPoint(MnjPoint<double> &p)const;
 	void SetStartPoint(MnjPoint<double> &p);
-  void SetEndPoint(MnjPoint<double> &p);
+    void SetEndPoint(MnjPoint<double> &p);
 	
   //gets maximum distance between a point and a line segment
 	virtual double GetMaxDistance(MnjPoint<double> &p) override;
@@ -77,8 +82,8 @@ public:
 						               shared_ptr &l);
 
 	void GetFarEndOfOtherLine( 
-	const boost::shared_ptr<MnjLine> &l1,
-	const boost::shared_ptr<MnjLine> &l2,
+	const shared_ptr &l1,
+	const shared_ptr &l2,
 	      MnjPoint<double>  &oPoint
 	);
 

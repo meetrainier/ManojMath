@@ -1,11 +1,11 @@
 #pragma once
 //List
+#include <memory>
 #include <vector>
 #include <map>
 #include <list>
 //boost
-#include <boost/shared_ptr.hpp>
-#include <boost/weak_ptr.hpp>
+
 //Local 
 //#include "Segment.h"
 #include "MnjSmoothableSegment.h"
@@ -36,11 +36,11 @@ public:
  */
 
 //static void GetAttributeWithLowestValues(vector<boost::shared_ptr<MnjSmoothableSegment>> &icsSegVec, ICSAttribute &oa);
-static bool IsConnected(vector<boost::shared_ptr<MnjSmoothableSegment>>   &vec, 
-                        vector<boost::shared_ptr<MnjSmoothableSegment>>::iterator &oit,
+static bool IsConnected(vector<std::shared_ptr<MnjSmoothableSegment>>   &vec, 
+                        vector<std::shared_ptr<MnjSmoothableSegment>>::iterator &oit,
                                double &od);//od tbd
 
-static  bool IsConnected(vector<boost::shared_ptr<MnjSmoothableSegment>>  &vec) ;
-static SegmentType GetType(const boost::shared_ptr<MnjSmoothableSegment> icsSeg) ;
+static  bool IsConnected(vector<std::shared_ptr<MnjSmoothableSegment>>  &vec) ;
+static SegmentType GetType(const std::shared_ptr<MnjSmoothableSegment> icsSeg) ;
 
 };

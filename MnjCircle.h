@@ -33,6 +33,7 @@ private:
 };
 */
 #pragma once
+#include <memory> 
 #include "MnjArc.h"
 #include "MnjPoint.h"
 #include "MnjPlane.h"
@@ -42,12 +43,14 @@ private:
 #include "GeomUtils.h" 
 #include "MnjInfiniteLine.h"
 
+using namespace std; 
+
 class  MnjCircle
 {
 public:
 	
 	MnjCircle( const MnjArc& a );
-    MnjCircle( const boost::shared_ptr<MnjArc> a );
+    MnjCircle( const shared_ptr<MnjArc> a );
     MnjCircle( const MnjPlane& p, double r );
     bool Create( const MnjPlane& p, double r );
 
@@ -59,7 +62,7 @@ public:
 	  // circle is in the plane with center at plane.m_origin.
 	MnjPoint<double> ClosestPointTo( const MnjPoint<double>& point ) const;
 //////////////////////////////////////////////////////////////////////////////
-	int Intersect(MnjInfiniteLine &il, vector<boost::shared_ptr<MnjPoint<double>>> &opt_vec);
+	int Intersect(MnjInfiniteLine &il, shared_ptr_vec_pt &opt_vec);
         
 int Intersect(
       const MnjLine& line, 
@@ -69,7 +72,7 @@ int Intersect(
       MnjPoint<double>& circle_point1
       );
 
-   int Intersect(MnjCircle &ic, vector<boost::shared_ptr<MnjPoint<double>>> &opt_vec);
+   int Intersect(MnjCircle &ic, shared_ptr_vec_pt &opt_vec);
    MnjPlane Plane(){
        return MnjPlane(mplane);
    }

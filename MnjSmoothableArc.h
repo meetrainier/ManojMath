@@ -4,6 +4,7 @@
 #include "MnjLine.h"
 #include "MnjArc.h"
 #include "MnjSmoothableLine.h"
+#include "MnjMathNamespace.h"
 //class FlowICSLine;
 
 class MnjSmoothableArc: public MnjSmoothableSegment {
@@ -18,26 +19,26 @@ public:
     
     MnjSmoothableArc(MnjArc &iarc );//, ICSAttribute &iattr);
     
-    MnjSmoothableArc(const boost::shared_ptr<MnjSmoothableArc> &iSeg1, 
-                     const boost::shared_ptr<MnjSmoothableArc> &iSeg2,
+    MnjSmoothableArc(const std::shared_ptr<MnjSmoothableArc> &iSeg1, 
+                     const std::shared_ptr<MnjSmoothableArc> &iSeg2,
                 //ICSAttribute &iAttr,
                 MnjSmoothableSegment::SegmentChange iStatus);
     //////////////////////////////////////////////////////////////////////////////////////
     MnjSmoothableArc(const MnjSmoothableLine::shared_ptr&iSeg1, 
-                     const boost::shared_ptr<MnjSmoothableArc> &iSeg2,
+                     const std::shared_ptr<MnjSmoothableArc> &iSeg2,
                          //ICSAttribute &iAttr,
                          MnjSmoothableSegment::SegmentChange iStatus);
     
-    MnjSmoothableArc(const boost::shared_ptr<MnjSmoothableArc> &iSeg1, 
+    MnjSmoothableArc(const std::shared_ptr<MnjSmoothableArc> &iSeg1, 
                      const MnjSmoothableLine::shared_ptr&iSeg2,
                          //ICSAttribute &iAttr,
                          MnjSmoothableSegment::SegmentChange iStatus);
 
-     //MnjSmoothableArc(const boost::shared_ptr<MnjSmoothableArc> &iSeg1, const boost::shared_ptr<MnjSmoothableArc> &iSeg2,
+     //MnjSmoothableArc(const std::shared_ptr<MnjSmoothableArc> &iSeg1, const std::shared_ptr<MnjSmoothableArc> &iSeg2,
        //                  ICSAttribute &iAttr,MnjSmoothableSegment::SegmentChange iStatus);
     /////////////////////Set attrbutes/////////////////////////////
-    boost::shared_ptr<MnjArc> GetArc(int dummy)const;
-    boost::shared_ptr<Segment> GetSegment(void);
+    std::shared_ptr<MnjArc> GetArc(int dummy)const;
+    std::shared_ptr<Segment> GetSegment(void);
 
     int Set(MnjPoint<double> &s,MnjPoint<double> &c,MnjPoint<double> &e);
     int SetSmallerArc(MnjPoint<double> &e1,MnjPoint<double> &c,MnjPoint<double> &e2);
@@ -82,7 +83,7 @@ public:
 	bool IsPointOnArc( MnjPoint<double> &ip){
 	 return	marc.IsPointOnArc(ip);
 	}
-    int Intersect(MnjInfiniteLine &il, vector<boost::shared_ptr<MnjPoint<double>>> &opt_vec);
+    int Intersect(MnjInfiniteLine &il, shared_ptr_vec_pt &opt_vec);
 
 	MnjDirection Tangent(MnjPoint<double> &p){
 	  return marc.Tangent(p); 
@@ -97,7 +98,7 @@ public:
     virtual void Flip(void);
     virtual MnjPoint<double> GetOtherEnd(const MnjPoint<double> &ip,int &oerror)const;
     int Project(MnjPoint<double> &ip,MnjPoint<double> &op) ;
-    int Partition(const unsigned int &n, list<boost::shared_ptr<MnjSmoothableSegment>> &ol);
+    int Partition(const unsigned int &n, list<std::shared_ptr<MnjSmoothableSegment>> &ol);
 
 #if _DEBUG 
 	virtual void Print(void);

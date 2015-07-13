@@ -3,7 +3,7 @@
                    smart pointer and returns it. 
 */
 #include <cmath> 
-
+#include <memory> 
 #include "MnjOperators.h"
 #include "MnjLine.h"
 #include "MnjInfiniteLine.h" 
@@ -22,7 +22,7 @@
 #include "Flow4x4Matrix.h"
 #include "GeomUtils.h"
 */
-
+using namespace std; 
 MnjLine::MnjLine(MnjPoint<double> &s, MnjPoint<double> &e){
 	startPoint = s;
 	endPoint = e;
@@ -43,7 +43,7 @@ void MnjLine::Set(MnjPoint<double> &s,MnjPoint<double> &e){
 	SetEndPoint(e);
 }
 ///////////////////////////////////////////////////////////////
-MnjLine::MnjLine(boost::shared_ptr<Segment> &iSeg1, boost::shared_ptr<Segment>& iSeg2){
+MnjLine::MnjLine(std::shared_ptr<Segment> &iSeg1, std::shared_ptr<Segment>& iSeg2){
   int error = 0;
   MnjPoint<double> commonPoint = iSeg1->GetCommonPoint(iSeg2,error);
   if(error>=0){
@@ -58,7 +58,7 @@ MnjLine::MnjLine(boost::shared_ptr<Segment> &iSeg1, boost::shared_ptr<Segment>& 
   }
 }
 //////////////////////////////////////////////////////////////////////////////////////////////
-MnjLine::MnjLine(boost::shared_ptr<MnjLine> &iSeg1, boost::shared_ptr<MnjLine>& iSeg2){
+MnjLine::MnjLine(std::shared_ptr<MnjLine> &iSeg1, std::shared_ptr<MnjLine>& iSeg2){
   int error = 0;
   MnjPoint<double> commonPoint = iSeg1->GetCommonPoint(iSeg2,error);
   if(error>=0){
@@ -152,7 +152,7 @@ void MnjLine::GetEnds(
 ///////////////////////////////////////////////////
 void MnjLine::CreateParallelLine( double r,
 							   const MnjPoint<double>  &p,
-	                           boost::shared_ptr<MnjLine> &l){
+	                           std::shared_ptr<MnjLine> &l){
 
    
    MnjInfiniteLine linf(this);	
@@ -173,7 +173,7 @@ void MnjLine::CreateParallelLine( double r,
    //e1 + dir*r ; 
    GeomUtils::Translate(e1,dir*r,e);
    //l->Set(s,e);
-   boost::shared_ptr<MnjLine> ltmp(new MnjLine(s,e));
+   std::shared_ptr<MnjLine> ltmp(new MnjLine(s,e));
    l = ltmp;
    
 }
@@ -189,8 +189,8 @@ cout << "\tend: ";
 #endif
 
 void MnjLine::GetFarEndOfOtherLine( 
-	const boost::shared_ptr<MnjLine> &l1,
-	const boost::shared_ptr<MnjLine> &l2,
+	const  shared_ptr &l1,
+	const  shared_ptr &l2,
 	MnjPoint<double>  &oPoint
 	){
 		if(!l1 ||!l2) return;
@@ -405,7 +405,7 @@ MnjDirection MnjLine::GetPerpendicularDirection(const MnjPoint<double> &ipt_not_
 
  }
  ///////////////////////////////////////////////////////////////////////////////////////
-int MnjLine::Partition(unsigned int n, list<boost::shared_ptr<MnjLine>> &l){
+int MnjLine::Partition(unsigned int n, list<std::shared_ptr<MnjLine>> &l){
     
  int error =0;
     
@@ -417,7 +417,7 @@ int MnjLine::Partition(unsigned int n, list<boost::shared_ptr<MnjLine>> &l){
         for(  double i = 0; i < num ; i++ ) {
             MnjPoint<double> stmp = startPoint + (endPoint -startPoint)*(i/n);
             MnjPoint<double> etmp = startPoint + (endPoint -startPoint)*((i+1)/n);
-            boost::shared_ptr<MnjLine> ltmp(new MnjLine(stmp,etmp));
+            std::shared_ptr<MnjLine> ltmp(new MnjLine(stmp,etmp));
             l.push_back(ltmp);
         }
     }

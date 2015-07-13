@@ -3,13 +3,15 @@
 5/31/2012 : manoj : Added new class CompressPrior,CompressNext 
 
 */
+#include <memory> 
 #include "MnjBiDirectionalMerge.h"
 #include "MnjSmoother.h"
 #include "MnjDirection.h"
 #include <cmath>
+using namespace std; 
 ///////////////////////////////////////////////////////////////////////////////////////////////
-void MnjBiDirectionalMerge::CompressNonRecursive( list<boost::shared_ptr<MnjSmoothableSegment>> &l,
-			                                            list<boost::shared_ptr<MnjSmoothableSegment>>::iterator it,
+void MnjBiDirectionalMerge::CompressNonRecursive( list<shared_ptr<MnjSmoothableSegment>> &l,
+			                                            list<shared_ptr<MnjSmoothableSegment>>::iterator it,
                                                   map<unsigned int,int> &oChange,
 							                                    double tol){
 
@@ -21,7 +23,7 @@ void MnjBiDirectionalMerge::CompressNonRecursive( list<boost::shared_ptr<MnjSmoo
       bool compressed = false;
 
       decltype(it) it0=it;
-      boost::shared_ptr<MnjSmoothableSegment> newSegmentPair;
+      shared_ptr<MnjSmoothableSegment> newSegmentPair;
             
 			if(!N.ReturnableNext(l,it) && 
                 N.IsNextCompressible(l,it,tol,newSegmentPair)){
@@ -61,14 +63,14 @@ void MnjBiDirectionalMerge::CompressNonRecursive( list<boost::shared_ptr<MnjSmoo
 
 }
 ///////////////////////////////////////////////////////////
-bool CompressPrior::IsPriorCompressible(list<boost::shared_ptr<MnjSmoothableSegment>> &l,
-                                             list<boost::shared_ptr<MnjSmoothableSegment>>::iterator it,
+bool CompressPrior::IsPriorCompressible(list<std::shared_ptr<MnjSmoothableSegment>> &l,
+                                             list<std::shared_ptr<MnjSmoothableSegment>>::iterator it,
                                              double tol, //useless for now: remove? Manoj 5/15/2012
-                                             boost::shared_ptr<MnjSmoothableSegment> &oNewT
+											 std::shared_ptr<MnjSmoothableSegment> &oNewT
                                              ){
     bool flag = false;
     decltype(it) nextIT= NextIter(l,it); //nextIT++;
-    boost::shared_ptr<MnjSmoothableSegment> current =  *it;
+	std::shared_ptr<MnjSmoothableSegment> current = *it;
 
     bool tangent = current->IsTangent(*nextIT);
 
@@ -94,13 +96,13 @@ bool CompressPrior::IsPriorCompressible(list<boost::shared_ptr<MnjSmoothableSegm
 	return flag;
 }
 //////////////////////////////////////////////////////////////////////////////////////////////
-bool CompressNext::IsNextCompressible( list<boost::shared_ptr<MnjSmoothableSegment>> &l,
-                                             list<boost::shared_ptr<MnjSmoothableSegment>>::iterator it,
+bool CompressNext::IsNextCompressible(list<std::shared_ptr<MnjSmoothableSegment>> &l,
+                                             list<std::shared_ptr<MnjSmoothableSegment>>::iterator it,
                                              double tol, //useless for now: remove? Manoj 5/15/2012
-                                             boost::shared_ptr<MnjSmoothableSegment> &oNewT
+                                             std::shared_ptr<MnjSmoothableSegment> &oNewT
                                              ){
     bool flag = false;
-    boost::shared_ptr<MnjSmoothableSegment> current =  *it;
+    std::shared_ptr<MnjSmoothableSegment> current =  *it;
     decltype(it) nextIT = NextIter(l,it);
     bool tangent = current->IsTangent(*nextIT);
 	
@@ -137,8 +139,8 @@ bool CompressNext::IsNextCompressible( list<boost::shared_ptr<MnjSmoothableSegme
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 //working with all test cases:
-boost::shared_ptr<MnjSmoothableSegment>  MnjBiDirectionalMerge::Merge(boost::shared_ptr<MnjSmoothableSegment> iSeg1,
-                                                                      boost::shared_ptr<MnjSmoothableSegment> iSeg2){
+std::shared_ptr<MnjSmoothableSegment>  MnjBiDirectionalMerge::Merge(std::shared_ptr<MnjSmoothableSegment> iSeg1,
+                                                                      std::shared_ptr<MnjSmoothableSegment> iSeg2){
   int error = 0;
   if(iSeg1 && iSeg2 ) {
       /*
@@ -149,33 +151,33 @@ boost::shared_ptr<MnjSmoothableSegment>  MnjBiDirectionalMerge::Merge(boost::sha
         FlowSmoother s;
 	    s.GetAttributeWithLowestValues(icsSegVec,attr);
         */
-      boost::shared_ptr<MnjSmoothableArc> arc1 = boost::dynamic_pointer_cast<MnjSmoothableArc,MnjSmoothableSegment> (iSeg1);
-      MnjSmoothableLine::shared_ptr line1 = boost::dynamic_pointer_cast<MnjSmoothableLine,MnjSmoothableSegment> (iSeg1);
-      boost::shared_ptr<MnjSmoothableArc> arc2 = boost::dynamic_pointer_cast<MnjSmoothableArc,MnjSmoothableSegment> (iSeg2);
-      MnjSmoothableLine::shared_ptr line2 = boost::dynamic_pointer_cast<MnjSmoothableLine,MnjSmoothableSegment> (iSeg2);
+      std::shared_ptr<MnjSmoothableArc> arc1 = std::dynamic_pointer_cast<MnjSmoothableArc,MnjSmoothableSegment> (iSeg1);
+      MnjSmoothableLine::shared_ptr line1 = std::dynamic_pointer_cast<MnjSmoothableLine,MnjSmoothableSegment> (iSeg1);
+      std::shared_ptr<MnjSmoothableArc> arc2 = std::dynamic_pointer_cast<MnjSmoothableArc,MnjSmoothableSegment> (iSeg2);
+      MnjSmoothableLine::shared_ptr line2 = std::dynamic_pointer_cast<MnjSmoothableLine,MnjSmoothableSegment> (iSeg2);
 	   
-      boost::shared_ptr<MnjSmoothableSegment> retICSSegment;
+      std::shared_ptr<MnjSmoothableSegment> retICSSegment;
       
       try {
        if(line1 && line2){
 
         //return boost::shared_ptr<MnjSmoothableLine>(new MnjSmoothableLine(line1,line2,MnjSmoothableSegment::MERGED) );
-           retICSSegment = boost::shared_ptr<MnjSmoothableLine>(new MnjSmoothableLine(line1,line2,MnjSmoothableSegment::MERGED) );
+		   retICSSegment = std::shared_ptr<MnjSmoothableLine>(new MnjSmoothableLine(line1, line2, MnjSmoothableSegment::MERGED));
        
        }else if(line1 && arc2){//tbd
 	     
         //return boost::shared_ptr<MnjSmoothableArc>(new MnjSmoothableArc(line1,arc2,MnjSmoothableSegment::MERGED) );
-	       retICSSegment =  boost::shared_ptr<MnjSmoothableArc>(new MnjSmoothableArc(line1,arc2,MnjSmoothableSegment::MERGED) );
+		   retICSSegment = std::shared_ptr<MnjSmoothableArc>(new MnjSmoothableArc(line1, arc2, MnjSmoothableSegment::MERGED));
 	     
        } else if(arc1 && line2){//tbd
        
         //return boost::shared_ptr<MnjSmoothableArc>(new MnjSmoothableArc(arc1,line2,MnjSmoothableSegment::MERGED) );
-         retICSSegment = boost::shared_ptr<MnjSmoothableArc>(new MnjSmoothableArc(arc1,line2,MnjSmoothableSegment::MERGED) );
+		   retICSSegment = std::shared_ptr<MnjSmoothableArc>(new MnjSmoothableArc(arc1, line2, MnjSmoothableSegment::MERGED));
        
        }else if(arc1 && arc2){//tbd
         
         //return boost::shared_ptr<MnjSmoothableArc>(new MnjSmoothableArc(arc1,arc2,MnjSmoothableSegment::MERGED) );
-         retICSSegment = boost::shared_ptr<MnjSmoothableArc>(new MnjSmoothableArc(arc1,arc2,MnjSmoothableSegment::MERGED) );
+		   retICSSegment = std::shared_ptr<MnjSmoothableArc>(new MnjSmoothableArc(arc1, arc2, MnjSmoothableSegment::MERGED));
        }
      }
      catch (std::exception e){
@@ -184,7 +186,7 @@ boost::shared_ptr<MnjSmoothableSegment>  MnjBiDirectionalMerge::Merge(boost::sha
       }
      return retICSSegment;
     }
-    return boost::shared_ptr<MnjSmoothableLine>((MnjSmoothableLine *)NULL);
+  return std::shared_ptr<MnjSmoothableLine>((MnjSmoothableLine *)NULL);
 
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -290,27 +292,27 @@ void CompressPrior::CompressP( list<boost::shared_ptr<MnjSmoothableSegment>> &l,
 }
 */
 ///////////////////////////////////////////////////////////////////////////////////////////
- bool CompressNext::ReturnableNext(list<boost::shared_ptr<MnjSmoothableSegment>> &l,
-                                     list<boost::shared_ptr<MnjSmoothableSegment>>::iterator it){        
+bool CompressNext::ReturnableNext(list<std::shared_ptr<MnjSmoothableSegment>> &l,
+	list<std::shared_ptr<MnjSmoothableSegment>>::iterator it){
      bool flag = false;
      if(l.end()==it) 
          return true;//should not normally come here
      if(MnjSmoothableSegment::NEXT_PROCESSED == (*it)->GetProcessingState())
                return true;
 
-     list<boost::shared_ptr<MnjSmoothableSegment>>::iterator it1 = NextIter(l,it);
+	 list<std::shared_ptr<MnjSmoothableSegment>>::iterator it1 = NextIter(l, it);
      if(MnjSmoothableSegment::NEXT_PROCESSED == (*it1)->GetProcessingState())
                return true;
 
-     list<boost::shared_ptr<MnjSmoothableSegment>>::iterator it2 = NextIter(l,it1);
+	 list<std::shared_ptr<MnjSmoothableSegment>>::iterator it2 = NextIter(l, it1);
      if(MnjSmoothableSegment::NEXT_PROCESSED == (*it2)->GetProcessingState())
                return true;
      
      return flag;
  }
  /////////////////////////////////////////////////////////////////////////////////////////
- bool CompressPrior::ReturnablePrev(list<boost::shared_ptr<MnjSmoothableSegment>> &l,
-                                     list<boost::shared_ptr<MnjSmoothableSegment>>::iterator it){        
+bool CompressPrior::ReturnablePrev(list<std::shared_ptr<MnjSmoothableSegment>> &l,
+	list<std::shared_ptr<MnjSmoothableSegment>>::iterator it){
      int s1 = l.size();
      bool flag = false;
      if(l.end()==it) 
@@ -318,7 +320,7 @@ void CompressPrior::CompressP( list<boost::shared_ptr<MnjSmoothableSegment>> &l,
      if(MnjSmoothableSegment::PREV_PROCESSED == (*it)->GetProcessingState())
                return true;
 
-     list<boost::shared_ptr<MnjSmoothableSegment>>::iterator it1 = NextIter(l,it);
+     list<std::shared_ptr<MnjSmoothableSegment>>::iterator it1 = NextIter(l,it);
      if(MnjSmoothableSegment::PREV_PROCESSED == (*it1)->GetProcessingState())
                return true;
 
@@ -329,9 +331,9 @@ void CompressPrior::CompressP( list<boost::shared_ptr<MnjSmoothableSegment>> &l,
      return flag;
  }
  ///////////////////////////////////////////////////////////////////////////////////////////
- list<boost::shared_ptr<MnjSmoothableSegment>>::iterator 
- MnjBiDirectionalMerge::NextIter(list<boost::shared_ptr<MnjSmoothableSegment>> &l,
-                              list<boost::shared_ptr<MnjSmoothableSegment>>::iterator it){        
+list<std::shared_ptr<MnjSmoothableSegment>>::iterator
+MnjBiDirectionalMerge::NextIter(list<std::shared_ptr<MnjSmoothableSegment>> &l,
+                              list<std::shared_ptr<MnjSmoothableSegment>>::iterator it){        
        if(l.end() == it) 
            return it = l.begin();
        
@@ -343,9 +345,9 @@ void CompressPrior::CompressP( list<boost::shared_ptr<MnjSmoothableSegment>> &l,
            return it;
  }
  ///////////////////////////////////////////////////////////////////////////////////////////
- list<boost::shared_ptr<MnjSmoothableSegment>>::iterator 
- MnjBiDirectionalMerge::PrevIter(list<boost::shared_ptr<MnjSmoothableSegment>> &l,
-                              list<boost::shared_ptr<MnjSmoothableSegment>>::iterator it){        
+ list<std::shared_ptr<MnjSmoothableSegment>>::iterator 
+ MnjBiDirectionalMerge::PrevIter(list<std::shared_ptr<MnjSmoothableSegment>> &l,
+                              list<std::shared_ptr<MnjSmoothableSegment>>::iterator it){        
        if(l.begin() == it) 
            it = l.end();
        it--;
@@ -413,8 +415,8 @@ void CompressNext::CompressN( list<boost::shared_ptr<MnjSmoothableSegment>> &l,
 }
 */
 //////////////////////////////////////////////////////////////////////////////////////
-double MnjBiDirectionalMerge::GetAngle(boost::shared_ptr<MnjSmoothableSegment> iSeg1,
-                                       boost::shared_ptr<MnjSmoothableSegment> iSeg2, int &oerror){
+double MnjBiDirectionalMerge::GetAngle(std::shared_ptr<MnjSmoothableSegment> iSeg1,
+                                       std::shared_ptr<MnjSmoothableSegment> iSeg2, int &oerror){
   //int error = 0;
   //TBD: Make sure that get Angle serves the purpose for Arc-line and arc-arc corners.
   //FlowPoint<double> commonPoint = SegmentCommonPoint(iSeg1,iSeg2,oerror);
@@ -435,17 +437,17 @@ double MnjBiDirectionalMerge::GetAngle(boost::shared_ptr<MnjSmoothableSegment> i
   return angle;
 }
 //////////////////////////////////////////////////////////////////////////////////////////
-bool MnjBiDirectionalMerge::IsMergeable(boost::shared_ptr<MnjSmoothableSegment> iSeg1,
-                                     boost::shared_ptr<MnjSmoothableSegment> iSeg2, 
+bool MnjBiDirectionalMerge::IsMergeable(std::shared_ptr<MnjSmoothableSegment> iSeg1,
+                                     std::shared_ptr<MnjSmoothableSegment> iSeg2, 
                                      MnjSmoothableSegment::ProcessingState iState,
                                      int &oerror){
     if( !iSeg1 || !iSeg2)
         return false;
 
     double r =  iSeg1->GetCornerRadius();
-    boost::shared_ptr<Segment> seg1 = iSeg1->GetSegment(); 
-    boost::shared_ptr<Segment> seg2 = iSeg2->GetSegment(); 
-    boost::shared_ptr<MnjArc>  arc(new MnjArc());
+    std::shared_ptr<Segment> seg1 = iSeg1->GetSegment(); 
+    std::shared_ptr<Segment> seg2 = iSeg2->GetSegment(); 
+    std::shared_ptr<MnjArc>  arc(new MnjArc());
     oerror = GeomUtils::CreateArc(seg1,seg2,r,arc);
     
     if(arc && oerror<0) {

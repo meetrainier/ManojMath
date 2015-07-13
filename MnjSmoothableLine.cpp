@@ -169,7 +169,7 @@ void MnjSmoothableLine::GetEnds(
 ///////////////////////////////////////////////////
 void MnjSmoothableLine::CreateParallelLine( double r,
 							   const MnjPoint<double>  &p,
-	                           boost::shared_ptr<MnjLine> &l){
+	                           std::shared_ptr<MnjLine> &l){
 
    mline.CreateParallelLine(r,p,l);
 }
@@ -205,8 +205,8 @@ void MnjSmoothableLine::Set(const MnjSmoothableSegment &seg1,
 	   Set(s,e);
     }
 /////////////////////////////////////////////////////////////////////
-boost::shared_ptr<MnjLine> MnjSmoothableLine::GetLine(void)const{
-	    boost::shared_ptr<MnjLine> l(new MnjLine(mline));
+std::shared_ptr<MnjLine> MnjSmoothableLine::GetLine(void)const{
+	    std::shared_ptr<MnjLine> l(new MnjLine(mline));
 		return  l;
 }
 ////////////////////////////////////////////////////////////////////
@@ -215,21 +215,21 @@ MnjPoint<double> MnjSmoothableLine::GetOtherEnd(const MnjPoint<double> &ip,int &
 }
 ///////////////////////////////////////////////////////////////////////////
 //int MnjSmoothableLine::Partition(const unsigned int &n, list<boost::shared_ptr<MnjSmoothableLine>> &ol){
-int MnjSmoothableLine::Partition(const unsigned int &n, list<boost::shared_ptr<MnjSmoothableSegment>> &ol){
+int MnjSmoothableLine::Partition(const unsigned int &n, list<std::shared_ptr<MnjSmoothableSegment>> &ol){
     int error =0;
-    list<boost::shared_ptr<MnjLine>> lineList;
+    list<std::shared_ptr<MnjLine>> lineList;
     mline.Partition(n, lineList);
-    list<boost::shared_ptr<MnjLine>>::iterator it = lineList.begin();
+    list<std::shared_ptr<MnjLine>>::iterator it = lineList.begin();
     
     ICSAttribute attr;
     GetICSAttribute(attr);
     
     for ( ;it!= lineList.end(); it++ ) {
-        ol.push_back(boost::shared_ptr<MnjSmoothableLine>(new MnjSmoothableLine(**it,attr)));
+        ol.push_back(std::shared_ptr<MnjSmoothableLine>(new MnjSmoothableLine(**it,attr)));
     }
     return error;
 }
 /////////////////////////////////////////////////////////////////////
-boost::shared_ptr<Segment> MnjSmoothableLine::GetSegment(void){
+std::shared_ptr<Segment> MnjSmoothableLine::GetSegment(void){
     return GetLine();
 }

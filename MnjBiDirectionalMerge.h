@@ -1,16 +1,20 @@
 #pragma once
+
 #include <list>
 #include <map>
-#include <boost\shared_ptr.hpp>
+#include <memory> 
+
+//#include <boost\shared_ptr.hpp>
 
 #include "MnjSmoothableSegment.h"
 
+using namespace std; 
 
 ///////////////////////////////////////////////////////////////////////////////
 class MnjBiDirectionalMerge{
 public:
-    void CompressNonRecursive( list<boost::shared_ptr<MnjSmoothableSegment>> &l,
-			                         list<boost::shared_ptr<MnjSmoothableSegment>>::iterator it,
+    void CompressNonRecursive( list<shared_ptr<MnjSmoothableSegment>> &l,
+			                         list<shared_ptr<MnjSmoothableSegment>>::iterator it,
                                map<unsigned int,int> &oChange,
 							                 double tol);
     /*
@@ -19,8 +23,8 @@ public:
                              map<unsigned int,int> &oChange,
 							 double tol);
     */
-   bool IsMergeable(boost::shared_ptr<MnjSmoothableSegment> iSeg1,
-                    boost::shared_ptr<MnjSmoothableSegment> iSeg2, 
+   bool IsMergeable(std::shared_ptr<MnjSmoothableSegment> iSeg1,
+                    std::shared_ptr<MnjSmoothableSegment> iSeg2, 
                     MnjSmoothableSegment::ProcessingState iState,
                        int &oerror);
 
@@ -28,21 +32,21 @@ protected:
   //bool Returnable(list<boost::shared_ptr<MnjSmoothableSegment>> &l,
     //              list<boost::shared_ptr<MnjSmoothableSegment>>::iterator it);
   
-  list<boost::shared_ptr<MnjSmoothableSegment>>::iterator 
-  NextIter(list<boost::shared_ptr<MnjSmoothableSegment>> &l,
-                              list<boost::shared_ptr<MnjSmoothableSegment>>::iterator it);
+  list<std::shared_ptr<MnjSmoothableSegment>>::iterator 
+  NextIter(list<shared_ptr<MnjSmoothableSegment>> &l,
+                              list<shared_ptr<MnjSmoothableSegment>>::iterator it);
   
-  list<boost::shared_ptr<MnjSmoothableSegment>>::iterator 
-  PrevIter(list<boost::shared_ptr<MnjSmoothableSegment>> &l,
-                              list<boost::shared_ptr<MnjSmoothableSegment>>::iterator it);
+  list<shared_ptr<MnjSmoothableSegment>>::iterator 
+  PrevIter(list<shared_ptr<MnjSmoothableSegment>> &l,
+                              list<shared_ptr<MnjSmoothableSegment>>::iterator it);
 
   
   
-  boost::shared_ptr<MnjSmoothableSegment>  Merge(boost::shared_ptr<MnjSmoothableSegment> iSeg1,
-                                           boost::shared_ptr<MnjSmoothableSegment> iSeg2);
+  shared_ptr<MnjSmoothableSegment>  Merge(shared_ptr<MnjSmoothableSegment> iSeg1,
+                                           shared_ptr<MnjSmoothableSegment> iSeg2);
   
-  double GetAngle(boost::shared_ptr<MnjSmoothableSegment> iSeg1,
-                  boost::shared_ptr<MnjSmoothableSegment> iSeg2,
+  double GetAngle(shared_ptr<MnjSmoothableSegment> iSeg1,
+                  shared_ptr<MnjSmoothableSegment> iSeg2,
                   int &error);
 
 };
@@ -50,7 +54,7 @@ protected:
 class CompressPrior: public MnjBiDirectionalMerge {
 public:
         //constructor
-        CompressPrior(list<boost::shared_ptr<MnjSmoothableSegment>> &l):morginal_list_size(l.size()){num=0;max_iter=2*morginal_list_size;}
+        CompressPrior(list<shared_ptr<MnjSmoothableSegment>> &l):morginal_list_size(l.size()){num=0;max_iter=2*morginal_list_size;}
         //main method 
         /*
         void CompressP( list<boost::shared_ptr<MnjSmoothableSegment>> &l,
@@ -58,13 +62,13 @@ public:
                              map<unsigned int,int> &oChange,
 							 double tol);
          */
-        bool ReturnablePrev(list<boost::shared_ptr<MnjSmoothableSegment>> &l,
-                            list<boost::shared_ptr<MnjSmoothableSegment>>::iterator it);
+        bool ReturnablePrev(list<shared_ptr<MnjSmoothableSegment>> &l,
+                            list<shared_ptr<MnjSmoothableSegment>>::iterator it);
 
-        bool IsPriorCompressible(list<boost::shared_ptr<MnjSmoothableSegment>> &l,
-                           list<boost::shared_ptr<MnjSmoothableSegment>>::iterator it,
+        bool IsPriorCompressible(list<shared_ptr<MnjSmoothableSegment>> &l,
+                           list<shared_ptr<MnjSmoothableSegment>>::iterator it,
                            double tol, 
-                           boost::shared_ptr<MnjSmoothableSegment> &oNewT);
+                           shared_ptr<MnjSmoothableSegment> &oNewT);
 
     //unsigned int GetOrginalListSize(void){ return morginal_list_size ;}
      //bool IsPriorMergeable(boost::shared_ptr<MnjSmoothableSegment> iSeg1,boost::shared_ptr<MnjSmoothableSegment> iSeg2, int &oerror);
@@ -78,20 +82,20 @@ class CompressNext: public MnjBiDirectionalMerge {
 public:
 
         //constructor
-        CompressNext(list<boost::shared_ptr<MnjSmoothableSegment>> &l):morginal_list_size(l.size()){num=0;max_iter=2*morginal_list_size;}
+        CompressNext(list<shared_ptr<MnjSmoothableSegment>> &l):morginal_list_size(l.size()){num=0;max_iter=2*morginal_list_size;}
         //main method 
         //void CompressN( list<boost::shared_ptr<MnjSmoothableSegment>> &l,
 			   //              list<boost::shared_ptr<MnjSmoothableSegment>>::iterator it,
            //                  map<unsigned int,int> &oChange,
 					//		 double tol);
 public:
-        bool ReturnableNext(list<boost::shared_ptr<MnjSmoothableSegment>> &l,
-                            list<boost::shared_ptr<MnjSmoothableSegment>>::iterator it);
+        bool ReturnableNext(list<shared_ptr<MnjSmoothableSegment>> &l,
+                            list<shared_ptr<MnjSmoothableSegment>>::iterator it);
 
-        bool IsNextCompressible(list<boost::shared_ptr<MnjSmoothableSegment>> &l,
-                           list<boost::shared_ptr<MnjSmoothableSegment>>::iterator it,
+        bool IsNextCompressible(list<shared_ptr<MnjSmoothableSegment>> &l,
+                           list<shared_ptr<MnjSmoothableSegment>>::iterator it,
                            double tol, 
-                           boost::shared_ptr<MnjSmoothableSegment> &oNewT);
+                           shared_ptr<MnjSmoothableSegment> &oNewT);
 
     //unsigned int GetOrginalListSize(void){ return morginal_list_size ;}
     //bool IsNextMergeable(boost::shared_ptr<MnjSmoothableSegment> iSeg1,boost::shared_ptr<MnjSmoothableSegment> iSeg2, int &oerror);

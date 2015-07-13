@@ -1,10 +1,11 @@
 #pragma once 
+
+#include <memory> 
 #include "MnjPoint.h"
 #include "Segment.h"
 #include "GeomUtils.h"
 #include "MnjDirection.h"
-#include <boost\shared_ptr.hpp>
-
+using namespace std; 
 class ICSAttribute {
 	// feel free to replace the data-members.
 	//just a place holder
@@ -32,13 +33,13 @@ private:
 class MnjSmoothableSegment:public Segment  {
 
 public:
-  typedef boost::shared_ptr<MnjSmoothableSegment> shared_ptr;
+    typedef std::shared_ptr<MnjSmoothableSegment> shared_ptr;
 	
-	typedef vector<boost::shared_ptr<MnjSmoothableSegment>> shared_ptr_vec;
-	typedef vector<boost::shared_ptr<MnjSmoothableSegment>>::iterator shared_ptr_vec_it;
+	typedef vector<std::shared_ptr<MnjSmoothableSegment>> shared_ptr_vec;
+	typedef vector<std::shared_ptr<MnjSmoothableSegment>>::iterator shared_ptr_vec_it;
     
-	typedef list<boost::shared_ptr<MnjSmoothableSegment>> shared_ptr_list;
-	typedef list<boost::shared_ptr<MnjSmoothableSegment>>::iterator shared_ptr_list_it;
+	typedef list<std::shared_ptr<MnjSmoothableSegment>> shared_ptr_list;
+	typedef list<std::shared_ptr<MnjSmoothableSegment>>::iterator shared_ptr_list_it;
   
   enum  SegmentChange{UNKNOWN, //default value ( if constructor argument doesn't specify anything) 
                        ORIGINAL,//No change took place. 
@@ -70,7 +71,7 @@ public:
     int SetICSAttribute(shared_ptr seg1,shared_ptr seg2);
     int MergeAndSetAttributes(shared_ptr iSeg1,shared_ptr iSeg2,
                                          MnjSmoothableSegment::SegmentChange iStatus);
-    virtual boost::shared_ptr<Segment> GetSegment(void)=0;
+    virtual std::shared_ptr<Segment> GetSegment(void)=0;
     ////////////////////////////////////////////////////////////////////
     bool  IsNextRelevant(void) {
         return !( NEXT_PREV_TANGENT_NOT_NEEDED == mCornerAttr || NEXT_TANGENT_NOT_NEEDED == mCornerAttr) ;
@@ -88,7 +89,7 @@ public:
         return mCornerAttr;
     }
     ///////////////////////////////////////////////////////////////////
-    bool IsTangent(const boost::shared_ptr<MnjSmoothableSegment> iSeg);
+    bool IsTangent(const std::shared_ptr<MnjSmoothableSegment> iSeg);
      ///////////////////////////////////////////////////////////////////
 	MnjSmoothableSegment(){
 	 corner=0;
@@ -116,7 +117,7 @@ public:
 
    }
    */
-   virtual int Partition(const unsigned int &n, list<boost::shared_ptr<MnjSmoothableSegment>> &ol)=0;
+   virtual int Partition(const unsigned int &n, list<std::shared_ptr<MnjSmoothableSegment>> &ol) = 0;
    /////////////////////////////////////////////////////
    virtual MnjPoint<double> GetOtherEnd(const MnjPoint<double> &ip,int &oerror)const=0;
    /////////////////////////////////////////////////////
@@ -156,9 +157,9 @@ public:
    virtual void Flip(void){};
    virtual MnjDirection TangentAtEnd(MnjPoint<double> &p)=0;
    //////////////////////////////////////////////////////////////////////////////////
-   MnjPoint<double> GetCommonPoint(boost::shared_ptr<MnjSmoothableSegment> seg2,int &oerror);
+   MnjPoint<double> GetCommonPoint(std::shared_ptr<MnjSmoothableSegment> seg2, int &oerror);
    /////////////////////////////////////////////////////////////
-   int GetExtermeEnds(const boost::shared_ptr<MnjSmoothableSegment> &iSeg,MnjPoint<double> &oex1, 
+   int GetExtermeEnds(const std::shared_ptr<MnjSmoothableSegment> &iSeg, MnjPoint<double> &oex1,
                                                   MnjPoint<double> &oex2){
           int error = 0;
           MnjPoint<double> commonPoint = GetCommonPoint(iSeg,error);

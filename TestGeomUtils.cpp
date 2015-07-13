@@ -107,8 +107,11 @@ int TestGeomUtils::TestLineLineIntersect1()
 	MnjPoint<double> pa;    MnjPoint<double> pb;
 	double a ,b;
 	int flag = GeomUtils::LineLineIntersect(p1,p2,p3,p4,pa,pb,&a,&b);
+
+#if _DEBUG
 	pa.Print();
 	pb.Print();
+#endif 
 	return flag;
 }
 int TestGeomUtils::TestLineLineIntersect2()
@@ -121,8 +124,10 @@ int TestGeomUtils::TestLineLineIntersect2()
 	MnjPoint<double> pa;    MnjPoint<double> pb;
 	double a ,b;
 	int flag = GeomUtils::LineLineIntersect(p1,p2,p3,p4,pa,pb,&a,&b);
+#if _DEBUG
 	pa.Print();
 	pb.Print();
+#endif
 	return flag;
 }
 ////////////////////////////////////////////////////////////////////////
@@ -136,8 +141,10 @@ int TestGeomUtils::TestLineLineIntersect3()
 	MnjPoint<double> pa;    MnjPoint<double> pb;
 	double a ,b;
 	int flag = GeomUtils::LineLineIntersect(p1,p2,p3,p4,pa,pb,&a,&b);
+#if _DEBUG
 	pa.Print();
 	pb.Print();
+#endif
 	return flag;
 }
 int TestGeomUtils::TestLineLineIntersect4()
@@ -149,8 +156,10 @@ int TestGeomUtils::TestLineLineIntersect4()
 	MnjPoint<double> pa;    MnjPoint<double> pb;
 	double a ,b;
 	int flag = GeomUtils::LineLineIntersect(p1,p2,p3,p4,pa,pb,&a,&b);
+#if _DEBUG
 	pa.Print();
 	pb.Print();
+#endif
 	return flag;
 }
 ////////////////////////////////////////////////////////////////

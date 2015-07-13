@@ -1,8 +1,8 @@
 #pragma once
 #include <vector>
 #include <list>
-
-#include <boost/shared_ptr.hpp>
+#include <memory>
+//#include <boost/shared_ptr.hpp>
 
 #include "MnjPoint.h"
 #include "Segment.h"
@@ -11,16 +11,17 @@
 
 //class MnjLine;
 //class MnjInfiniteLine;
+using namespace std;
 
 class MnjArc: public Segment {
 public:
-  typedef boost::shared_ptr<MnjArc> shared_ptr;
+     typedef std::shared_ptr<MnjArc> shared_ptr;
 	
-	typedef vector<boost::shared_ptr<MnjArc>> shared_ptr_vec;
-	typedef vector<boost::shared_ptr<MnjArc>>::iterator shared_ptr_vec_it;
+	typedef vector<std::shared_ptr<MnjArc>> shared_ptr_vec;
+	typedef vector<std::shared_ptr<MnjArc>>::iterator shared_ptr_vec_it;
     
-	typedef list<boost::shared_ptr<MnjArc>> shared_ptr_list;
-	typedef list<boost::shared_ptr<MnjArc>>::iterator shared_ptr_list_it;
+	typedef list<std::shared_ptr<MnjArc>> shared_ptr_list;
+	typedef list<std::shared_ptr<MnjArc>>::iterator shared_ptr_list_it;
 
 	MnjArc() { } 
 	MnjArc(Segment &iSeg1, Segment &iSeg2);
@@ -29,7 +30,7 @@ public:
 	MnjArc(const MnjPoint<double> &ip1, const MnjPoint<double> &center, const MnjPoint<double> &ip2);
   MnjArc(shared_ptr &iSeg1, shared_ptr& iSeg2);
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
-  MnjArc(boost::shared_ptr<MnjLine> &iSeg1, shared_ptr& iSeg2);
+  MnjArc(std::shared_ptr<MnjLine> &iSeg1, shared_ptr& iSeg2);
 /////////////////////////////////////////////////////
   MnjArc(shared_ptr &iSeg1, MnjLine::shared_ptr& iSeg2);
 //	SegmentType GetType(){ return ARC;}
@@ -43,7 +44,7 @@ public:
 		SetEndPoint(e);
 	}
   */
-	void SetStartPoint(MnjPoint<double> &p);
+  void SetStartPoint(MnjPoint<double> &p);
   void SetEndPoint(MnjPoint<double> &p);
 	
 	double GetRadius(void) const;
@@ -60,12 +61,14 @@ public:
 	virtual double GetMaxDistance(MnjPoint<double> &p);
   
   //virtual bool IsSameGeometry(Segment *s,double &tol);
+#ifdef _DEBUG
 	virtual void Print(void);
+#endif 
 
-  int CreateSmallestArc(vector<boost::shared_ptr<MnjPoint<double>>> &pt_vec,MnjArc &oa);
+  int CreateSmallestArc(shared_ptr_vec_pt &pt_vec,MnjArc &oa);
   //////////////////////////////////////////////////////////////////////////////////////////////////////
   
-  int Intersect(MnjInfiniteLine &il, vector<boost::shared_ptr<MnjPoint<double>>> &opt_vec);
+  int Intersect(MnjInfiniteLine &il, shared_ptr_vec_pt &opt_vec);
   ////////////////////////////////////////////////////////////////////////////////////////
   
   bool IsPointOnArc(MnjPoint<double> &p)const;
@@ -88,17 +91,17 @@ MnjDirection Tangent(MnjPoint<double> &ip);
 MnjDirection TangentAtEnd(MnjPoint<double> &ip);
 
 MnjPoint<double> GetPointAtAngle(const double &itheta);
-//////////////////////////////////////////////////////////////////////
-double Distance(MnjPoint<double> &ip,int &oerror);
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-bool PointProjectOnArc(MnjPoint<double> &ip,MnjPoint<double> &op,int &oerror);
-////////////////////////////////////////////////////////////////////////////////////////////////////
- bool PointProjectOnArc(MnjPoint<double> &ip,int &oerror);
-/////////////////////////////////////////////////////////////////////////////////////////////////////
- int Partition(const unsigned int &n, list<boost::shared_ptr<MnjArc>> &ol);
- /////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////
+  double Distance(MnjPoint<double> &ip,int &oerror);
+  /////////////////////////////////////////////////////////////////////////////////////////////////////
+  bool PointProjectOnArc(MnjPoint<double> &ip,MnjPoint<double> &op,int &oerror);
+  ////////////////////////////////////////////////////////////////////////////////////////////////////
+  bool PointProjectOnArc(MnjPoint<double> &ip,int &oerror);
+ /////////////////////////////////////////////////////////////////////////////////////////////////////
+ int Partition(const unsigned int &n, list<std::shared_ptr<MnjArc>> &ol);
+  /////////////////////////////////////////////////////////////////////////////////
  int Project(MnjPoint<double> &ip,MnjPoint<double> &op);
- //////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////
  double GetLength()const;
  double GetAngle()const;
  

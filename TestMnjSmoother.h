@@ -1,12 +1,11 @@
 #pragma once
 //#include "MnjSmoothableSegment.h"
+#include <memory> 
 #include "MnjArc.h"
 #include "MnjLine.h"
 //#include "MnjSmoothableArc.h"
 //#include "MnjSmoothableLine.h"
 #include "MnjPoint.h" 
-#include <boost/shared_ptr.hpp>
-#include <boost/weak_ptr.hpp>
 #include "GeomUtils.h"
 #include "MnjSmoother.h"
 #include "MnjSmoothableSegment.h"
@@ -21,12 +20,12 @@ class TestMnjSmoother {
 
 public:
  
- typedef  boost::shared_ptr<MnjSmoothableSegment> shared_ptr_seg;
- //typedef typename vector<boost::shared_ptr<MnjSmoothableSegment>> vec_shared_ptr_seg;
+ typedef  std::shared_ptr<MnjSmoothableSegment> shared_ptr_seg;
+ typedef vector<std::shared_ptr<MnjSmoothableSegment>> vec_shared_ptr_seg;
  //typedef typename vector<boost::shared_ptr<MnjSmoothableSegment>>::iterator vec_shared_ptr_seg_it;
 
- typedef  boost::shared_ptr<MnjSmoothableArc> shared_ptr_arc;
- typedef  boost::shared_ptr<MnjSmoothableLine> shared_ptr_line;
+ typedef  std::shared_ptr<MnjSmoothableArc> shared_ptr_arc;
+ typedef  std::shared_ptr<MnjSmoothableLine> shared_ptr_line;
  
  //Call all other tests
   static int Test(void);
@@ -48,7 +47,7 @@ public:
   static void TestArcLineOpen(void);
 	//void TestArcLineClosed(void);//not needed
 static 	void TestArcLineOpenSmallSegments(void);
-static	void TestArcLineClosedSmallSegmentsInputs(vector<boost::shared_ptr<MnjSmoothableSegment>> &osegVec);
+static	void TestArcLineClosedSmallSegmentsInputs(vec_shared_ptr_seg &osegVec);
   static void TestArcLineClosedSmallSegments(void);
 	
   static void TestArcArcOpen(void);
@@ -58,7 +57,7 @@ static	void TestArcLineClosedSmallSegmentsInputs(vector<boost::shared_ptr<MnjSmo
   
   //Utils
 
-    static void CheckResults(boost::shared_ptr<MnjSmoothableArc> icsarc1, boost::shared_ptr<MnjSmoothableArc> icsarc2);
+    static void CheckResults(shared_ptr_arc icsarc1, shared_ptr_arc icsarc2);
 	   
     //template <typename MnjSmoothableSegment, typename MnjSmoothableArc, typename MnjSmoothableLine>
     static void Print(MnjPoint<double>&c,char str[]);
@@ -66,9 +65,9 @@ static	void TestArcLineClosedSmallSegmentsInputs(vector<boost::shared_ptr<MnjSmo
     //template <class  MnjSmoothableArc>
     //void Print(boost::shared_ptr<MnjSmoothableArc> &icsarc,char str[] );
 //    typedef typename boost::shared_ptr<MnjSmoothableArc> shared_ptr_arc;
-    static void Print(const boost::shared_ptr<MnjSmoothableLine>&icsline,char str[] );
+    static void Print(const shared_ptr_line&icsline,char str[] );
 
-    static void Print( boost::shared_ptr<MnjSmoothableArc>  &icsarc,char str[] ){
+    static void Print( shared_ptr_arc  &icsarc,char str[] ){
       
      MnjArc arc;
       if(icsarc){
@@ -90,13 +89,15 @@ static	void TestArcLineClosedSmallSegmentsInputs(vector<boost::shared_ptr<MnjSmo
 
     }
 
+#if _DEBUG
     void Print(const MnjLine::shared_ptr&icsline,char str[] ) ;
     //void Print(ICSAttribute &a,char str[]);
 
     static void Print(shared_ptr_seg &icsSeg,char str[]);
-
-    static void GetString(vector<boost::shared_ptr<MnjSmoothableSegment>> icssegVec,char tmp[] );
-    void IsNew(boost::shared_ptr<MnjSmoothableSegment> seg) ;
+	 //GetString is print method really today 
+    static void GetString(vec_shared_ptr_seg icssegVec,char tmp[] );
+#endif
+	void IsNew(shared_ptr_seg seg);
     void TestIsConnected(void);
 
 };

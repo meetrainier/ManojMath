@@ -1,6 +1,9 @@
 #include "TestMnjSmoother.h"
 #include "MnjSmootherUtils.h"
-#include <boost/weak_ptr.hpp>
+#include "MnjSmoothableSegment.h"
+#include <memory> 
+#include <assert.h> 
+//#include <boost/weak_ptr.hpp>
 
 //template <typename MnjSmoothableSegment, typename MnjSmoothableLine, typename MnjSmoothableArc>
 /*template <class MnjSmoothableSegment, class MnjSmoothableLine, class MnjSmoothableArc>
@@ -50,12 +53,12 @@ void TestMnjSmoother::TestLineLineOpen(){
   ICSAttribute attr1;
 	attr1.color = 80;
 	MnjPoint<double> o(0,0,0);
-	boost::shared_ptr<MnjSmoothableLine> l1(new MnjSmoothableLine(x1,o));//,attr1));
+	std::shared_ptr<MnjSmoothableLine> l1(new MnjSmoothableLine(x1,o));//,attr1));
 	ICSAttribute attr2;
 	attr2.color = 60;
-	boost::shared_ptr<MnjSmoothableLine>  l2(new MnjSmoothableLine(o,y1));//,attr2));
+	std::shared_ptr<MnjSmoothableLine>  l2(new MnjSmoothableLine(o,y1));//,attr2));
 
-	vector<boost::shared_ptr<MnjSmoothableSegment>> segVec;
+	vector<std::shared_ptr<MnjSmoothableSegment>> segVec;
 	if(l1){
 	  segVec.push_back(l1);
 	  //l1->SetCorner(true);
@@ -70,7 +73,7 @@ void TestMnjSmoother::TestLineLineOpen(){
 	}
 
     //execute
-	vector<boost::shared_ptr<MnjSmoothableSegment>> osegVec;
+	vector<std::shared_ptr<MnjSmoothableSegment>> osegVec;
 	//MnjSmoother<Segment,MnjLine,MnjArc> s;
 	MnjSmoother s;
   map<unsigned int, int> changes;
@@ -84,7 +87,7 @@ void TestMnjSmoother::TestLineLineOpen(){
 	assert(osegVec[1]);
 	
   //osegVec[1]->GetICSAttribute(icsAttr);
-	boost::shared_ptr<MnjSmoothableArc> resultArc = boost::dynamic_pointer_cast<MnjSmoothableArc,MnjSmoothableSegment> (osegVec[1]);
+	std::shared_ptr<MnjSmoothableArc> resultArc = std::dynamic_pointer_cast<MnjSmoothableArc,MnjSmoothableSegment> (osegVec[1]);
 	assert(resultArc);
   assert(5 == resultArc->GetRadius());
    //assert(60==icsAttr.color);
@@ -104,7 +107,10 @@ void TestMnjSmoother::TestLineLineOpen(){
 	//print the result
 	char tmp[MAX_STR_SIZE];
 	strcpy_s(tmp,MAX_STR_SIZE,"");
+#ifdef _DEBUG 
 	GetString(osegVec,tmp);
+#endif
+
 	std::cout << "Printing whole string" << endl;
 	std::cout << tmp << endl;
 }
@@ -137,9 +143,10 @@ Print(e,str);
 */
 //////////////////////////////////////////////////////////////
 //template <typename MnjSmoothableSegment, typename MnjSmoothableLine, typename MnjSmoothableArc>
-void TestMnjSmoother::Print(const boost::shared_ptr<MnjSmoothableLine>&icsline,char str[] ) {
+#if _DEBUG
+void TestMnjSmoother::Print(const std::shared_ptr<MnjSmoothableLine>&icsline,char str[] ) {
 
- boost::shared_ptr<MnjLine> line;
+ std::shared_ptr<MnjLine> line;
  if(icsline)
 	line = icsline->GetLine();
  
@@ -151,6 +158,7 @@ void TestMnjSmoother::Print(const boost::shared_ptr<MnjSmoothableLine>&icsline,c
  Print(e,str);
 
 }
+#endif 
 ////////////////////////////////////////////////////////////////
 //
 //void TestMnjSmoother<Segment,MnjArc,MnjLine>::Print(ICSAttribute &a,char str[]){
@@ -162,12 +170,13 @@ void TestMnjSmoother::Print(const boost::shared_ptr<MnjSmoothableLine>&icsline,c
 /*
 template <typename MnjSmoothableSegment, typename MnjSmoothableLine, typename MnjSmoothableArc>
 */
+#ifdef _DEBUG
 void TestMnjSmoother::Print(shared_ptr_seg &icsSeg,char str[]){
 	//if(icsSeg) icsSeg->Print();
 	if(!icsSeg) 
 		return;
-	shared_ptr_arc icsarc = boost::dynamic_pointer_cast<MnjSmoothableArc,MnjSmoothableSegment> (icsSeg);
-  shared_ptr_line icsline = boost::dynamic_pointer_cast<MnjSmoothableLine,MnjSmoothableSegment> (icsSeg);
+	shared_ptr_arc icsarc = std::dynamic_pointer_cast<MnjSmoothableArc,MnjSmoothableSegment> (icsSeg);
+  shared_ptr_line icsline = std::dynamic_pointer_cast<MnjSmoothableLine,MnjSmoothableSegment> (icsSeg);
 	if(icsarc){
 		Print(icsarc,str);
 	}else if(icsline ){
@@ -179,15 +188,19 @@ void TestMnjSmoother::Print(shared_ptr_seg &icsSeg,char str[]){
 	//Print(a,str);
   
 }
-
+#endif
 ////////////////////////////////////////////////////////////////
 //template <typename MnjSmoothableSegment, typename MnjSmoothableLine, typename MnjSmoothableArc>
-void TestMnjSmoother::GetString(vector<boost::shared_ptr<MnjSmoothableSegment>> icssegVec,char tmp[] ){
+
+#ifdef _DEBUG 
+void TestMnjSmoother::GetString(vector<std::shared_ptr<MnjSmoothableSegment>> icssegVec,char tmp[] ){
 	//vector<boost::shared_ptr<MnjSmoothableSegment>> it;
 	for (unsigned int i = 0 ; i < icssegVec.size() ;i++) {
 		Print(icssegVec[i],tmp);
 	}
 }
+#endif
+
 /////////////////////////////////////////////////////////////////////////////////
 /*template <typename MnjSmoothableSegment, typename MnjSmoothableLine, typename MnjSmoothableArc>
 void TestMnjSmoother::TestLineLineOpen(){
@@ -289,7 +302,7 @@ void TestMnjSmoother::TestLineLineClosed(){
 		double r=1;
 		l3->SetCornerRadius(r);
 	}
-	vector<boost::shared_ptr<MnjSmoothableSegment>> osegVec;
+	vector<std::shared_ptr<MnjSmoothableSegment>> osegVec;
 	MnjSmoother s;
     map<unsigned int, int> changes;
 	s.CreateArcs(segVec, osegVec,changes );
@@ -305,7 +318,7 @@ void TestMnjSmoother::TestLineLineClosed(){
 	ICSAttribute icsAttr;
 	assert(osegVec[1]);
 	osegVec[1]->GetICSAttribute(icsAttr);
-	boost::shared_ptr<MnjSmoothableArc> resultArc = boost::dynamic_pointer_cast<MnjSmoothableArc,MnjSmoothableSegment> (osegVec[1]);
+	std::shared_ptr<MnjSmoothableArc> resultArc = std::dynamic_pointer_cast<MnjSmoothableArc,MnjSmoothableSegment> (osegVec[1]);
 	assert(resultArc);
 	double result_r = resultArc->GetRadius();
 	assert(5 == result_r );
@@ -316,7 +329,7 @@ void TestMnjSmoother::TestLineLineClosed(){
 	assert(osegVec[3]);
 	ICSAttribute icsAttr1;
 	osegVec[3]->GetICSAttribute(icsAttr1);
-	boost::shared_ptr<MnjSmoothableArc> resultArc1 = boost::dynamic_pointer_cast<MnjSmoothableArc,MnjSmoothableSegment> (osegVec[3]);
+	std::shared_ptr<MnjSmoothableArc> resultArc1 = std::dynamic_pointer_cast<MnjSmoothableArc,MnjSmoothableSegment> (osegVec[3]);
 	assert(resultArc1);
 	double result_r1 = resultArc1->GetRadius();
 	assert(1 == result_r1 );
@@ -327,7 +340,7 @@ void TestMnjSmoother::TestLineLineClosed(){
 	assert(osegVec[5]);
 	ICSAttribute icsAttr2;
 	osegVec[5]->GetICSAttribute(icsAttr2);
-	boost::shared_ptr<MnjSmoothableArc> resultArc2 = boost::dynamic_pointer_cast<MnjSmoothableArc,MnjSmoothableSegment> (osegVec[5]);
+	std::shared_ptr<MnjSmoothableArc> resultArc2 = std::dynamic_pointer_cast<MnjSmoothableArc,MnjSmoothableSegment> (osegVec[5]);
 	assert(resultArc2);
 	double result_r2 = resultArc2->GetRadius();
 	assert( fabs(result_r2 -1) < .00000001 );
@@ -337,7 +350,11 @@ void TestMnjSmoother::TestLineLineClosed(){
 	//print 
 	char tmp[MAX_STR_SIZE];
 	strcpy_s(tmp,MAX_STR_SIZE,"");
+
+#ifdef _DEBUG 
 	GetString(osegVec,tmp);
+#endif
+
 	std::cout << "Printing whole string" << endl;
 	std::cout << tmp << endl;
 }//TestLineLineClosed
@@ -346,7 +363,7 @@ void TestMnjSmoother::TestLineLineClosed(){
 
 void TestMnjSmoother::TestLineLineOpenSmallSegments(){
 	
-	vector<boost::shared_ptr<MnjSmoothableSegment>> segVec;
+	vector<std::shared_ptr<MnjSmoothableSegment>> segVec;
 	for ( int i = 0 ; i < 10 ; i++){
 	     MnjPoint<double> x2(10-i,0,0);
 	     MnjPoint<double> x1(9-i,0,0);
@@ -367,7 +384,7 @@ void TestMnjSmoother::TestLineLineOpenSmallSegments(){
 	     MnjSmoothableLine::shared_ptr l(new MnjSmoothableLine(y1,y2));//,attr1));
 		 segVec.push_back(l);
 	}
-	vector<boost::shared_ptr<MnjSmoothableSegment>> osegVec;
+	vector<std::shared_ptr<MnjSmoothableSegment>> osegVec;
 	MnjSmoother s;
     map<unsigned int, int> changes;
 	s.CreateArcs(segVec,  osegVec, changes );
@@ -376,14 +393,14 @@ void TestMnjSmoother::TestLineLineOpenSmallSegments(){
     assert(true==connected);
     int size1 = osegVec.size();
     assert(13 == osegVec.size());
-    boost::shared_ptr<MnjSmoothableArc> oarc = boost::dynamic_pointer_cast<MnjSmoothableArc,MnjSmoothableSegment> (osegVec[6]);
+    std::shared_ptr<MnjSmoothableArc> oarc = std::dynamic_pointer_cast<MnjSmoothableArc,MnjSmoothableSegment> (osegVec[6]);
     assert(oarc);
     double out_r = oarc->GetRadius();
     assert(fabs(out_r - 5 ) < .001) ; 
 	//Print
 	char tmp[MAX_STR_SIZE];
 	strcpy_s(tmp,MAX_STR_SIZE,"");
-	GetString(osegVec,tmp);
+	//GetString(osegVec,tmp);
 	std::cout << "Printing whole string" << endl;
 	std::cout << tmp << endl;
 }
@@ -391,7 +408,7 @@ void TestMnjSmoother::TestLineLineOpenSmallSegments(){
 //template <typename MnjSmoothableSegment, typename MnjSmoothableLine, typename MnjSmoothableArc>
 void TestMnjSmoother::TestLineLineClosedSmallSegments(){
 	
-	vector<boost::shared_ptr<MnjSmoothableSegment>> segVec;
+	vector<std::shared_ptr<MnjSmoothableSegment>> segVec;
 	for ( int i = 0 ; i < 10 ; i++){
 	     MnjPoint<double> x2(10-i,0,0);
 	     MnjPoint<double> x1(9-i,0,0);
@@ -438,7 +455,7 @@ void TestMnjSmoother::TestLineLineClosedSmallSegments(){
 	}
     
 
-	vector<boost::shared_ptr<MnjSmoothableSegment>> osegVec;
+	vector<std::shared_ptr<MnjSmoothableSegment>> osegVec;
 	MnjSmoother s;
   map<unsigned int, int> changes;
 	
@@ -447,19 +464,19 @@ void TestMnjSmoother::TestLineLineClosedSmallSegments(){
     bool connected = MnjSmootherUtils::IsConnected(osegVec);
     assert(true==connected);
     assert(16 == osegVec.size());
-    boost::shared_ptr<MnjSmoothableArc> oarc = boost::dynamic_pointer_cast<MnjSmoothableArc,MnjSmoothableSegment> (osegVec[4]);
+    std::shared_ptr<MnjSmoothableArc> oarc = std::dynamic_pointer_cast<MnjSmoothableArc,MnjSmoothableSegment> (osegVec[4]);
     assert(oarc);
     double out_r0 = oarc->GetRadius();
     assert(fabs(out_r0 - 4 ) < .001) ; 
 	
     //test 2nd arc 
-    oarc = boost::dynamic_pointer_cast<MnjSmoothableArc,MnjSmoothableSegment> (osegVec[9]);
+    oarc = std::dynamic_pointer_cast<MnjSmoothableArc,MnjSmoothableSegment> (osegVec[9]);
     assert(oarc);
     double out_r1 = oarc->GetRadius();
     assert(fabs(out_r1 - 1.5 ) < .001) ; 
 
     //test 3rd arc 
-    oarc = boost::dynamic_pointer_cast<MnjSmoothableArc,MnjSmoothableSegment> (osegVec[15]);
+    oarc = std::dynamic_pointer_cast<MnjSmoothableArc,MnjSmoothableSegment> (osegVec[15]);
     assert(oarc);
     double out_r2 = oarc->GetRadius();
     assert(fabs(out_r2 - 1.5 ) < .001) ; 
@@ -468,7 +485,7 @@ void TestMnjSmoother::TestLineLineClosedSmallSegments(){
     //Print
 	char tmp[MAX_STR_SIZE];
 	strcpy_s(tmp,MAX_STR_SIZE,"");
-	GetString(osegVec,tmp);
+	//GetString(osegVec,tmp);
 	std::cout << "Printing whole string" << endl;
 	std::cout << tmp << endl;
 }
@@ -489,9 +506,9 @@ void TestMnjSmoother::TestLineArcOpen(){
 	attr2.color = 60;
 	MnjPoint<double> o(0,0,0);
 	MnjPoint<double> P0(0,10,0);
-	boost::shared_ptr<MnjSmoothableArc>  l2(new MnjSmoothableArc(P1,o,P0));//,attr2));
+	std::shared_ptr<MnjSmoothableArc>  l2(new MnjSmoothableArc(P1,o,P0));//,attr2));
    
-	vector<boost::shared_ptr<MnjSmoothableSegment>> segVec;
+	vector<std::shared_ptr<MnjSmoothableSegment>> segVec;
 	if(l1){
 	  segVec.push_back(l1);
 	  //l1->SetCorner(true);
@@ -504,7 +521,7 @@ void TestMnjSmoother::TestLineArcOpen(){
 	}
     
     //insert arcs
-	vector<boost::shared_ptr<MnjSmoothableSegment>> osegVec;
+	vector<std::shared_ptr<MnjSmoothableSegment>> osegVec;
 	MnjSmoother s;
   map<unsigned int, int> changes;
 	s.CreateArcs(segVec, osegVec, changes );
@@ -520,7 +537,7 @@ void TestMnjSmoother::TestLineArcOpen(){
 	ICSAttribute icsAttr;
 	assert(osegVec[1]);
 	osegVec[1]->GetICSAttribute(icsAttr);
-	boost::shared_ptr<MnjSmoothableArc> resultArc = boost::dynamic_pointer_cast<MnjSmoothableArc,MnjSmoothableSegment> (osegVec[1]);
+	std::shared_ptr<MnjSmoothableArc> resultArc = std::dynamic_pointer_cast<MnjSmoothableArc,MnjSmoothableSegment> (osegVec[1]);
 	assert(resultArc);
 	double result_r = resultArc->GetRadius();
   double rad_diff = 1 -resultArc->GetRadius();
@@ -533,7 +550,7 @@ void TestMnjSmoother::TestLineArcOpen(){
 	//print the result
 	char tmp[MAX_STR_SIZE];
 	strcpy_s(tmp,MAX_STR_SIZE,"");
-	GetString(osegVec,tmp);
+	//GetString(osegVec,tmp);
 	std::cout << "Printing whole string" << endl;
 	std::cout << tmp << endl;
 }
@@ -562,12 +579,12 @@ void TestMnjSmoother::TestLineArcClosed(){
     MnjPoint<double> c3(-5,-5,0);
     MnjPoint<double> c4(5,-5,0);
 
-    boost::shared_ptr<MnjSmoothableArc>  a1(new MnjSmoothableArc(p1,c1,p2));//,attr));
-	boost::shared_ptr<MnjSmoothableArc>  a2(new MnjSmoothableArc(p3,c2,p4));//,attr));
-	boost::shared_ptr<MnjSmoothableArc>  a3(new MnjSmoothableArc(p5,c3,p6));//,attr));
-	boost::shared_ptr<MnjSmoothableArc>  a4(new MnjSmoothableArc(p7,c4,p8));//,attr));
+    std::shared_ptr<MnjSmoothableArc>  a1(new MnjSmoothableArc(p1,c1,p2));//,attr));
+	std::shared_ptr<MnjSmoothableArc>  a2(new MnjSmoothableArc(p3,c2,p4));//,attr));
+	std::shared_ptr<MnjSmoothableArc>  a3(new MnjSmoothableArc(p5,c3,p6));//,attr));
+	std::shared_ptr<MnjSmoothableArc>  a4(new MnjSmoothableArc(p7,c4,p8));//,attr));
 
-    vector<boost::shared_ptr<MnjSmoothableSegment>> segVec;
+    vector<std::shared_ptr<MnjSmoothableSegment>> segVec;
     
 	segVec.push_back(l1);segVec.push_back(a1);
   segVec.push_back(l2);segVec.push_back(a2);
@@ -582,7 +599,7 @@ void TestMnjSmoother::TestLineArcClosed(){
     }
     
     //Execution::insert arcs
-    vector<boost::shared_ptr<MnjSmoothableSegment>> osegVec;
+    vector<std::shared_ptr<MnjSmoothableSegment>> osegVec;
     map<unsigned int, int> changes;
     MnjSmoother s;
 	s.CreateArcs(segVec, osegVec, changes );
@@ -595,7 +612,7 @@ void TestMnjSmoother::TestLineArcClosed(){
     //is each segment at odd idex an arc?
     //is radius correct?
     for ( unsigned int i = 0 ; i < osegVec.size() ;i++ ) {
-       	boost::shared_ptr<MnjSmoothableArc> icsarc = boost::dynamic_pointer_cast<MnjSmoothableArc,MnjSmoothableSegment> (osegVec[i]);
+       	std::shared_ptr<MnjSmoothableArc> icsarc = std::dynamic_pointer_cast<MnjSmoothableArc,MnjSmoothableSegment> (osegVec[i]);
         if(1==i%2){
             assert(icsarc);
             double result_r = icsarc->GetRadius();
@@ -628,12 +645,12 @@ void TestMnjSmoother::TestLineArcClosedSmallSegmentsInputs(vector<shared_ptr_seg
     MnjPoint<double> c3(-5,-5,0);
     MnjPoint<double> c4(5,-5,0);
 
-  boost::shared_ptr<MnjSmoothableArc>  a1(new MnjSmoothableArc(p1,c1,p2));//,attr));
-	boost::shared_ptr<MnjSmoothableArc>  a2(new MnjSmoothableArc(p3,c2,p4));//,attr));
-	boost::shared_ptr<MnjSmoothableArc>  a3(new MnjSmoothableArc(p5,c3,p6));//,attr));
-	boost::shared_ptr<MnjSmoothableArc>  a4(new MnjSmoothableArc(p7,c4,p8));//,attr));
+  std::shared_ptr<MnjSmoothableArc>  a1(new MnjSmoothableArc(p1,c1,p2));//,attr));
+	std::shared_ptr<MnjSmoothableArc>  a2(new MnjSmoothableArc(p3,c2,p4));//,attr));
+	std::shared_ptr<MnjSmoothableArc>  a3(new MnjSmoothableArc(p5,c3,p6));//,attr));
+	std::shared_ptr<MnjSmoothableArc>  a4(new MnjSmoothableArc(p7,c4,p8));//,attr));
 
-    vector<boost::shared_ptr<MnjSmoothableSegment>> segVecTmp;
+    vector<std::shared_ptr<MnjSmoothableSegment>> segVecTmp;
     
 	segVecTmp.push_back(l1);segVecTmp.push_back(a1);
   segVecTmp.push_back(l2);segVecTmp.push_back(a2);
@@ -643,7 +660,7 @@ void TestMnjSmoother::TestLineArcClosedSmallSegmentsInputs(vector<shared_ptr_seg
 
     int num_of_divs = 20;
     for ( unsigned int i = 0 ; i < segVecTmp.size() ;i++ ) {
-        list<boost::shared_ptr<MnjSmoothableSegment>> segVecTmpDiv;
+        list<std::shared_ptr<MnjSmoothableSegment>> segVecTmpDiv;
         segVecTmp[i]->Partition(num_of_divs,segVecTmpDiv);
         segVec.insert(segVec.end(),segVecTmpDiv.begin(),segVecTmpDiv.end());
     }
@@ -660,11 +677,11 @@ void TestMnjSmoother::TestLineArcClosedSmallSegmentsInputs(vector<shared_ptr_seg
 void TestMnjSmoother::TestLineArcClosedSmallSegments(){
 
     //Create Inputs
-    vector<boost::shared_ptr<MnjSmoothableSegment>> segVec;
+    vector<std::shared_ptr<MnjSmoothableSegment>> segVec;
     TestLineArcClosedSmallSegmentsInputs(segVec);
     //Execution::insert arcs
     
-    vector<boost::shared_ptr<MnjSmoothableSegment>> osegVec;
+    vector<std::shared_ptr<MnjSmoothableSegment>> osegVec;
     map<unsigned int, int> changes;
     MnjSmoother s;
 	  s.CreateArcs(segVec, osegVec, changes );
@@ -676,7 +693,7 @@ void TestMnjSmoother::TestLineArcClosedSmallSegments(){
     //is each segment at odd idex an arc?
     //is radius correct?
     for ( unsigned int i = 0 ; i < osegVec.size() ;i++ ) {
-       	  boost::shared_ptr<MnjSmoothableArc> icsarc = boost::dynamic_pointer_cast<MnjSmoothableArc,MnjSmoothableSegment> (osegVec[i]);
+       	  std::shared_ptr<MnjSmoothableArc> icsarc = std::dynamic_pointer_cast<MnjSmoothableArc,MnjSmoothableSegment> (osegVec[i]);
           if( (i+1)%21 == 0 ) {
             
                assert(icsarc);//it is an arc S
@@ -686,8 +703,8 @@ void TestMnjSmoother::TestLineArcClosedSmallSegments(){
             }
 
     }
-   boost::shared_ptr<MnjSmoothableSegment> ics79 =  osegVec[79];
-   boost::shared_ptr<MnjSmoothableSegment> ics80 =  osegVec[80];
+   std::shared_ptr<MnjSmoothableSegment> ics79 =  osegVec[79];
+   std::shared_ptr<MnjSmoothableSegment> ics80 =  osegVec[80];
    int k = 0;
 }
 ////////////////////////////////////////////////////////////////////////////
@@ -701,7 +718,7 @@ void TestMnjSmoother::TestLineArcOpenSmallSegments(){
 	attr1.color = 80;
 	MnjSmoothableLine::shared_ptr l1(new MnjSmoothableLine(P2,P1));//,attr1));
     //mnj list< MnjSmoothableLine::shared_ptr >  lsegs;
-    list< boost::shared_ptr<MnjSmoothableSegment>  >  lsegs;
+    list< std::shared_ptr<MnjSmoothableSegment>  >  lsegs;
     l1->Partition(20,lsegs);
 
     //Create Arc
@@ -709,15 +726,15 @@ void TestMnjSmoother::TestLineArcOpenSmallSegments(){
 	attr2.color = 60;
 	MnjPoint<double> o(0,0,0);
 	MnjPoint<double> P0(0,10,0);
-	boost::shared_ptr<MnjSmoothableArc>  l2(new MnjSmoothableArc(P1,o,P0));//,attr2));
-    list< boost::shared_ptr<MnjSmoothableSegment>  > arcsegs;
+	std::shared_ptr<MnjSmoothableArc>  l2(new MnjSmoothableArc(P1,o,P0));//,attr2));
+    list< std::shared_ptr<MnjSmoothableSegment>  > arcsegs;
     l2->Partition(20,arcsegs);
 
     //create the list  that defines whole curve
-	vector<boost::shared_ptr<MnjSmoothableSegment>> segVec;
+	vector<std::shared_ptr<MnjSmoothableSegment>> segVec;
 	//make last lin seg a corner
     //list< boost::shared_ptr<MnjSmoothableLine>>::iterator it = lsegs.back();
-    boost::shared_ptr<MnjSmoothableSegment> last = lsegs.back();
+    std::shared_ptr<MnjSmoothableSegment> last = lsegs.back();
     {
       //last->SetCorner(true);
 	  double r=1;
@@ -729,7 +746,7 @@ void TestMnjSmoother::TestLineArcOpenSmallSegments(){
 	}
 
     //Insert arcs
-	vector<boost::shared_ptr<MnjSmoothableSegment>> osegVec;
+	vector<std::shared_ptr<MnjSmoothableSegment>> osegVec;
 	MnjSmoother s;
   map<unsigned int, int> changes;
 	s.CreateArcs(segVec, osegVec, changes );
@@ -745,7 +762,7 @@ void TestMnjSmoother::TestLineArcOpenSmallSegments(){
 	ICSAttribute icsAttr;
 	assert(osegVec[19]);
 	osegVec[19]->GetICSAttribute(icsAttr);
-	boost::shared_ptr<MnjSmoothableArc> resultArc = boost::dynamic_pointer_cast<MnjSmoothableArc,MnjSmoothableSegment> (osegVec[19]);
+	std::shared_ptr<MnjSmoothableArc> resultArc = std::dynamic_pointer_cast<MnjSmoothableArc,MnjSmoothableSegment> (osegVec[19]);
 	assert(resultArc);
 	double result_r = resultArc->GetRadius();
     double rad_diff = 1 -resultArc->GetRadius();
@@ -758,7 +775,7 @@ void TestMnjSmoother::TestLineArcOpenSmallSegments(){
 	//print the result
 	char tmp[MAX_STR_SIZE];
 	strcpy_s(tmp,MAX_STR_SIZE,"");
-	GetString(osegVec,tmp);
+	//GetString(osegVec,tmp);
 	std::cout << "Printing whole string" << endl;
 	std::cout << tmp << endl;
 }
@@ -775,9 +792,9 @@ void TestMnjSmoother::TestArcLineOpen(){
 	attr2.color = 60;
 	MnjPoint<double> o(0,0,0);
 	MnjPoint<double> P0(0,10,0);
-	boost::shared_ptr<MnjSmoothableArc>  l2(new MnjSmoothableArc(P1,o,P0));//,attr2));
+	std::shared_ptr<MnjSmoothableArc>  l2(new MnjSmoothableArc(P1,o,P0));//,attr2));
 
-	vector<boost::shared_ptr<MnjSmoothableSegment>> segVec;
+	vector<std::shared_ptr<MnjSmoothableSegment>> segVec;
 	if(l2){
 	  segVec.push_back(l2);
 	  //l2->SetCorner(true);
@@ -788,7 +805,7 @@ void TestMnjSmoother::TestArcLineOpen(){
 	if(l1){
 	segVec.push_back(l1);
 	}
-	vector<boost::shared_ptr<MnjSmoothableSegment>> osegVec;
+	vector<std::shared_ptr<MnjSmoothableSegment>> osegVec;
 	MnjSmoother s;
     map<unsigned int, int> changes;
 	s.CreateArcs(segVec, osegVec, changes );
@@ -803,7 +820,7 @@ void TestMnjSmoother::TestArcLineOpen(){
 	ICSAttribute icsAttr;
 	assert(osegVec[1]);
 	osegVec[1]->GetICSAttribute(icsAttr);
-	boost::shared_ptr<MnjSmoothableArc> resultArc = boost::dynamic_pointer_cast<MnjSmoothableArc,MnjSmoothableSegment> (osegVec[1]);
+	std::shared_ptr<MnjSmoothableArc> resultArc = std::dynamic_pointer_cast<MnjSmoothableArc,MnjSmoothableSegment> (osegVec[1]);
 	assert(resultArc);
 	double result_r = resultArc->GetRadius();
   double rad_diff = 1 -resultArc->GetRadius();
@@ -816,7 +833,7 @@ void TestMnjSmoother::TestArcLineOpen(){
 	//print the result
 	char tmp[MAX_STR_SIZE];
 	strcpy_s(tmp,MAX_STR_SIZE,"");
-	GetString(osegVec,tmp);
+	//GetString(osegVec,tmp);
 	std::cout << "Printing whole string" << endl;
 	std::cout << tmp << endl;
 }
@@ -832,7 +849,7 @@ void TestMnjSmoother::TestArcLineOpenSmallSegments(){
 	ICSAttribute attr1;
 	attr1.color = 80;
 	MnjSmoothableLine::shared_ptr l1(new MnjSmoothableLine(P1,P2));//,attr1));
-  list< boost::shared_ptr<MnjSmoothableSegment>  >  lsegs;
+  list< std::shared_ptr<MnjSmoothableSegment>  >  lsegs;
   l1->Partition(20,lsegs);
 
     //Create Arc
@@ -840,17 +857,17 @@ void TestMnjSmoother::TestArcLineOpenSmallSegments(){
 	attr2.color = 60;
 	MnjPoint<double> o(0,0,0);
 	MnjPoint<double> P0(0,10,0);
-	boost::shared_ptr<MnjSmoothableArc>  l2(new MnjSmoothableArc(P1,o,P0));//,attr2));
-    list< boost::shared_ptr<MnjSmoothableSegment>  > arcsegstmp;
+	std::shared_ptr<MnjSmoothableArc>  l2(new MnjSmoothableArc(P1,o,P0));//,attr2));
+    list< std::shared_ptr<MnjSmoothableSegment>  > arcsegstmp;
     l2->Partition(20,arcsegstmp);
 
     //create the list  that defines whole curve
-	vector<boost::shared_ptr<MnjSmoothableSegment>> segVec;
+	vector<std::shared_ptr<MnjSmoothableSegment>> segVec;
 	//make last arc seq. a corner
     //list< boost::shared_ptr<MnjSmoothableLine>>::iterator it = lsegs.back();
-    list< boost::shared_ptr<MnjSmoothableSegment>  > arcsegs(arcsegstmp.rbegin(),arcsegstmp.rend());
+    list< std::shared_ptr<MnjSmoothableSegment>  > arcsegs(arcsegstmp.rbegin(),arcsegstmp.rend());
     
-    boost::shared_ptr<MnjSmoothableSegment> last = arcsegs.back();
+    std::shared_ptr<MnjSmoothableSegment> last = arcsegs.back();
     {
       //last->SetCorner(true);
 	  double r=1;
@@ -862,7 +879,7 @@ void TestMnjSmoother::TestArcLineOpenSmallSegments(){
 	}
 
     //Insert arcs
-	vector<boost::shared_ptr<MnjSmoothableSegment>> osegVec;
+	vector<std::shared_ptr<MnjSmoothableSegment>> osegVec;
 	MnjSmoother s;
   map<unsigned int, int> changes;
 	s.CreateArcs(segVec, osegVec, changes );
@@ -878,7 +895,7 @@ void TestMnjSmoother::TestArcLineOpenSmallSegments(){
 	ICSAttribute icsAttr;
 	assert(osegVec[19]);
 	osegVec[19]->GetICSAttribute(icsAttr);
-	boost::shared_ptr<MnjSmoothableArc> resultArc = boost::dynamic_pointer_cast<MnjSmoothableArc,MnjSmoothableSegment> (osegVec[19]);
+	std::shared_ptr<MnjSmoothableArc> resultArc = std::dynamic_pointer_cast<MnjSmoothableArc,MnjSmoothableSegment> (osegVec[19]);
 	assert(resultArc);
 	double result_r = resultArc->GetRadius();
   double rad_diff = 1 -resultArc->GetRadius();
@@ -892,15 +909,15 @@ void TestMnjSmoother::TestArcLineOpenSmallSegments(){
     //print the result
 	char tmp[MAX_STR_SIZE];
 	strcpy_s(tmp,MAX_STR_SIZE,"");
-	GetString(osegVec,tmp);
+	//GetString(osegVec,tmp);
 	std::cout << "Printing whole string" << endl;
 	std::cout << tmp << endl;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 //template <typename MnjSmoothableSegment, typename MnjSmoothableLine, typename MnjSmoothableArc>
-void TestMnjSmoother::TestArcLineClosedSmallSegmentsInputs(vector<boost::shared_ptr<MnjSmoothableSegment>> &osegVec){
+void TestMnjSmoother::TestArcLineClosedSmallSegmentsInputs(vector<std::shared_ptr<MnjSmoothableSegment>> &osegVec){
     
-    vector<boost::shared_ptr<MnjSmoothableSegment>> segVecTmp;
+    vector<std::shared_ptr<MnjSmoothableSegment>> segVecTmp;
 
     TestLineArcClosedSmallSegmentsInputs(segVecTmp);
     MnjSmoother s;
@@ -924,10 +941,10 @@ void TestMnjSmoother::TestArcLineClosedSmallSegmentsInputs(vector<boost::shared_
 void TestMnjSmoother::TestArcLineClosedSmallSegments(){
 
     //Create Inputs
-    vector<boost::shared_ptr<MnjSmoothableSegment>> segVec;
+    vector<std::shared_ptr<MnjSmoothableSegment>> segVec;
     TestArcLineClosedSmallSegmentsInputs(segVec);
     //Execution::insert arcs
-    vector<boost::shared_ptr<MnjSmoothableSegment>> osegVec;
+    vector<std::shared_ptr<MnjSmoothableSegment>> osegVec;
     map<unsigned int, int> changes;
     MnjSmoother s;
 	s.CreateArcs(segVec, osegVec, changes );
@@ -940,7 +957,7 @@ void TestMnjSmoother::TestArcLineClosedSmallSegments(){
     //is each segment at odd idex an arc?
     //is radius correct?
     for ( unsigned int i = 0 ; i < osegVec.size() ;i++ ) {
-       	  boost::shared_ptr<MnjSmoothableArc> icsarc = boost::dynamic_pointer_cast<MnjSmoothableArc,MnjSmoothableSegment> (osegVec[i]);
+       	  std::shared_ptr<MnjSmoothableArc> icsarc = std::dynamic_pointer_cast<MnjSmoothableArc,MnjSmoothableSegment> (osegVec[i]);
           if( (i+1)%21 == 0 ) {
             
                assert(icsarc);//it is an arc S
@@ -958,14 +975,14 @@ void TestMnjSmoother::TestArcLineClosedSmallSegments(){
 //template <typename MnjSmoothableSegment, typename MnjSmoothableLine, typename MnjSmoothableArc>
 void TestMnjSmoother::TestArcArcClosed(){
 
-    vector<boost::shared_ptr<MnjSmoothableSegment>> segVec;
+    vector<std::shared_ptr<MnjSmoothableSegment>> segVec;
 
     MnjPoint<double> e1(10,0,0);
 	MnjPoint<double> c1(10,10,0);
 	MnjPoint<double> s1(0,10,0);
 	ICSAttribute attr1;
 	attr1.color = 80;
-//mnj	boost::shared_ptr<MnjSmoothableArc>  a1(new MnjSmoothableArc(s1,c1,e1,attr1));
+//mnj	std::shared_ptr<MnjSmoothableArc>  a1(new MnjSmoothableArc(s1,c1,e1,attr1));
   	shared_ptr_arc  a1(new MnjSmoothableArc(s1,c1,e1));
     a1->SetCornerRadius(1);
     //a1->SetCorner(true);
@@ -975,7 +992,7 @@ void TestMnjSmoother::TestArcArcClosed(){
 	MnjPoint<double> s2(-10,0,0);
 	ICSAttribute attr2;
 	attr2.color = 60;
-	boost::shared_ptr<MnjSmoothableArc>  a2(new MnjSmoothableArc(s2,c2,e2));//mnj,attr2));
+	std::shared_ptr<MnjSmoothableArc>  a2(new MnjSmoothableArc(s2,c2,e2));//mnj,attr2));
   a2->SetCornerRadius(1);
     //a2->SetCorner(true);
 	
@@ -984,7 +1001,7 @@ void TestMnjSmoother::TestArcArcClosed(){
 	MnjPoint<double> s3(0,-10,0);
 	ICSAttribute attr3;
 	attr3.color = 60;
-	boost::shared_ptr<MnjSmoothableArc>  a3(new MnjSmoothableArc(s3,c3,e3));//,attr3));
+	std::shared_ptr<MnjSmoothableArc>  a3(new MnjSmoothableArc(s3,c3,e3));//,attr3));
   a3->SetCornerRadius(1);
   a3->SetCorner(true);
     
@@ -993,7 +1010,7 @@ void TestMnjSmoother::TestArcArcClosed(){
 	MnjPoint<double> e4(0,-10,0);
 	ICSAttribute attr4;
 	attr4.color = 60;
-	boost::shared_ptr<MnjSmoothableArc>  a4(new MnjSmoothableArc(s4,c4,e4));//,attr4));
+	std::shared_ptr<MnjSmoothableArc>  a4(new MnjSmoothableArc(s4,c4,e4));//,attr4));
     a4->SetCornerRadius(1);
     a4->SetCorner(true);
 
@@ -1005,9 +1022,9 @@ void TestMnjSmoother::TestArcArcClosed(){
     segVec.push_back(a4);
 
     MnjSmoother s;
-	//boost::shared_ptr<MnjSmoothableArc>  arc(new MnjSmoothableArc());
+	//std::shared_ptr<MnjSmoothableArc>  arc(new MnjSmoothableArc());
 	//s.CreateArc(a1, a2, arc );
-    vector<boost::shared_ptr<MnjSmoothableSegment>> osegVec;
+    vector<std::shared_ptr<MnjSmoothableSegment>> osegVec;
     map<unsigned int, int> changes;
 	s.CreateArcs(segVec, osegVec, changes );
     
@@ -1017,13 +1034,13 @@ void TestMnjSmoother::TestArcArcClosed(){
     assert(8==osegVec.size());
     for ( unsigned int i = 1; i < osegVec.size(); i=i+2){
 
-      boost::shared_ptr<MnjSmoothableArc> arc = boost::dynamic_pointer_cast<MnjSmoothableArc,MnjSmoothableSegment> (osegVec[i]);
+      std::shared_ptr<MnjSmoothableArc> arc = std::dynamic_pointer_cast<MnjSmoothableArc,MnjSmoothableSegment> (osegVec[i]);
      
       if(arc){
         assert(MnjSmoothableSegment::NEW == osegVec[i]->Status());
         double r_arc = arc->GetRadius();
 	    assert(fabs(r_arc-1.00) < .0001);
-         boost::shared_ptr<MnjSmoothableArc> prev_arc = boost::dynamic_pointer_cast<MnjSmoothableArc,MnjSmoothableSegment> (osegVec[i-1]);
+         std::shared_ptr<MnjSmoothableArc> prev_arc = std::dynamic_pointer_cast<MnjSmoothableArc,MnjSmoothableSegment> (osegVec[i-1]);
         CheckResults(prev_arc,arc);
       }
 
@@ -1034,14 +1051,14 @@ void TestMnjSmoother::TestArcArcClosed(){
 //template <typename MnjSmoothableSegment, typename MnjSmoothableLine, typename MnjSmoothableArc>
 void TestMnjSmoother::TestArcArcOpenSmallSegments(){
 
-    vector<boost::shared_ptr<MnjSmoothableSegment>> segVec;
+    vector<std::shared_ptr<MnjSmoothableSegment>> segVec;
 
     MnjPoint<double> s1(10,0,0);
 	MnjPoint<double> c1(0,0,0);
 	MnjPoint<double> e1(0,10,0);
 	ICSAttribute attr1;
 	attr1.color = 80;
-	boost::shared_ptr<MnjSmoothableArc>  a1(new MnjSmoothableArc(s1,c1,e1));//,attr1));
+	std::shared_ptr<MnjSmoothableArc>  a1(new MnjSmoothableArc(s1,c1,e1));//,attr1));
     
 
     MnjPoint<double> s2(20,10,0);
@@ -1049,39 +1066,39 @@ void TestMnjSmoother::TestArcArcOpenSmallSegments(){
 	MnjPoint<double> e2(10,0,0);
 	ICSAttribute attr2;
 	attr2.color = 60;
-	boost::shared_ptr<MnjSmoothableArc>  a2(new MnjSmoothableArc(s2,c2,e2));//,attr2));
+	std::shared_ptr<MnjSmoothableArc>  a2(new MnjSmoothableArc(s2,c2,e2));//,attr2));
 	unsigned int index =0; 
 
     //Create Inputs:
-	list<boost::shared_ptr<MnjSmoothableSegment>> a1segs;
+	list<std::shared_ptr<MnjSmoothableSegment>> a1segs;
   a1->Partition(20,a1segs);
 
     (*a1segs.begin())->SetCornerRadius(1);
     (*a1segs.begin())->SetCorner(true);
     segVec.assign(a1segs.rbegin(),a1segs.rend());
     
-    list<boost::shared_ptr<MnjSmoothableSegment>> a2segs;
+    list<std::shared_ptr<MnjSmoothableSegment>> a2segs;
     a2->Partition(20,a2segs);
-   // list<boost::shared_ptr<MnjSmoothableSegment>>::iterator ittmp1 = a2segs.rbegin();
+   // list<std::shared_ptr<MnjSmoothableSegment>>::iterator ittmp1 = a2segs.rbegin();
 	//segVec.insert(segVec.end(),a2segs.begin(),a2segs.end());
 	segVec.insert(segVec.end(),a2segs.rbegin(),a2segs.rend());
 
     //temp code 
     double char2 = a2->GetCharacteristic();
 
-    boost::shared_ptr<MnjSmoothableArc> icsarc21 = boost::dynamic_pointer_cast<MnjSmoothableArc,MnjSmoothableSegment>(segVec[20]);
+    std::shared_ptr<MnjSmoothableArc> icsarc21 = std::dynamic_pointer_cast<MnjSmoothableArc,MnjSmoothableSegment>(segVec[20]);
     MnjArc arc21 = icsarc21->GetArc();
     double angle21 = arc21.GetAngle();
     double l21 = arc21.GetLength();
 
-    boost::shared_ptr<MnjSmoothableArc> icsarc20 = boost::dynamic_pointer_cast<MnjSmoothableArc,MnjSmoothableSegment>(segVec[19]);
+    std::shared_ptr<MnjSmoothableArc> icsarc20 = std::dynamic_pointer_cast<MnjSmoothableArc,MnjSmoothableSegment>(segVec[19]);
     MnjArc arc20 = icsarc20->GetArc();
     double angle20 = arc20.GetAngle();
     double l20 = arc20.GetLength();
 
     for (unsigned int i = 0 ; i < segVec.size() ;i++) {
 		double c = segVec[i]->GetCharacteristic();
-        boost::shared_ptr<MnjSmoothableArc> arc = boost::dynamic_pointer_cast<MnjSmoothableArc,MnjSmoothableSegment>(segVec[i]);
+        std::shared_ptr<MnjSmoothableArc> arc = std::dynamic_pointer_cast<MnjSmoothableArc,MnjSmoothableSegment>(segVec[i]);
         double angle =0;
         if(arc){
            angle = arc->GetAngle();
@@ -1091,7 +1108,7 @@ void TestMnjSmoother::TestArcArcOpenSmallSegments(){
 	}
 	//execute
     MnjSmoother s;
-	  vector<boost::shared_ptr<MnjSmoothableSegment>> osegVec;
+	  vector<std::shared_ptr<MnjSmoothableSegment>> osegVec;
     map<unsigned int, int> changes;
 	  s.CreateArcs(segVec, osegVec, changes);
     
@@ -1108,15 +1125,15 @@ void TestMnjSmoother::TestArcArcOpenSmallSegments(){
             break;
 	}
 
-    boost::shared_ptr<MnjSmoothableSegment> prev =  osegVec[14];
-    boost::shared_ptr<MnjSmoothableSegment> newseg =  osegVec[15];
-    boost::shared_ptr<MnjSmoothableSegment> next =  osegVec[16];
+    std::shared_ptr<MnjSmoothableSegment> prev =  osegVec[14];
+    std::shared_ptr<MnjSmoothableSegment> newseg =  osegVec[15];
+    std::shared_ptr<MnjSmoothableSegment> next =  osegVec[16];
 
     assert(MnjSmoothableSegment::MODIFIED == prev->Status());
     assert(MnjSmoothableSegment::NEW == newseg->Status());
     assert(MnjSmoothableSegment::MODIFIED == next->Status());
 
-    boost::shared_ptr<MnjSmoothableArc> resultArc = boost::dynamic_pointer_cast<MnjSmoothableArc,MnjSmoothableSegment> (newseg);
+    std::shared_ptr<MnjSmoothableArc> resultArc = std::dynamic_pointer_cast<MnjSmoothableArc,MnjSmoothableSegment> (newseg);
     double r_arc = resultArc->GetRadius();
 	  assert(fabs(r_arc-1.00) < .0001);
     
@@ -1137,12 +1154,12 @@ void TestMnjSmoother::TestArcArcOpenSmallSegments(){
 
     int error = 0;
     MnjPoint<double> i1= prev->GetCommonPoint(resultArc,error);
-    boost::shared_ptr<MnjSmoothableArc> prevarc = boost::dynamic_pointer_cast<MnjSmoothableArc,MnjSmoothableSegment> (prev);
+    std::shared_ptr<MnjSmoothableArc> prevarc = std::dynamic_pointer_cast<MnjSmoothableArc,MnjSmoothableSegment> (prev);
     MnjArc arc1 = prevarc->GetArc();
     double cal_r1 = GeomUtils::GetDistance(arc1.GetCenter(),i1);
     assert(fabs(cal_r1-a1->GetRadius())<.0001);
 
-    boost::shared_ptr<MnjSmoothableArc> nextArc = boost::dynamic_pointer_cast<MnjSmoothableArc,MnjSmoothableSegment> (next);
+    std::shared_ptr<MnjSmoothableArc> nextArc = std::dynamic_pointer_cast<MnjSmoothableArc,MnjSmoothableSegment> (next);
     assert(nextArc);
     MnjArc arc2= nextArc->GetArc();
     MnjPoint<double> i2 = next->GetCommonPoint(newseg,error);
@@ -1160,7 +1177,7 @@ void TestMnjSmoother::TestArcArcClosedSmallSegments(){
 	MnjPoint<double> s1(0,10,0);
 	ICSAttribute attr1;
 	attr1.color = 80;
-	boost::shared_ptr<MnjSmoothableArc>  a1(new MnjSmoothableArc(s1,c1,e1));//,attr1));
+	std::shared_ptr<MnjSmoothableArc>  a1(new MnjSmoothableArc(s1,c1,e1));//,attr1));
     a1->SetCornerRadius(1);
     a1->SetCorner(true);
    
@@ -1169,7 +1186,7 @@ void TestMnjSmoother::TestArcArcClosedSmallSegments(){
 	MnjPoint<double> s2(-10,0,0);
 	ICSAttribute attr2;
 	attr2.color = 60;
-	boost::shared_ptr<MnjSmoothableArc>  a2(new MnjSmoothableArc(s2,c2,e2));//,attr2));
+	std::shared_ptr<MnjSmoothableArc>  a2(new MnjSmoothableArc(s2,c2,e2));//,attr2));
     a2->SetCornerRadius(1);
     a2->SetCorner(true);
 	
@@ -1178,7 +1195,7 @@ void TestMnjSmoother::TestArcArcClosedSmallSegments(){
 	MnjPoint<double> s3(0,-10,0);
 	ICSAttribute attr3;
 	attr3.color = 60;
-	boost::shared_ptr<MnjSmoothableArc>  a3(new MnjSmoothableArc(s3,c3,e3));//,attr3));
+	std::shared_ptr<MnjSmoothableArc>  a3(new MnjSmoothableArc(s3,c3,e3));//,attr3));
   a3->SetCornerRadius(1);
   a3->SetCorner(true);
     
@@ -1187,12 +1204,12 @@ void TestMnjSmoother::TestArcArcClosedSmallSegments(){
 	MnjPoint<double> e4(0,-10,0);
 	ICSAttribute attr4;
 	attr4.color = 60;
-	boost::shared_ptr<MnjSmoothableArc>  a4(new MnjSmoothableArc(s4,c4,e4));//,attr4));
+	std::shared_ptr<MnjSmoothableArc>  a4(new MnjSmoothableArc(s4,c4,e4));//,attr4));
   a4->SetCornerRadius(1);
   a4->SetCorner(true);
 
    // unsigned int index =0; 
-  vector<boost::shared_ptr<MnjSmoothableSegment>> segVecTmp;
+  vector<std::shared_ptr<MnjSmoothableSegment>> segVecTmp;
 
 	segVecTmp.push_back(a1);
   segVecTmp.push_back(a4);
@@ -1200,10 +1217,10 @@ void TestMnjSmoother::TestArcArcClosedSmallSegments(){
 	segVecTmp.push_back(a2);
 
   int num_of_divs = 20;
-  vector<boost::shared_ptr<MnjSmoothableSegment>> segVec;
+  vector<std::shared_ptr<MnjSmoothableSegment>> segVec;
 
   for ( unsigned int i = 0 ; i < segVecTmp.size() ;i++ ) {
-        list<boost::shared_ptr<MnjSmoothableSegment>> segVecTmpDiv;
+        list<std::shared_ptr<MnjSmoothableSegment>> segVecTmpDiv;
         segVecTmp[i]->Partition(num_of_divs,segVecTmpDiv);
         segVec.insert(segVec.end(),segVecTmpDiv.begin(),segVecTmpDiv.end());
   }
@@ -1215,9 +1232,9 @@ void TestMnjSmoother::TestArcArcClosedSmallSegments(){
     }
 
     MnjSmoother s;
-	//boost::shared_ptr<MnjSmoothableArc>  arc(new MnjSmoothableArc());
+	//std::shared_ptr<MnjSmoothableArc>  arc(new MnjSmoothableArc());
 	//s.CreateArc(a1, a2, arc );
-    vector<boost::shared_ptr<MnjSmoothableSegment>> osegVec;
+    vector<std::shared_ptr<MnjSmoothableSegment>> osegVec;
     map<unsigned int, int> changes;
 	s.CreateArcs(segVec, osegVec, changes );
     
@@ -1227,7 +1244,7 @@ void TestMnjSmoother::TestArcArcClosedSmallSegments(){
     assert(44==osegVec.size());
     for ( unsigned int i = 1; i < osegVec.size(); i++){
 
-      boost::shared_ptr<MnjSmoothableArc> arc = boost::dynamic_pointer_cast<MnjSmoothableArc,MnjSmoothableSegment> (osegVec[i]);
+		std::shared_ptr<MnjSmoothableArc> arc = std::dynamic_pointer_cast<MnjSmoothableArc, MnjSmoothableSegment> (osegVec[i]);
      
       if(0==(i+1)%11){
         assert(arc);
@@ -1235,7 +1252,7 @@ void TestMnjSmoother::TestArcArcClosedSmallSegments(){
         int newarc = 1;
         double r_arc = arc->GetRadius();
 	    assert(fabs(r_arc-1.00) < .0001);
-         boost::shared_ptr<MnjSmoothableArc> prev_arc = boost::dynamic_pointer_cast<MnjSmoothableArc,MnjSmoothableSegment> (osegVec[i-1]);
+		std::shared_ptr<MnjSmoothableArc> prev_arc = std::dynamic_pointer_cast<MnjSmoothableArc, MnjSmoothableSegment> (osegVec[i - 1]);
          CheckResults(prev_arc,arc);
         }
       }
@@ -1244,7 +1261,7 @@ void TestMnjSmoother::TestArcArcClosedSmallSegments(){
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //template <typename MnjSmoothableSegment, typename MnjSmoothableLine, typename MnjSmoothableArc>
-void TestMnjSmoother::CheckResults(boost::shared_ptr<MnjSmoothableArc> icsarc1, boost::shared_ptr<MnjSmoothableArc> icsarc2){
+void TestMnjSmoother::CheckResults(std::shared_ptr<MnjSmoothableArc> icsarc1, std::shared_ptr<MnjSmoothableArc> icsarc2){
     int error = 0;
     MnjPoint<double> i1= icsarc1->GetCommonPoint(icsarc2,error);//mnj
 
@@ -1286,12 +1303,12 @@ void TestMnjSmoother::TestLineArcClosedRedundant(){
     MnjPoint<double> c3(-5,-5,0);
     MnjPoint<double> c4(5,-5,0);
 
-    boost::shared_ptr<MnjSmoothableArc>  a1(new MnjSmoothableArc(p1,c1,p2));//,attr));
-	boost::shared_ptr<MnjSmoothableArc>  a2(new MnjSmoothableArc(p3,c2,p4));//,attr));
-	boost::shared_ptr<MnjSmoothableArc>  a3(new MnjSmoothableArc(p5,c3,p6));//,attr));
-	boost::shared_ptr<MnjSmoothableArc>  a4(new MnjSmoothableArc(p7,c4,p8));//,attr));
+    std::shared_ptr<MnjSmoothableArc>  a1(new MnjSmoothableArc(p1,c1,p2));//,attr));
+	std::shared_ptr<MnjSmoothableArc>  a2(new MnjSmoothableArc(p3,c2,p4));//,attr));
+	std::shared_ptr<MnjSmoothableArc>  a3(new MnjSmoothableArc(p5,c3,p6));//,attr));
+	std::shared_ptr<MnjSmoothableArc>  a4(new MnjSmoothableArc(p7,c4,p8));//,attr));
 
-    vector<boost::shared_ptr<MnjSmoothableSegment>> segVec;
+    vector<std::shared_ptr<MnjSmoothableSegment>> segVec;
 	segVec.push_back(l1);segVec.push_back(a1);
     segVec.push_back(l2);segVec.push_back(a2);
     segVec.push_back(l3);segVec.push_back(a3);
@@ -1303,7 +1320,7 @@ void TestMnjSmoother::TestLineArcClosedRedundant(){
     }
 
     // insert arcs
-    vector<boost::shared_ptr<MnjSmoothableSegment>> osegVec;
+    vector<std::shared_ptr<MnjSmoothableSegment>> osegVec;
     map<unsigned int, int> changes;
     MnjSmoother s;
 	s.CreateArcs(segVec, osegVec, changes );
@@ -1314,7 +1331,7 @@ void TestMnjSmoother::TestLineArcClosedRedundant(){
     //is each segment at odd idex an arc?
     //is radius correct?
     for ( unsigned int i = 0 ; i < osegVec.size() ;i++ ) {
-       	boost::shared_ptr<MnjSmoothableArc> icsarc = boost::dynamic_pointer_cast<MnjSmoothableArc,MnjSmoothableSegment> (osegVec[i]);
+       	std::shared_ptr<MnjSmoothableArc> icsarc = std::dynamic_pointer_cast<MnjSmoothableArc,MnjSmoothableSegment> (osegVec[i]);
         if(1==i%2){
             assert(icsarc);
             double result_r = icsarc->GetRadius();
@@ -1326,14 +1343,14 @@ void TestMnjSmoother::TestLineArcClosedRedundant(){
 //template <typename MnjSmoothableSegment, typename MnjSmoothableLine, typename MnjSmoothableArc>
 void TestMnjSmoother::TestArcArcOpen(){
 
-  vector<boost::shared_ptr<MnjSmoothableSegment>> segVec;
+  vector<std::shared_ptr<MnjSmoothableSegment>> segVec;
 
   MnjPoint<double> s1(10,0,0);
 	MnjPoint<double> c1(0,0,0);
 	MnjPoint<double> e1(0,10,0);
 	ICSAttribute attr1;
 	attr1.color = 80;
-	boost::shared_ptr<MnjSmoothableArc>  a1(new MnjSmoothableArc(s1,c1,e1));//,attr1));
+	std::shared_ptr<MnjSmoothableArc>  a1(new MnjSmoothableArc(s1,c1,e1));//,attr1));
     a1->SetCornerRadius(1);
     a1->SetCorner(true);
 
@@ -1342,15 +1359,15 @@ void TestMnjSmoother::TestArcArcOpen(){
 	MnjPoint<double> e2(10,0,0);
 	ICSAttribute attr2;
 	attr2.color = 60;
-	boost::shared_ptr<MnjSmoothableArc>  a2(new MnjSmoothableArc(s2,c2,e2));//,attr2));
+	std::shared_ptr<MnjSmoothableArc>  a2(new MnjSmoothableArc(s2,c2,e2));//,attr2));
 	unsigned int index =0; 
 	
 	double r=5;
 	segVec.push_back(a1);
 	segVec.push_back(a2);
 	MnjSmoother s;
-	//boost::shared_ptr<MnjSmoothableArc>  arc(new MnjSmoothableArc());
-	vector<boost::shared_ptr<MnjSmoothableSegment>> osegVec;
+	//std::shared_ptr<MnjSmoothableArc>  arc(new MnjSmoothableArc());
+	vector<std::shared_ptr<MnjSmoothableSegment>> osegVec;
   map<unsigned int, int> changes;
 	s.CreateArcs(segVec, osegVec, changes);
     
@@ -1361,7 +1378,7 @@ void TestMnjSmoother::TestArcArcOpen(){
     assert(MnjSmoothableSegment::NEW == osegVec[1]->Status());
     assert(MnjSmoothableSegment::MODIFIED == osegVec[2]->Status());
 
-    boost::shared_ptr<MnjSmoothableArc> resultArc = boost::dynamic_pointer_cast<MnjSmoothableArc,MnjSmoothableSegment> (osegVec[1]);
+	std::shared_ptr<MnjSmoothableArc> resultArc = std::dynamic_pointer_cast<MnjSmoothableArc, MnjSmoothableSegment> (osegVec[1]);
     double r_arc = resultArc->GetRadius();
 	  assert(fabs(r_arc-1.00) < .0001);
     
@@ -1381,7 +1398,7 @@ void TestMnjSmoother::TestArcArcOpen(){
 }
 ////////////////////////////////////////////////////////////////////////////
 //template <typename MnjSmoothableSegment, typename MnjSmoothableLine, typename MnjSmoothableArc>
-void TestMnjSmoother::IsNew(boost::shared_ptr<MnjSmoothableSegment> seg) {
+void TestMnjSmoother::IsNew(std::shared_ptr<MnjSmoothableSegment> seg) {
     if(seg){
         if(MnjSmoothableSegment::NEW == seg->Status()) {
         ;
@@ -1394,7 +1411,7 @@ void TestMnjSmoother::IsNew(boost::shared_ptr<MnjSmoothableSegment> seg) {
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //template <typename MnjSmoothableSegment, typename MnjSmoothableLine, typename MnjSmoothableArc>
 void TestMnjSmoother::TestIsConnected(void){
-  vector<boost::shared_ptr<MnjSmoothableSegment>> segVec;
+  vector<std::shared_ptr<MnjSmoothableSegment>> segVec;
     for ( int i = 0 ; i < 10 ; i++){
 	     MnjPoint<double> x2(10-i,0,0);
 	     MnjPoint<double> x1(9-i,0,0);
@@ -1409,7 +1426,7 @@ void TestMnjSmoother::TestIsConnected(void){
 	}
     //make disconnected
     segVec[5]->SetStartPoint(MnjPoint<double>(5000,0,0));
-    vector<boost::shared_ptr<MnjSmoothableSegment>>::iterator it1;
+    vector<std::shared_ptr<MnjSmoothableSegment>>::iterator it1;
     double od = -1;
     MnjSmoother s;
     bool flag   = MnjSmootherUtils::IsConnected(segVec,it1,od);

@@ -2,15 +2,16 @@
 #include "MnjArc.h"
 #include "MnjLine.h"
 #include <memory>
-bool MnjSmootherUtils::IsConnected(vector<boost::shared_ptr<MnjSmoothableSegment>> &vec, 
-                                  vector<boost::shared_ptr<MnjSmoothableSegment>>::iterator &oit,
+
+bool MnjSmootherUtils::IsConnected(vector<std::shared_ptr<MnjSmoothableSegment>> &vec, 
+                                  vector<std::shared_ptr<MnjSmoothableSegment>>::iterator &oit,
                                double &od//tbd
                                ) {
   int error = 0;
   bool flag = true;
   unsigned int i = 0;
-  for(vector<boost::shared_ptr<MnjSmoothableSegment>>::iterator it=vec.begin(); i < vec.size() -1 ; i++,it++) {
-      vector<boost::shared_ptr<MnjSmoothableSegment>>::iterator ittmp=it;
+  for(vector<std::shared_ptr<MnjSmoothableSegment>>::iterator it=vec.begin(); i < vec.size() -1 ; i++,it++) {
+      vector<std::shared_ptr<MnjSmoothableSegment>>::iterator ittmp=it;
       ittmp++;
       (*it)->GetCommonPoint(*(ittmp),error);
       if(error<0 ){ 
@@ -23,13 +24,13 @@ bool MnjSmootherUtils::IsConnected(vector<boost::shared_ptr<MnjSmoothableSegment
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
-bool MnjSmootherUtils::IsConnected(vector<boost::shared_ptr<MnjSmoothableSegment>> &vec
+bool MnjSmootherUtils::IsConnected(vector<std::shared_ptr<MnjSmoothableSegment>> &vec
                                ) {
   int error = 0;
   bool flag = true;
   unsigned int i = 0;
-  for(vector<boost::shared_ptr<MnjSmoothableSegment>>::iterator it=vec.begin(); i < vec.size() -1 ; i++,it++) {
-      vector<boost::shared_ptr<MnjSmoothableSegment>>::iterator ittmp=it;
+  for(vector<std::shared_ptr<MnjSmoothableSegment>>::iterator it=vec.begin(); i < vec.size() -1 ; i++,it++) {
+      vector<std::shared_ptr<MnjSmoothableSegment>>::iterator ittmp=it;
       ittmp++;
       (*it)->GetCommonPoint(*(ittmp),error);
       if(error<0 ){ 
@@ -86,11 +87,11 @@ bool MnjSmootherUtils<MnjSmoothableSegment,MnjSmoothableLine,MnjSmoothableArc>::
 //template <typename MnjSmoothableSegment, typename MnjSmoothableArc, typename MnjSmoothableLine>
 //MnjSmootherUtils<MnjSmoothableSegment, MnjSmoothableArc, MnjSmoothableLine>::ICSSegmentType 
 
- MnjSmootherUtils::SegmentType MnjSmootherUtils::GetType(const boost::shared_ptr<MnjSmoothableSegment>  icsSeg
+ MnjSmootherUtils::SegmentType MnjSmootherUtils::GetType(const std::shared_ptr<MnjSmoothableSegment>  icsSeg
                                ) {
 
-  boost::shared_ptr<MnjSmoothableArc> icsarc = boost::dynamic_pointer_cast<MnjSmoothableArc,MnjSmoothableSegment> (icsSeg);
-  boost::shared_ptr<MnjSmoothableLine> icsline = boost::dynamic_pointer_cast<MnjSmoothableLine,MnjSmoothableSegment> (icsSeg);
+  std::shared_ptr<MnjSmoothableArc> icsarc = std::dynamic_pointer_cast<MnjSmoothableArc,MnjSmoothableSegment> (icsSeg);
+  std::shared_ptr<MnjSmoothableLine> icsline =std::dynamic_pointer_cast<MnjSmoothableLine,MnjSmoothableSegment> (icsSeg);
   
   if(icsarc){
          return SMOOTHABLE_SEG_ARC;

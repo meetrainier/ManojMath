@@ -1,11 +1,17 @@
 /**
 Manoj 4/13/2012 Added 3d line-line intersection LineLineIntersect()
-
+Manoj /10/2015 Migration from boost to std. Now using <memory> header 
 
 */
-#include "GeomUtils.h"
-#include <iostream>
+#include <algorithm>
 #include <cmath>
+#include <iostream>
+#include <list>
+#include <memory>
+#include <numeric>
+#include <vector>
+
+#include "GeomUtils.h"
 #include "MNJPoint.h" 
 #include "MathConstant.h" 
 #include "MnjVector.h"
@@ -14,11 +20,6 @@ Manoj 4/13/2012 Added 3d line-line intersection LineLineIntersect()
 #include "MnjCircle.h"
 
 ///
-#include <numeric>
-#include <algorithm>
-#include <list>
-#include <vector>
-#include <iostream>
 
 using namespace std;
 
@@ -1090,8 +1091,8 @@ void GeomUtils::AddCxRow( double matrix[4][4], double c, int i0, int i1 )
  }
  /////////////////////////////////////////////////////////////////////
  void GeomUtils::GetFarEndOfOtherLine( 
-	const boost::shared_ptr<MnjLine> &l1,
-	const boost::shared_ptr<MnjLine> &l2,
+	const std::shared_ptr<MnjLine> &l1,
+	const std::shared_ptr<MnjLine> &l2,
 	      MnjPoint<double>  &oPoint
 ){
 		if(!l1 ||!l2) return;
@@ -1120,18 +1121,18 @@ void GeomUtils::AddCxRow( double matrix[4][4], double c, int i0, int i1 )
 		}
 }
  /////////////////////////////////////////////////////////////////////////////////////////////////////
-int GeomUtils::CreateArc(boost::shared_ptr<Segment> &isimpleSeg1, 
-                         boost::shared_ptr<Segment> &isimpleSeg2, 
+int GeomUtils::CreateArc(shared_ptr<Segment> &isimpleSeg1, 
+                         shared_ptr<Segment> &isimpleSeg2, 
                          const double &ir,
-	                     boost::shared_ptr<MnjArc>  &arc){
+	                     std::shared_ptr<MnjArc>  &arc){
 	int error = 0;
 	if(!isimpleSeg1 || !isimpleSeg1 || !arc ) 
         return -1;
 	
-    boost::shared_ptr<MnjArc> arc1 = boost::dynamic_pointer_cast<MnjArc,Segment> (isimpleSeg1);
-    boost::shared_ptr<MnjLine> line1 = boost::dynamic_pointer_cast<MnjLine,Segment> (isimpleSeg1);
-	boost::shared_ptr<MnjArc> arc2 = boost::dynamic_pointer_cast<MnjArc,Segment> (isimpleSeg2);
-    boost::shared_ptr<MnjLine> line2 = boost::dynamic_pointer_cast<MnjLine,Segment> (isimpleSeg2);
+    shared_ptr<MnjArc> arc1 = std::dynamic_pointer_cast<MnjArc,Segment> (isimpleSeg1);
+    shared_ptr<MnjLine> line1 = std::dynamic_pointer_cast<MnjLine,Segment> (isimpleSeg1);
+	shared_ptr<MnjArc> arc2 = std::dynamic_pointer_cast<MnjArc,Segment> (isimpleSeg2);
+    shared_ptr<MnjLine> line2 = std::dynamic_pointer_cast<MnjLine,Segment> (isimpleSeg2);
 	
 	if(line1 && line2){
 	   error = CreateArc(line1,line2,ir,arc);
@@ -1150,22 +1151,22 @@ int GeomUtils::CreateArc(boost::shared_ptr<Segment> &isimpleSeg1,
     return error; 
 }
 ///////////////////////////////////////////////////////////////////////////////
-int GeomUtils::CreateArc(boost::shared_ptr<MnjLine> &seg1, 
-                         boost::shared_ptr<MnjLine> &seg2, 
+int GeomUtils::CreateArc(shared_ptr<MnjLine> &seg1, 
+                         shared_ptr<MnjLine> &seg2, 
                          const double &r,
-	                     boost::shared_ptr<MnjArc>  &oarc){
+	                     shared_ptr<MnjArc>  &oarc){
 	int error = 0;
      //input valdation 
 	if(!seg1||!seg2)
 		return -1; 
     if(0.0 == r) 
 	   return -1;
-	boost::shared_ptr<MnjLine> parallel_seg1(new MnjLine());
+	shared_ptr<MnjLine> parallel_seg1(new MnjLine());
 	MnjPoint<double>  hintpoint1;
 	GetFarEndOfOtherLine(seg1,seg2,hintpoint1);
 	seg1->CreateParallelLine(r, hintpoint1, parallel_seg1);
 
-	boost::shared_ptr<MnjLine> parallel_seg2(new MnjLine());
+	shared_ptr<MnjLine> parallel_seg2(new MnjLine());
 	MnjPoint<double>  hintpoint2;
 	GeomUtils::GetFarEndOfOtherLine(seg2,seg1,hintpoint2);
     seg2->CreateParallelLine(r, hintpoint2, parallel_seg2);
@@ -1192,20 +1193,20 @@ int GeomUtils::CreateArc(boost::shared_ptr<MnjLine> &seg1,
 }
 ///////////////////////////////////////////////////////////
 int GeomUtils::CreateArc( 
-	boost::shared_ptr<MnjArc> &a,
-	boost::shared_ptr<MnjLine> &l,
+	shared_ptr<MnjArc> &a,
+	shared_ptr<MnjLine> &l,
   const double &r,
-	boost::shared_ptr<MnjArc> &oarc){
+	shared_ptr<MnjArc> &oarc){
   
    return CreateArc(l,a, r, oarc);
 
 }
 /////////////////////////////////////////////////////////////
 int GeomUtils::CreateArc( 
-	boost::shared_ptr<MnjLine> &l,
-	boost::shared_ptr<MnjArc> &a,
+	shared_ptr<MnjLine> &l,
+	shared_ptr<MnjArc> &a,
   const double &ir,
-	boost::shared_ptr<MnjArc> &oarc){
+	shared_ptr<MnjArc> &oarc){
   
    MnjPoint<double> cp ;
    int error= GetCenter(l,a,ir,cp);
@@ -1227,8 +1228,8 @@ int GeomUtils::CreateArc(
 }
 ////////////////////////////////////////////////////////////////////////
 int GeomUtils::GetCenter(
-    boost::shared_ptr<MnjLine> &l,
-	boost::shared_ptr<MnjArc> &a,
+    shared_ptr<MnjLine> &l,
+	shared_ptr<MnjArc> &a,
 	const double &ir,
 	MnjPoint<double> &ocp
     ){
@@ -1249,11 +1250,11 @@ int GeomUtils::GetCenter(
         //Create Line
         MnjPoint<double> pTowardsArc;
         error = GetAPointTowardsArc(l,a,pTowardsArc); 
-        boost::shared_ptr<MnjLine> parallel_line;
+        shared_ptr<MnjLine> parallel_line;
         l->CreateParallelLine(ir,pTowardsArc,parallel_line);
         //Take Intersection
         MnjInfiniteLine inf_parallel_line(&(*parallel_line));
-        vector<boost::shared_ptr<MnjPoint<double>>> pt_vec;
+        shared_ptr_vec_pt pt_vec;
         tmpCircle.Intersect(inf_parallel_line,pt_vec);
         if(1==pt_vec.size()){ 
              ocp = *pt_vec[0]; 
@@ -1266,7 +1267,7 @@ int GeomUtils::GetCenter(
         // 1. It should project on line segment.
         // 2. the distance between the point and arc a == r
 
-        vector<boost::shared_ptr<MnjPoint<double>>> can_project_pt_vec;
+        shared_ptr_vec_pt can_project_pt_vec;
         GeomUtils::GetPointsThatProjectOnLineSegment(*l,  
                                                     pt_vec,
                                                     can_project_pt_vec);
@@ -1277,7 +1278,7 @@ int GeomUtils::GetCenter(
             return -2;
         }
         //test that the point(s) are at distance r fron the circle. 
-        vector<boost::shared_ptr<MnjPoint<double>>> pt_at_distance_r_from_arc_vec;
+        shared_ptr_vec_pt pt_at_distance_r_from_arc_vec;
         GeomUtils::GetPointsAtGivenDistanceFromArc(*a,ir,  
                                                   can_project_pt_vec,
                                                   pt_at_distance_r_from_arc_vec);
@@ -1291,8 +1292,8 @@ int GeomUtils::GetCenter(
            return error;
 }
 //////////////////////////////////////////////////////////////////////////
-int GeomUtils::GetAPointTowardsArc(boost::shared_ptr<MnjLine> &l,
-	                                         boost::shared_ptr<MnjArc> &a,
+int GeomUtils::GetAPointTowardsArc(shared_ptr<MnjLine> &l,
+	                                         shared_ptr<MnjArc> &a,
                                              MnjPoint<double> &op) {
    int error = 0;
   
@@ -1308,10 +1309,10 @@ int GeomUtils::GetAPointTowardsArc(boost::shared_ptr<MnjLine> &l,
 //previous implementation commented.
 
 int GeomUtils::CreateArc( 
-	boost::shared_ptr<MnjArc> &arc1,
-	boost::shared_ptr<MnjArc> &arc2,
+	shared_ptr<MnjArc> &arc1,
+	shared_ptr<MnjArc> &arc2,
     const double &r,
-	boost::shared_ptr<MnjArc> &oarc){
+	shared_ptr<MnjArc> &oarc){
 
    int error = -2;//mnj
    if(!arc1||!arc2)
@@ -1321,7 +1322,7 @@ int GeomUtils::CreateArc(
 
    MnjCircle circle2(arc2); 
 
-   vector<boost::shared_ptr<MnjPoint<double>>> pt_vec;
+   shared_ptr_vec_pt pt_vec;
    //Increment the radii by r and Intersect
    //double r = a1->GetCornerRadius(); 
 
@@ -1402,8 +1403,8 @@ int GeomUtils::CreateArc(
 /////////////////////////////////////////////////////////////////////////////////////////////////////
  int GeomUtils::GetPointsAtGivenDistanceFromArc(MnjArc &ia, 
                     const double &ir, 
-                    vector<boost::shared_ptr<MnjPoint<double>>>  &ipt_vec,
-                    vector<boost::shared_ptr<MnjPoint<double>>>  &opt_at_distance_r_from_arc_vec){
+                    shared_ptr_vec_pt  &ipt_vec,
+                    shared_ptr_vec_pt  &opt_at_distance_r_from_arc_vec){
     int error = 0;
     if (ipt_vec.size() < 1 ) error = -1; 
 
@@ -1420,8 +1421,8 @@ int GeomUtils::CreateArc(
  }
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 int GeomUtils::GetPointsThatProjectOnLineSegment(MnjLine &il,  
-                                                 vector<boost::shared_ptr<MnjPoint<double>>>  &ipt_vec,
-                                                 vector<boost::shared_ptr<MnjPoint<double>>> &ocan_project_pt_vec){
+                                                 shared_ptr_vec_pt  &ipt_vec,
+                                                 shared_ptr_vec_pt &ocan_project_pt_vec){
 
     int error = 0;
     if (ipt_vec.size() < 1 ) error = -1; 
@@ -1440,8 +1441,8 @@ int GeomUtils::GetPointsThatProjectOnLineSegment(MnjLine &il,
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //CodeImp:make it a function template 
 //Manoj 7/12/2012
-list<boost::shared_ptr<MnjSmoothableSegment>>::iterator GeomUtils::NextIter( list<boost::shared_ptr<MnjSmoothableSegment>> &l,
-                                                                       list<boost::shared_ptr<MnjSmoothableSegment>>::iterator it){
+list<shared_ptr<MnjSmoothableSegment>>::iterator GeomUtils::NextIter( list<shared_ptr<MnjSmoothableSegment>> &l,
+                                                                       list<shared_ptr<MnjSmoothableSegment>>::iterator it){
        //if(Circulable(l))
        {
 
@@ -1460,8 +1461,8 @@ list<boost::shared_ptr<MnjSmoothableSegment>>::iterator GeomUtils::NextIter( lis
        //}
   }
 /////////////////////////////////////////////////////////////////////////////////////////////////////
-list<boost::shared_ptr<MnjSmoothableSegment>>::iterator GeomUtils::PrevIter( list<boost::shared_ptr<MnjSmoothableSegment>> &l,
-                                                                       list<boost::shared_ptr<MnjSmoothableSegment>>::iterator it){
+list<shared_ptr<MnjSmoothableSegment>>::iterator GeomUtils::PrevIter( list<shared_ptr<MnjSmoothableSegment>> &l,
+                                                                       list<shared_ptr<MnjSmoothableSegment>>::iterator it){
   //if(Circulable(l))
   {
       if(l.begin() == it) 

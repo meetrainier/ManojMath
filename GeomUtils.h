@@ -4,8 +4,12 @@
 #include <vector>
 #include <list>
 #include <cmath>
-#include <boost/shared_ptr.hpp>
-#include <boost/weak_ptr.hpp>
+#include <memory>
+
+#include "MnjMathNamespace.h"
+
+//#include <boost/shared_ptr.hpp>
+//#include <boost/weak_ptr.hpp>
 
 #include "MnjPoint.h" 
 
@@ -15,7 +19,9 @@
 #include "MnjSmoothableSegment.h"
 */
 
-//using namespace std;
+using namespace std;
+using namespace MnjMath; 
+
 class MnjVector;
 class MnjArc;
 class MnjLine;
@@ -23,9 +29,9 @@ class Segment;
 class MnjSmoothableSegment;
 
 void GetExactArcCenter(const double &ix1, const double &iy1,
-					             const double &ix2, const double &iy2, 
-		                   const double &guessX, const double &guessY,//guessed center
-		                         double &xc, double &yc );
+					   const double &ix2, const double &iy2, 
+		               const double &guessX, const double &guessY,//guessed center
+		                     double &xc, double &yc );
 template <class T> 						
 void GetDistance(MnjPoint<T> &p1,
                  MnjPoint<T> &p2, 
@@ -245,69 +251,79 @@ public:
     static void AddCxRow( double matrix[4][4], double c, int i0, int i1 );
 
     //find all points in vector pt_vec that are at distance r from ip 
-   static int GetPointsAtDistance(MnjPoint<double> &ip, double &d, 
-                 vector<boost::shared_ptr<MnjPoint<double>>> &pt_vec,
-                 vector<boost::shared_ptr<MnjPoint<double>>> &opt_vec);
+   //static int GetPointsAtDistance(MnjPoint<double> &ip, double &d, 
+     //            vector<vec_str &currentLine, int iLineNumber,shared_ptr<MnjPoint<double>>> &pt_vec,
+       //          vector<shared_ptr<MnjPoint<double>>> &opt_vec);
 
-   static int GetPointsAtGivenDistanceFromArc(MnjArc &ia,  const double &ir, 
-                    vector<boost::shared_ptr<MnjPoint<double>>>  &ipt_vec,
-                    vector<boost::shared_ptr<MnjPoint<double>>>  &opt_at_distance_r_from_arc_vec);
+   static int GetPointsAtDistance(MnjPoint<double> &ip, double &d,
+	   vector<std::shared_ptr<MnjPoint<double>>> &pt_vec,
+	   vector<std::shared_ptr<MnjPoint<double>>> &opt_vec);
+
+   //BOOST_TO_STD_MIGRATION static int GetPointsAtGivenDistanceFromArc(MnjArc &ia,  const double &ir, 
+   //                                                                 vector<shared_ptr<MnjPoint<double>>>  &ipt_vec,
+   //                                                                 vector<shared_ptr<MnjPoint<double>>>  &opt_at_distance_r_from_arc_vec);
+
+   static int GetPointsAtGivenDistanceFromArc(MnjArc &ia, const double &ir,
+	   vector<shared_ptr<MnjPoint<double>>>  &ipt_vec,
+	   vector<shared_ptr<MnjPoint<double>>>  &opt_at_distance_r_from_arc_vec);
 
    static int GetPointsThatProjectOnLineSegment(MnjLine &il,  
-                                                 vector<boost::shared_ptr<MnjPoint<double>>>  &ipt_vec,
-                                                 vector<boost::shared_ptr<MnjPoint<double>>> &ocan_project_pt_vec);
+	   MnjMath::shared_ptr_vec_pt &ipt_vec,
+	   MnjMath::shared_ptr_vec_pt &ocan_project_pt_vec);
 
-   static list<boost::shared_ptr<MnjSmoothableSegment>>::iterator NextIter( list<boost::shared_ptr<MnjSmoothableSegment>>  &ilist,
-                        list<boost::shared_ptr<MnjSmoothableSegment>>::iterator it);
+   
 
-   static list<boost::shared_ptr<MnjSmoothableSegment>>::iterator PrevIter( list<boost::shared_ptr<MnjSmoothableSegment>>  &ilist,
-                        list<boost::shared_ptr<MnjSmoothableSegment>>::iterator it);
+   static list<shared_ptr<MnjSmoothableSegment>>::iterator NextIter( list<shared_ptr<MnjSmoothableSegment>>  &ilist,
+                        list<shared_ptr<MnjSmoothableSegment>>::iterator it);
 
-   static bool Circulable(list<boost::shared_ptr<MnjSmoothableSegment>> &l);
+   static list<shared_ptr<MnjSmoothableSegment>>::iterator PrevIter( list<shared_ptr<MnjSmoothableSegment>>  &ilist,
+                        list<shared_ptr<MnjSmoothableSegment>>::iterator it);
 
-   static int CreateArc(boost::shared_ptr<Segment> &iSeg1, 
-                        boost::shared_ptr<Segment> &iSeg2, 
+   static bool Circulable(list<shared_ptr<MnjSmoothableSegment>> &l);
+
+   static int CreateArc(shared_ptr<Segment> &iSeg1, 
+                        shared_ptr<Segment> &iSeg2, 
                         const double &ir,
-	                    boost::shared_ptr<MnjArc>  &arc);
+	                    shared_ptr<MnjArc>  &arc);
   
-   static int CreateArc(boost::shared_ptr<MnjLine> &seg1, 
-                         boost::shared_ptr<MnjLine> &seg2, 
+   static int CreateArc(shared_ptr<MnjLine> &seg1, 
+                         shared_ptr<MnjLine> &seg2, 
                          const double &r,
-	                     boost::shared_ptr<MnjArc>  &arc);
+	                     shared_ptr<MnjArc>  &arc);
 
-   static int CreateArc(boost::shared_ptr<MnjLine> &seg1, 
-                        boost::shared_ptr<MnjArc> &seg2, 
+   static int CreateArc(shared_ptr<MnjLine> &seg1, 
+                        shared_ptr<MnjArc> &seg2, 
                         const double &r,
-	                    boost::shared_ptr<MnjArc>  &arc);
+	                    shared_ptr<MnjArc>  &arc);
 
-   static int CreateArc(boost::shared_ptr<MnjArc> &seg1, 
-                        boost::shared_ptr<MnjLine> &seg2, 
+   static int CreateArc(shared_ptr<MnjArc> &seg1, 
+                        shared_ptr<MnjLine> &seg2, 
                         const double &r,
-	                    boost::shared_ptr<MnjArc>  &arc);
+	                    shared_ptr<MnjArc>  &arc);
 
-   static int CreateArc(boost::shared_ptr<MnjArc> &seg1, 
-                        boost::shared_ptr<MnjArc> &seg2, 
+   static int CreateArc(shared_ptr<MnjArc> &seg1, 
+                        shared_ptr<MnjArc> &seg2, 
                         const double &r,
-	                    boost::shared_ptr<MnjArc>  &arc);
+	                    shared_ptr<MnjArc>  &arc);
    /*
-   static void GetFarEndOfOtherLine(const boost::shared_ptr<MnjLine> &l1,
-	                                  const boost::shared_ptr<MnjLine> &l2,
+   static void GetFarEndOfOtherLine(const shared_ptr<MnjLine> &l1,
+	                                  const shared_ptr<MnjLine> &l2,
 	                                       MnjPoint<double>  &oPoint
           );
    */
    static int GetCenter(
-          boost::shared_ptr<MnjLine> &l,
-	        boost::shared_ptr<MnjArc> &a,
+          shared_ptr<MnjLine> &l,
+	        shared_ptr<MnjArc> &a,
 	        const double &ir,
 	        MnjPoint<double> &ocp
     );
 
-   static int GetAPointTowardsArc(boost::shared_ptr<MnjLine> &l,
-	                                boost::shared_ptr<MnjArc> &a,
+   static int GetAPointTowardsArc(shared_ptr<MnjLine> &l,
+	                                shared_ptr<MnjArc> &a,
                                   MnjPoint<double> &op) ;
   static void GetFarEndOfOtherLine( 
-	           const boost::shared_ptr<MnjLine> &l1,
-	           const boost::shared_ptr<MnjLine> &l2,
+	           const shared_ptr<MnjLine> &l1,
+	           const shared_ptr<MnjLine> &l2,
 	                 MnjPoint<double>  &oPoint);
 
 

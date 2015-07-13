@@ -16,8 +16,6 @@
 //#include "MnjCircleCR.h"
 #include "MnjCircle.h"
 #include "MnjSmootherUtils.h"
-#include <boost/shared_ptr.hpp>
-#include <boost/weak_ptr.hpp>
 
 #include "MnjSmoother.h"
 //#include "TestMnjSmoother.h"
@@ -29,15 +27,13 @@
 ////////////////////////////////////////////
 ////////////////////////////////////////////////////////
 using namespace std; 
-using namespace boost; 
+//using namespace boost; 
 //tbd:
-using namespace std; 
-using namespace boost; 
 
 int MnjSmoother::CreateArc( 
-	boost::shared_ptr<MnjSmoothableLine> &seg1,
-	boost::shared_ptr<MnjSmoothableLine> &seg2,
-	boost::shared_ptr<MnjSmoothableArc> &oarc){
+	shared_ptr<MnjSmoothableLine> &seg1,
+	shared_ptr<MnjSmoothableLine> &seg2,
+	shared_ptr<MnjSmoothableArc> &oarc){
 	
 	int error = 0;
 	
@@ -57,12 +53,12 @@ int MnjSmoother::CreateArc(
 	double r = seg1->GetCornerRadius();
     if(0.0 == r) 
 	   return -1;
-	boost::shared_ptr<MnjLine> parallel_seg1(new MnjLine());
+	std::shared_ptr<MnjLine> parallel_seg1(new MnjLine());
 	MnjPoint<double>  hintpoint1;
 	GeomUtils::GetFarEndOfOtherLine(seg1->GetLine(),seg2->GetLine(),hintpoint1);
 	seg1->CreateParallelLine(r, hintpoint1, parallel_seg1);
 
-	boost::shared_ptr<MnjLine> parallel_seg2(new MnjLine());
+	std::shared_ptr<MnjLine> parallel_seg2(new MnjLine());
 	MnjPoint<double>  hintpoint2;
 	GeomUtils::GetFarEndOfOtherLine(seg2->GetLine(),seg1->GetLine(),hintpoint2);
     seg2->CreateParallelLine(r, hintpoint2, parallel_seg2);
@@ -100,9 +96,9 @@ int MnjSmoother::CreateArc(
 
 /////////////////////////////////////////////////////////////
 int MnjSmoother::CreateArc( 
-	boost::shared_ptr<MnjSmoothableLine> &l,
-	boost::shared_ptr<MnjSmoothableArc> &a,
-	boost::shared_ptr<MnjSmoothableArc> &oarc){
+	std::shared_ptr<MnjSmoothableLine> &l,
+	std::shared_ptr<MnjSmoothableArc> &a,
+	std::shared_ptr<MnjSmoothableArc> &oarc){
 
    int error = 0;
    if(!l||!a)
@@ -113,9 +109,9 @@ int MnjSmoother::CreateArc(
 }
 /////////////////////////////////////////////////////////////
 int MnjSmoother::CreateArc( 
-	boost::shared_ptr<MnjSmoothableArc> &a,
-	boost::shared_ptr<MnjSmoothableLine> &l,
-	boost::shared_ptr<MnjSmoothableArc> &oarc){
+	std::shared_ptr<MnjSmoothableArc> &a,
+	std::shared_ptr<MnjSmoothableLine> &l,
+	std::shared_ptr<MnjSmoothableArc> &oarc){
     int error = 0;
     if(!l||!a)
 		return -1;
@@ -124,10 +120,10 @@ int MnjSmoother::CreateArc(
 }
 /////////////////////////////////////////////////////////////////////
 int MnjSmoother::CreateArc( 
-	boost::shared_ptr<MnjSmoothableLine> &l,
-	boost::shared_ptr<MnjSmoothableArc> &a,
+	std::shared_ptr<MnjSmoothableLine> &l,
+	std::shared_ptr<MnjSmoothableArc> &a,
 	double &ir,
-	boost::shared_ptr<MnjSmoothableArc> &oarc){
+	std::shared_ptr<MnjSmoothableArc> &oarc){
 
       ///approach2//
        
@@ -156,9 +152,9 @@ int MnjSmoother::CreateArc(
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 int MnjSmoother::CreateArc( 
-	boost::shared_ptr<MnjSmoothableArc> &a1,
-	boost::shared_ptr<MnjSmoothableArc> &a2,
-	boost::shared_ptr<MnjSmoothableArc> &oarc){
+	std::shared_ptr<MnjSmoothableArc> &a1,
+	std::shared_ptr<MnjSmoothableArc> &a2,
+	std::shared_ptr<MnjSmoothableArc> &oarc){
 
    int error = -2;//mnj
    if(!a1||!a2)
@@ -172,7 +168,7 @@ int MnjSmoother::CreateArc(
    a2->GetArc(arc2);
    MnjCircle circle2(arc2); 
 
-   vector<boost::shared_ptr<MnjPoint<double>>> pt_vec;
+   shared_ptr_vec_pt pt_vec;
    //Increment the radii by r and Intersect
    double r = a1->GetCornerRadius(); 
 
@@ -218,18 +214,18 @@ int MnjSmoother::CreateArc(
    return error;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-void MnjSmoother::IdentifyRedundantCornerRequest(std::list<boost::shared_ptr<MnjSmoothableSegment>> &list){
+void MnjSmoother::IdentifyRedundantCornerRequest(std::list<std::shared_ptr<MnjSmoothableSegment>> &list){
   
  if(list.size() > 1) {
 
-    std::list<boost::shared_ptr<MnjSmoothableSegment>>::iterator it0=list.begin();
+    std::list<std::shared_ptr<MnjSmoothableSegment>>::iterator it0=list.begin();
    
-    for ( std::list<boost::shared_ptr<MnjSmoothableSegment>>::iterator it = it0;  it!=list.end(); it++ ) {
+    for ( std::list<std::shared_ptr<MnjSmoothableSegment>>::iterator it = it0;  it!=list.end(); it++ ) {
      ;
      
       if((*it)->IsCorner()){
-         std::list<boost::shared_ptr<MnjSmoothableSegment>>::iterator next=GeomUtils::NextIter(list,it);
-         std::list<boost::shared_ptr<MnjSmoothableSegment>>::iterator prev=GeomUtils::PrevIter(list,it);
+         std::list<std::shared_ptr<MnjSmoothableSegment>>::iterator next=GeomUtils::NextIter(list,it);
+         std::list<std::shared_ptr<MnjSmoothableSegment>>::iterator prev=GeomUtils::PrevIter(list,it);
         
          if( (*it)->IsTangent(*next)  && (*it)->IsTangent(*prev) ) {
                 (*it)->SetCornerAttribute(MnjSmoothableSegment::NEXT_PREV_TANGENT_NOT_NEEDED);
@@ -241,10 +237,10 @@ void MnjSmoother::IdentifyRedundantCornerRequest(std::list<boost::shared_ptr<Mnj
   }
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-void MnjSmoother::SetStatus(std::list<boost::shared_ptr<MnjSmoothableSegment>> list,
+void MnjSmoother::SetStatus(std::list<std::shared_ptr<MnjSmoothableSegment>> list,
                             MnjSmoothableSegment::SegmentChange ch){
-  std::list<boost::shared_ptr<MnjSmoothableSegment>>::iterator it0=list.begin();
-  for ( std::list<boost::shared_ptr<MnjSmoothableSegment>>::iterator it = it0;  it!=list.end(); it++ ) {
+  std::list<std::shared_ptr<MnjSmoothableSegment>>::iterator it0=list.begin();
+  for ( std::list<std::shared_ptr<MnjSmoothableSegment>>::iterator it = it0;  it!=list.end(); it++ ) {
 
       (*it)->SetStatus(ch);
   }
@@ -286,7 +282,7 @@ void MnjSmoother::GetFarEndOfOtherLine(
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 void MnjSmoother::SelectNewArcEnd(const MnjPoint<double> &p1,
 	                               const MnjPoint<double> &pc,
-	                               const boost::shared_ptr<MnjSmoothableArc> &icsarc,
+	                               const std::shared_ptr<MnjSmoothableArc> &icsarc,
 								                  const MnjPoint<double> &p2cand1,
 								   const MnjPoint<double> &p2cand2,
 								         bool &op2_found,
@@ -327,10 +323,10 @@ void MnjSmoother::SelectNewArcEnd(const MnjPoint<double> &p1,
 
 ///////////////////////////////////////////////////////////////////////////////////////
 void MnjSmoother::InsertArc( 
-			                 boost::shared_ptr<MnjSmoothableArc> &arc,
-			                 vector<boost::shared_ptr<MnjSmoothableSegment>>::iterator it,
-							 vector<boost::shared_ptr<MnjSmoothableSegment>>::iterator &oit1,
-	                         vector<boost::shared_ptr<MnjSmoothableSegment>> &ioSegVec){
+			                 std::shared_ptr<MnjSmoothableArc> &arc,
+			                 vector<std::shared_ptr<MnjSmoothableSegment>>::iterator it,
+							 vector<std::shared_ptr<MnjSmoothableSegment>>::iterator &oit1,
+	                         vector<std::shared_ptr<MnjSmoothableSegment>> &ioSegVec){
 								 
 
 	 oit1 = ioSegVec.insert(++it,arc);
@@ -344,17 +340,17 @@ void MnjSmoother::InsertArc(
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 int MnjSmoother::CreateArc(int a,
-	                         boost::shared_ptr<MnjSmoothableSegment> &isimpleSeg1, 
-                             boost::shared_ptr<MnjSmoothableSegment> &isimpleSeg2, 
-	                         boost::shared_ptr<MnjSmoothableArc>  &arc){
+	                         std::shared_ptr<MnjSmoothableSegment> &isimpleSeg1, 
+                             std::shared_ptr<MnjSmoothableSegment> &isimpleSeg2, 
+	                         std::shared_ptr<MnjSmoothableArc>  &arc){
 	int error = 0;
 	if(!isimpleSeg1 || !isimpleSeg1 || !arc ) 
         return -1;
 	
-    boost::shared_ptr<MnjSmoothableArc> arc1 = boost::dynamic_pointer_cast<MnjSmoothableArc,MnjSmoothableSegment> (isimpleSeg1);
-    boost::shared_ptr<MnjSmoothableLine> line1 = boost::dynamic_pointer_cast<MnjSmoothableLine,MnjSmoothableSegment> (isimpleSeg1);
-	boost::shared_ptr<MnjSmoothableArc> arc2 = boost::dynamic_pointer_cast<MnjSmoothableArc,MnjSmoothableSegment> (isimpleSeg2);
-    boost::shared_ptr<MnjSmoothableLine> line2 = boost::dynamic_pointer_cast<MnjSmoothableLine,MnjSmoothableSegment> (isimpleSeg2);
+    std::shared_ptr<MnjSmoothableArc> arc1 = std::dynamic_pointer_cast<MnjSmoothableArc,MnjSmoothableSegment> (isimpleSeg1);
+    std::shared_ptr<MnjSmoothableLine> line1 = std::dynamic_pointer_cast<MnjSmoothableLine,MnjSmoothableSegment> (isimpleSeg1);
+	std::shared_ptr<MnjSmoothableArc> arc2 = std::dynamic_pointer_cast<MnjSmoothableArc,MnjSmoothableSegment> (isimpleSeg2);
+    std::shared_ptr<MnjSmoothableLine> line2 = std::dynamic_pointer_cast<MnjSmoothableLine,MnjSmoothableSegment> (isimpleSeg2);
 	
 	if(line1 && line2){
 	   error = CreateArc(line1,line2,arc);
@@ -372,7 +368,7 @@ int MnjSmoother::CreateArc(int a,
     if(!(error<0) && arc){
 
         ICSAttribute attr;
-        vector< boost::shared_ptr<MnjSmoothableSegment> > icsSegVec;
+        vector< std::shared_ptr<MnjSmoothableSegment> > icsSegVec;
 	      icsSegVec.push_back(isimpleSeg1);
 	      icsSegVec.push_back(isimpleSeg2);
    	    
@@ -396,21 +392,21 @@ int MnjSmoother::CreateArc(int a,
 ///////////////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////////////////
-void MnjSmoother::CreateArcs(vector<boost::shared_ptr<MnjSmoothableSegment>> &isegVec, 
-                              vector<boost::shared_ptr<MnjSmoothableSegment>>  &osegs,
+void MnjSmoother::CreateArcs(vector<std::shared_ptr<MnjSmoothableSegment>> &isegVec, 
+                              vector<std::shared_ptr<MnjSmoothableSegment>>  &osegs,
                               map<unsigned int,int> &oChange){
 
    double tol=.0001;
    int error=0;
    double dist=-1;
-   vector<boost::shared_ptr<MnjSmoothableSegment>>::iterator brokenit;
+   vector<std::shared_ptr<MnjSmoothableSegment>>::iterator brokenit;
    bool connected = MnjSmootherUtils::IsConnected(isegVec,brokenit,dist);
    if(!connected ) 
        return;
    //create a list from vector
-   std::list<boost::shared_ptr<MnjSmoothableSegment>> compressedSegList(isegVec.begin(), isegVec.end());
+   std::list<std::shared_ptr<MnjSmoothableSegment>> compressedSegList(isegVec.begin(), isegVec.end());
   
-   std::list<boost::shared_ptr<MnjSmoothableSegment>>::iterator it0=compressedSegList.begin();
+   std::list<std::shared_ptr<MnjSmoothableSegment>>::iterator it0=compressedSegList.begin();
    
    //Mark all of them orginal
    SetStatus(compressedSegList,MnjSmoothableSegment::ORIGINAL);
@@ -422,7 +418,7 @@ void MnjSmoother::CreateArcs(vector<boost::shared_ptr<MnjSmoothableSegment>> &is
    
    //Get rid of redundant corner request (where the corner is already tangent)
    IdentifyRedundantCornerRequest(compressedSegList);
-   vector<boost::shared_ptr<MnjSmoothableSegment>> compressedSegVec(compressedSegList.begin(), compressedSegList.end());
+   vector<std::shared_ptr<MnjSmoothableSegment>> compressedSegVec(compressedSegList.begin(), compressedSegList.end());
 
    // check compress results  for connectvity and planarity
    connected = MnjSmootherUtils::IsConnected(compressedSegVec);
@@ -430,7 +426,7 @@ void MnjSmoother::CreateArcs(vector<boost::shared_ptr<MnjSmoothableSegment>> &is
        return;
    
    //call create arc for each of them
-   vector<boost::shared_ptr<MnjSmoothableSegment>>::iterator it=compressedSegVec.begin();
+   vector<std::shared_ptr<MnjSmoothableSegment>>::iterator it=compressedSegVec.begin();
    while (it != compressedSegVec.end() ) {
 
 	   //if((*it)->IsCorner() ){//tbd: remove
@@ -447,11 +443,11 @@ void MnjSmoother::CreateArcs(vector<boost::shared_ptr<MnjSmoothableSegment>> &is
          
 		 //MessageBox(NULL,"Relevant corner",__FUNCTION__,MB_OK);		 
 		 
-		 vector<boost::shared_ptr<MnjSmoothableSegment>>::iterator it1=it+1;
+		 vector<std::shared_ptr<MnjSmoothableSegment>>::iterator it1=it+1;
 		 if(it1== compressedSegVec.end()){
 			 it1=  compressedSegVec.begin();
 		 }//handle closed curve
-         boost::shared_ptr<MnjSmoothableArc>  arc(new MnjSmoothableArc());
+         std::shared_ptr<MnjSmoothableArc>  arc(new MnjSmoothableArc());
 		 
 		 error = CreateArc(1,*it,*it1,arc);
 		 
@@ -464,7 +460,7 @@ void MnjSmoother::CreateArcs(vector<boost::shared_ptr<MnjSmoothableSegment>> &is
 		 ////////////////////////
 		 
 		 if(arc && error >= 0 ){
-			 vector<boost::shared_ptr<MnjSmoothableSegment>>::iterator newIt;
+			 vector<std::shared_ptr<MnjSmoothableSegment>>::iterator newIt;
 			 InsertArc(arc,it,newIt,compressedSegVec);   
 			 ///////////////////////////////////
 			 //char str[MAX_STR_SIZE];//tbd: debug , removelater
@@ -483,8 +479,8 @@ void MnjSmoother::CreateArcs(vector<boost::shared_ptr<MnjSmoothableSegment>> &is
    osegs = compressedSegVec;
 }
 ///////////////////////////////////////////////////////////////////////////////////
-void MnjSmoother::Copy(vector<boost::shared_ptr<MnjSmoothableSegment>> &isegVec, 
-                        vector<boost::shared_ptr<MnjSmoothableSegment>>  &osegs){
+void MnjSmoother::Copy(vector<std::shared_ptr<MnjSmoothableSegment>> &isegVec, 
+                        vector<std::shared_ptr<MnjSmoothableSegment>>  &osegs){
 osegs = isegVec;
 		/*vector<boost::shared_ptr<MnjSmoothableSegment>>::reverse_iterator it;
 		for (it = isegVec.rbegin() ; it != isegVec.rend();it++){
@@ -496,8 +492,8 @@ osegs = isegVec;
 
 /////////////////////////////////////////////////////////////
 int MnjSmoother::GetCenter(
-    boost::shared_ptr<MnjSmoothableLine> &l,
-	boost::shared_ptr<MnjSmoothableArc> &a,
+    std::shared_ptr<MnjSmoothableLine> &l,
+	std::shared_ptr<MnjSmoothableArc> &a,
 	double &ir,
 	MnjPoint<double> &ocp
     ){
@@ -518,11 +514,11 @@ int MnjSmoother::GetCenter(
         //Create Line
         MnjPoint<double> pTowardsArc;
         error = GetAPointTowardsArc(l,a,pTowardsArc); 
-        boost::shared_ptr<MnjLine> parallel_line;
+        std::shared_ptr<MnjLine> parallel_line;
         l->CreateParallelLine(ir,pTowardsArc,parallel_line);
         //Take Intersection
         MnjInfiniteLine inf_parallel_line(&(*parallel_line));
-        vector<boost::shared_ptr<MnjPoint<double>>> pt_vec;
+        shared_ptr_vec_pt pt_vec;
         tmpCircle.Intersect(inf_parallel_line,pt_vec);
         if(1==pt_vec.size()){ 
              ocp = *pt_vec[0]; 
@@ -535,7 +531,7 @@ int MnjSmoother::GetCenter(
         // 1. It should project on line segment.
         // 2. the distance between the point and arc a == r
 
-        vector<boost::shared_ptr<MnjPoint<double>>> can_project_pt_vec;
+        shared_ptr_vec_pt can_project_pt_vec;
         GeomUtils::GetPointsThatProjectOnLineSegment(*(l->GetLine()),  
                  pt_vec,
                  can_project_pt_vec);
@@ -546,7 +542,7 @@ int MnjSmoother::GetCenter(
             return -2;
         }
         //test that the point(s) are at distance r fron the circle. 
-        vector<boost::shared_ptr<MnjPoint<double>>> pt_at_distance_r_from_arc_vec;
+        shared_ptr_vec_pt pt_at_distance_r_from_arc_vec;
         GeomUtils::GetPointsAtGivenDistanceFromArc(a->GetArc(),ir,  
                  can_project_pt_vec,
                  pt_at_distance_r_from_arc_vec);
@@ -560,8 +556,8 @@ int MnjSmoother::GetCenter(
         return error;
 }
 ///////////////////////////////////////////////////////////////////////////////////////
-int MnjSmoother::GetAPointTowardsArc(boost::shared_ptr<MnjSmoothableLine> &l,
-	                                         boost::shared_ptr<MnjSmoothableArc> &a,
+int MnjSmoother::GetAPointTowardsArc(std::shared_ptr<MnjSmoothableLine> &l,
+	                                         std::shared_ptr<MnjSmoothableArc> &a,
                                              MnjPoint<double> &op) {
    int error = 0;
   
@@ -572,8 +568,8 @@ int MnjSmoother::GetAPointTowardsArc(boost::shared_ptr<MnjSmoothableLine> &l,
    return error;
   }
 ////////////////////////////////////////////////////////////////////////////////////////
- int MnjSmoother::GetFactor(boost::shared_ptr<MnjSmoothableLine> &l,
-	                         boost::shared_ptr<MnjSmoothableArc> &a, 
+ int MnjSmoother::GetFactor(std::shared_ptr<MnjSmoothableLine> &l,
+	                         std::shared_ptr<MnjSmoothableArc> &a, 
                              //double &r, 
                              int &ofactor){
    int error = 0;
@@ -611,8 +607,8 @@ int MnjSmoother::LineArcPointOnLine(boost::shared_ptr<MnjSmoothableLine> &l,
 }
 */
 ///////////////////////////////////////////////////////////////////////////////////////
-int MnjSmoother::LineArcCenter(boost::shared_ptr<MnjSmoothableLine> &l,
-	                                 boost::shared_ptr<MnjSmoothableArc> &a,
+int MnjSmoother::LineArcCenter(std::shared_ptr<MnjSmoothableLine> &l,
+	                                 std::shared_ptr<MnjSmoothableArc> &a,
                                      double &r, 
                                      const MnjPoint<double> &ipt_on_line,
                                      MnjPoint<double> &oc) {
@@ -640,12 +636,12 @@ int MnjSmoother::LineArcCenter(boost::shared_ptr<MnjSmoothableLine> &l,
 }
 ///////////////////////////////////////////////////////////////////////////////////////
 int MnjSmoother::LineArcArc( 
-	boost::shared_ptr<MnjSmoothableLine> &l,
-	boost::shared_ptr<MnjSmoothableArc> &a,
+	std::shared_ptr<MnjSmoothableLine> &l,
+	std::shared_ptr<MnjSmoothableArc> &a,
     double &r, 
     MnjPoint<double> &ipt_on_line,
     MnjPoint<double> &ic,
-	boost::shared_ptr<MnjSmoothableArc> &oarc){
+	std::shared_ptr<MnjSmoothableArc> &oarc){
     
     int error = 0;
     
@@ -653,7 +649,7 @@ int MnjSmoother::LineArcArc(
    a->GetCenter(PC2);
    MnjInfiniteLine norm_line(PC2,ic);//line connecting candidate arc-center and arc center
    
-   vector<boost::shared_ptr<MnjPoint<double>>> pt_vec;
+   shared_ptr_vec_pt pt_vec;
    error = a->Intersect(norm_line,pt_vec);
       
    if(1==pt_vec.size()){

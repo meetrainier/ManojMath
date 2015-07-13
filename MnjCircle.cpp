@@ -1,12 +1,14 @@
 #include <iostream>
 #include <cmath>
 #include <vector>
+
 #include "MnjCircle.h" 
 #include "GeomUtils.h" 
 #include "Mnj4x4Matrix.h"
+#include "MnjMathNamespace.h"
 
 using namespace std;
-
+using namespace MnjMath; 
 
 void GetPointOnCircle(double &r,std::vector<double> &angleVec, std::vector<MnjPoint<double>> &pointVec){
 
@@ -133,7 +135,7 @@ MnjCircle::MnjCircle( const MnjArc& a ){
     mradius = a.GetRadius();
 }
 //-------------------------------------------------------------------
-MnjCircle::MnjCircle( const boost::shared_ptr<MnjArc> a ){
+MnjCircle::MnjCircle( const std::shared_ptr<MnjArc> a ){
 
     MnjPlane plane(a->GetCenter(),a->GetXAxis(),a->GetYAxis());
     mplane =plane;
@@ -181,7 +183,7 @@ MnjPoint<double> MnjCircle::PointAt( double t ) const
   return P;
 }
 //////////////////////////////////////////////////////////////////////////////
-int MnjCircle::Intersect(MnjInfiniteLine &il, vector<boost::shared_ptr<MnjPoint<double>>> &opt_vec) {
+int MnjCircle::Intersect(MnjInfiniteLine &il, shared_ptr_vec_pt  &opt_vec) {
         int error = 0;
         MnjPoint<double> e1,e2;
         il.GetExtermeEnds(e1,e2);
@@ -191,14 +193,14 @@ int MnjCircle::Intersect(MnjInfiniteLine &il, vector<boost::shared_ptr<MnjPoint<
         double line_t1;
         MnjPoint<double> circle_point1;
         Intersect(line,&line_t0,circle_point0,&line_t1,circle_point1);
-        boost::shared_ptr<MnjPoint<double>> sp1(new MnjPoint<double>(circle_point0.x,circle_point0.y,circle_point0.z));
-        boost::shared_ptr<MnjPoint<double>> sp2(new MnjPoint<double>(circle_point1.x,circle_point1.y,circle_point1.z));
+        shared_ptr_pt sp1(new MnjPoint<double>(circle_point0.x,circle_point0.y,circle_point0.z));
+        std::shared_ptr<MnjPoint<double>> sp2(new MnjPoint<double>(circle_point1.x,circle_point1.y,circle_point1.z));
         opt_vec.push_back(sp1);
         opt_vec.push_back(sp2);
         return error;
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-   int MnjCircle::Intersect(MnjCircle &ic, vector<boost::shared_ptr<MnjPoint<double>>> &opt_vec){
+   int MnjCircle::Intersect(MnjCircle &ic, shared_ptr_vec_pt &opt_vec){
 
        //Create a frame of reference located : The origin of the reference plane are same as center of circle1
        //The line connection to the two center is X-axis. 
@@ -227,11 +229,11 @@ int MnjCircle::Intersect(MnjInfiniteLine &il, vector<boost::shared_ptr<MnjPoint<
        trans.Rotation(P0,MnjVector::XAxis,MnjVector::YAxis,MnjVector::ZAxis,C1,X1,Y1,Z1); 
     
        MnjPoint<double> oPI1 =trans*PI1;
-       boost::shared_ptr<MnjPoint<double>> pt1(new MnjPoint<double>(oPI1));
+       std::shared_ptr<MnjPoint<double>> pt1(new MnjPoint<double>(oPI1));
        opt_vec.push_back(pt1);
 
        MnjPoint<double> oPI2 =trans*PI2;
-       boost::shared_ptr<MnjPoint<double>> pt2(new MnjPoint<double>(oPI2));
+       shared_ptr_pt pt2(new MnjPoint<double>(oPI2));
        opt_vec.push_back(pt2);
        return error;
    }

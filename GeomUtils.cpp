@@ -3,7 +3,7 @@ Manoj 4/13/2012 Added 3d line-line intersection LineLineIntersect()
 Manoj /10/2015 Migration from boost to std. Now using <memory> header 
 
 */
-#include <algorithm>
+//#include <algorithm>
 #include <cmath>
 #include <iostream>
 #include <list>
@@ -23,10 +23,10 @@ Manoj /10/2015 Migration from boost to std. Now using <memory> header
 
 using namespace std;
 
-int GeomUtils::Project(const MnjPoint<double> LineStart, 
-                       const MnjPoint<double> LineEnd,
-	                     const MnjPoint<double> &p, 
-					   MnjPoint<double> &pProjection,double tol ){
+int GeomUtils::Project(const dbl_3d_pt LineStart, 
+                       const dbl_3d_pt LineEnd,
+	                   const dbl_3d_pt &p, 
+					         dbl_3d_pt &pProjection,double tol ){
    double LineMag;
    double U;
   //  MnjPoint<double> Intersection;
@@ -46,13 +46,13 @@ int GeomUtils::Project(const MnjPoint<double> LineStart,
     pProjection.z = LineStart.z + U * ( LineEnd.z - LineStart.z );
 	return 1;
 }
-int GeomUtils::LineLineIntersect(MnjPoint<double> & p1,MnjPoint<double> &p2,
-								        MnjPoint<double> & p3,MnjPoint<double> & p4,
-										MnjPoint<double> & pa,
+int GeomUtils::LineLineIntersect(dbl_3d_pt & p1,dbl_3d_pt &p2,
+								        dbl_3d_pt & p3,dbl_3d_pt & p4,
+										dbl_3d_pt & pa,
 										const double  tol)
 {
 	
-	MnjPoint<double> pb;
+	dbl_3d_pt pb;
 	double a ,b;
 	int flag = GeomUtils::LineLineIntersect(p1,p2,p3,p4,pa,pb,&a,&b,tol);
 	
@@ -69,11 +69,11 @@ int GeomUtils::LineLineIntersect(MnjPoint<double> & p1,MnjPoint<double> &p2,
 }
 
  int GeomUtils::LineLineIntersect(
-   MnjPoint<double> & p1,MnjPoint<double> & p2,MnjPoint<double> & p3,MnjPoint<double> & p4,
-   MnjPoint<double> & pa,MnjPoint<double> & pb,
+   dbl_3d_pt & p1,dbl_3d_pt & p2,dbl_3d_pt & p3,dbl_3d_pt & p4,
+   dbl_3d_pt & pa,dbl_3d_pt & pb,
    double *mua, double *mub,const double  tol  )
 {
-   MnjPoint<double>  p13,p43,p21;
+   dbl_3d_pt  p13,p43,p21;
    double d1343,d4321,d1321,d4343,d2121;
    double numer,denom;
 
@@ -119,17 +119,17 @@ int GeomUtils::LineLineIntersect(MnjPoint<double> & p1,MnjPoint<double> &p2,
    return 1 ;
 }
 
-void GeomUtils::GetDistance(const MnjPoint<double> &p1,const MnjPoint<double> &p2, 
+void GeomUtils::GetDistance(const dbl_3d_pt &p1,const dbl_3d_pt &p2, 
 				 double& distance){
 distance = sqrt(pow((p1.x-p2.x),2) + pow((p1.y-p2.y),2) + pow((p1.z-p2.z),2));
 }
 
 
-int GeomUtils::DistancePointInfiniteLine( MnjPoint<double> &p, MnjPoint<double> &LineStart, MnjPoint<double> &LineEnd, double &od )
+int GeomUtils::DistancePointInfiniteLine( dbl_3d_pt &p, dbl_3d_pt &LineStart, dbl_3d_pt &LineEnd, double &od )
  {
     double LineMag;
     double U;
-    MnjPoint<double>  Intersection;
+    dbl_3d_pt  Intersection;
  
     GetDistance( LineEnd, LineStart, LineMag );
  
@@ -188,7 +188,7 @@ void GeomUtils::GetDistance(const double &x1, const double &y1, const double &z1
   distance = sqrt(pow((x1-x2),2) + pow((y1-y2),2)+ pow((z1-z2),2));
 }
 ////////////////////////////////////////////////////////////////////////////////////
-double GeomUtils::GetDistance(const MnjPoint<double> &p1,const MnjPoint<double> &p2){
+double GeomUtils::GetDistance(const dbl_3d_pt &p1,const dbl_3d_pt &p2){
   return sqrt(pow((p1.x-p2.x),2) + pow((p1.y-p2.y),2) + pow((p1.z-p2.z),2));
 }
 /////////////////////////////////////////////////////////////////////////////////////
@@ -217,7 +217,7 @@ void GeomUtils::GetMidPoint(const double &x1, const double &y1,
 					 ymid = (y1+y2)*0.5 ;
 }
 //////////////////////////////////////////////////////////////////////////////
-void GetExactArcCenterUsingRadius(const double &x1,     const double &y1,
+void GeomUtils::GetExactArcCenterUsingRadius(const double &x1, const double &y1,
 								  const double &x2,     const double &y2, 
                                   const double &guessX, const double &guessY,//guessed center
 		                          double &xc, double &yc ){
@@ -260,7 +260,7 @@ void GetExactArcCenterUsingRadius(const double &x1,     const double &y1,
 
 }
 //////////////////////////////////////////////////////////////////////////////////
-void GetExactArcCenterUsingRadiusNOrientation(const double &x1,const double &y1,
+void GeomUtils::GetExactArcCenterUsingRadiusNOrientation(const double &x1,const double &y1,
 											  const  double &x2,const double &y2, 
 		       const double &guessX, const double &guessY,//guessed center
 			   const bool counterClock,
@@ -299,7 +299,7 @@ void GetExactArcCenterUsingRadiusNOrientation(const double &x1,const double &y1,
 
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////
-void SelectCenterCounterClockWise(const double &x1, const double &y1, 
+void GeomUtils::SelectCenterCounterClockWise(const double &x1, const double &y1, 
 	                              const double &x2, const double &y2, 
 			                      const double &xc1,const double &yc1,
 								  const double &xc2,const double &yc2, 
@@ -322,7 +322,7 @@ if( positveNLessThanPI || negativeNBteweenPIAnd2PI ){
 }
 }
 /////////////////////////////////////////////////////////////////////////////
-int Flip(	 const double &xc1,const double &yc1,
+int GeomUtils::Flip(const double &xc1, const double &yc1,
 	         const double &xc2,const double &yc2, 
 			 double &xc, double &yc){
 
@@ -334,7 +334,7 @@ int Flip(	 const double &xc1,const double &yc1,
 
 }
 
-void SelectCenter(const double &x1, const double &y1, const double &x2, const double &y2, 
+void GeomUtils::SelectCenter(const double &x1, const double &y1, const double &x2, const double &y2,
 			 const double &xc1,const double &yc1,const double &xc2,const double &yc2, 
 			 const bool counterClock,
 			 double &xc, double &yc){
@@ -346,11 +346,11 @@ void SelectCenter(const double &x1, const double &y1, const double &x2, const do
 	}
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-int GeomUtils::DistancePointLine( const MnjPoint<double> &p, const MnjPoint<double> &LineStart, const MnjPoint<double> &LineEnd, double &od )
+int GeomUtils::DistancePointLine( const dbl_3d_pt &p, const dbl_3d_pt &LineStart, const dbl_3d_pt &LineEnd, double &od )
  {
     double LineMag;
     double U;
-    MnjPoint<double> Intersection;
+    dbl_3d_pt Intersection;
  
     GetDistance( LineEnd, LineStart, LineMag );
  
@@ -749,23 +749,23 @@ void GeomUtils::GetLineEquation(const double &x1,const double &y1,
 	sprintf(msgline,"%f %f %f\n%f %f %f\n%f %f %f",InvK[0][0], InvK[0][1], InvK[0][2],InvK[1][0], InvK[1][1], InvK[1][2],InvK[2][0], InvK[2][1], InvK[2][2]);
 //	::MessageBox(NULL,msgline,"Inverse",MB_OK);
 */
-void GeomUtils::Translate(const MnjPoint<double> &p,
+void GeomUtils::Translate(const dbl_3d_pt &p,
 		                  const MnjVector &v,
-						  MnjPoint<double> &pt ){
+						  dbl_3d_pt &pt ){
 			 pt.x = p.x+v.x; 
 			 pt.y = p.y+v.y ; 
 			 pt.z = p.z+v.z;
 			return;
 }
 //////////////////////////////////////////////////////////////////////////
-bool GeomUtils::IsSame(const MnjPoint<double> &ip1,
-                       const MnjPoint<double> &ip2){
+bool GeomUtils::IsSame(const dbl_3d_pt &ip1,
+                       const dbl_3d_pt &ip2){
    double d = GeomUtils::GetDistance(ip1,ip2);
    return ( d < MNJ_ZERO_TOLERANCE);
 }
 ///////////////////////////////////////////////////////////////////////////
-int GeomUtils::Intersect2dLineCircle(MnjPoint<double> line_from, // 2d line from point
-                 MnjPoint<double>  line_to,
+int GeomUtils::Intersect2dLineCircle(dbl_3d_pt line_from, // 2d line from point
+                 dbl_3d_pt  line_to,
                  double r,
                  double tol,
                  double* t0,
@@ -909,12 +909,12 @@ MnjVector GeomUtils::CrossProduct(const MnjVector &vec1, const MnjVector &vec2)
 
  ///////////////////////////////////////////////
  int GeomUtils::GetIntersectionOfCircles2D(
-            MnjPoint<double> &center1,
+            dbl_3d_pt &center1,
             double radius1,
-            MnjPoint<double> &center2,
+            dbl_3d_pt &center2,
             double radius2,
-            MnjPoint<double> &P1,
-            MnjPoint<double> &P2){
+            dbl_3d_pt &P1,
+            dbl_3d_pt &P2){
     const double Epsilon = .0001;
             //var result = Math.InfinitePointPair;
     double x1 = center1.x;
@@ -1004,7 +1004,7 @@ MnjVector GeomUtils::CrossProduct(const MnjVector &vec1, const MnjVector &vec2)
 
             if (y2 > y1)
             {
-                MnjPoint<double> t = P1;
+                dbl_3d_pt t = P1;
                 P1 = P2;
                 P2 = t;
             }
@@ -1093,21 +1093,21 @@ void GeomUtils::AddCxRow( double matrix[4][4], double c, int i0, int i1 )
  void GeomUtils::GetFarEndOfOtherLine( 
 	const std::shared_ptr<MnjLine> &l1,
 	const std::shared_ptr<MnjLine> &l2,
-	      MnjPoint<double>  &oPoint
+	      dbl_3d_pt  &oPoint
 ){
 		if(!l1 ||!l2) return;
 
-		MnjPoint<double> p11;
+		dbl_3d_pt p11;
 		l1->GetStartPoint(p11);
-		MnjPoint<double> p12;
+		dbl_3d_pt p12;
 		l1->GetEndPoint(p12);
 
-		MnjPoint<double> p21;
+		dbl_3d_pt p21;
 		l2->GetStartPoint(p21);
 		double d1= 0;
 		GeomUtils::DistancePointInfiniteLine(p21,p11,p12,d1);
 
-		MnjPoint<double> p22;
+		dbl_3d_pt p22;
 		l2->GetEndPoint(p22);
 		double d2= 0;
 		GeomUtils::DistancePointInfiniteLine(p22,p11,p12,d2);
@@ -1162,26 +1162,26 @@ int GeomUtils::CreateArc(shared_ptr<MnjLine> &seg1,
     if(0.0 == r) 
 	   return -1;
 	shared_ptr<MnjLine> parallel_seg1(new MnjLine());
-	MnjPoint<double>  hintpoint1;
+	dbl_3d_pt  hintpoint1;
 	GetFarEndOfOtherLine(seg1,seg2,hintpoint1);
 	seg1->CreateParallelLine(r, hintpoint1, parallel_seg1);
 
 	shared_ptr<MnjLine> parallel_seg2(new MnjLine());
-	MnjPoint<double>  hintpoint2;
+	dbl_3d_pt  hintpoint2;
 	GeomUtils::GetFarEndOfOtherLine(seg2,seg1,hintpoint2);
     seg2->CreateParallelLine(r, hintpoint2, parallel_seg2);
     
 	if(parallel_seg1){
-		MnjPoint<double> center;
+		dbl_3d_pt center;
 		parallel_seg1->Intersect(*parallel_seg2,center);
-		MnjPoint<double>  p1;
+		dbl_3d_pt  p1;
 		if( -1 == seg1->Project(center,p1) )
 			return error = -21;
-		MnjPoint<double> p2;
+		dbl_3d_pt p2;
 		if( -1 == seg2->Project(center,p2) ) 
 			return error = -22;
         //set the values into the segments
-        MnjPoint<double> cornerPoint = seg1->GetCommonPoint(seg2,error);
+        dbl_3d_pt cornerPoint = seg1->GetCommonPoint(seg2,error);
 
         seg1->ResetThePoint(cornerPoint,p1);
         oarc->Set(p1,center,p2);
@@ -1208,16 +1208,16 @@ int GeomUtils::CreateArc(
   const double &ir,
 	shared_ptr<MnjArc> &oarc){
   
-   MnjPoint<double> cp ;
+   dbl_3d_pt cp ;
    int error= GetCenter(l,a,ir,cp);
    if(error>=0){
-        MnjPoint<double> pt_on_a;
+        dbl_3d_pt pt_on_a;
         error = a->Project(cp,pt_on_a);
         if(error>=0){
-            MnjPoint<double> pt_on_l;
+            dbl_3d_pt pt_on_l;
             error = l->Project(cp,pt_on_l);
             if(error>=0){
-                MnjPoint<double> cornerPoint = l->GetCommonPoint(a,error);
+                dbl_3d_pt cornerPoint = l->GetCommonPoint(a,error);
                 l->ResetThePoint(cornerPoint,pt_on_l);
                 a->ResetThePoint(cornerPoint,pt_on_a);
                 oarc->SetSmallerArc(pt_on_a,cp,pt_on_l);
@@ -1231,14 +1231,14 @@ int GeomUtils::GetCenter(
     shared_ptr<MnjLine> &l,
 	shared_ptr<MnjArc> &a,
 	const double &ir,
-	MnjPoint<double> &ocp
+	dbl_3d_pt &ocp
     ){
         int error =0;
         //Create Circle 
-        MnjPoint<double> commonPoint = l->GetCommonPoint(a,error);
+        dbl_3d_pt commonPoint = l->GetCommonPoint(a,error);
         MnjDirection  tangent= a->TangentAtEnd(commonPoint);
         int factor = 1;
-        MnjPoint<double> otherEndOfLine = l->GetOtherEnd(commonPoint,error);
+        dbl_3d_pt otherEndOfLine = l->GetOtherEnd(commonPoint,error);
         if(tangent.IsObtuse(MnjDirection(commonPoint,otherEndOfLine))) 
             factor = -1; 
          
@@ -1248,7 +1248,7 @@ int GeomUtils::GetCenter(
         tmpCircle.SetRadius(tmpCicrleR);
 
         //Create Line
-        MnjPoint<double> pTowardsArc;
+        dbl_3d_pt pTowardsArc;
         error = GetAPointTowardsArc(l,a,pTowardsArc); 
         shared_ptr<MnjLine> parallel_line;
         l->CreateParallelLine(ir,pTowardsArc,parallel_line);
@@ -1294,10 +1294,10 @@ int GeomUtils::GetCenter(
 //////////////////////////////////////////////////////////////////////////
 int GeomUtils::GetAPointTowardsArc(shared_ptr<MnjLine> &l,
 	                                         shared_ptr<MnjArc> &a,
-                                             MnjPoint<double> &op) {
+                                             dbl_3d_pt &op) {
    int error = 0;
   
-   MnjPoint<double> cornerPoint = l->GetCommonPoint(a,error);
+   dbl_3d_pt cornerPoint = l->GetCommonPoint(a,error);
    MnjDirection startTangent = a->TangentAtEnd(cornerPoint);
    op = cornerPoint + startTangent*10; 
    
@@ -1335,26 +1335,26 @@ int GeomUtils::CreateArc(
    circle2.SetRadius(locus_r2);
   
   circle1.Intersect( circle2,pt_vec);
-  MnjPoint<double> c1 = circle1.Center();
-  MnjPoint<double> c2 = circle2.Center();
+  dbl_3d_pt c1 = circle1.Center();
+  dbl_3d_pt c2 = circle2.Center();
 
   
   for( unsigned int i = 0; i <pt_vec.size() ; i++ ) {
 
        MnjLine l2(*(pt_vec[i]),c2);
-       MnjPoint<double> p2 ;
+       dbl_3d_pt p2 ;
        l2.GetPointOnLine(*(pt_vec[i]),r,p2);
        
        if(arc2->IsPointOnArc(p2)){
        
            MnjLine l1(*(pt_vec[i]),c1);
-           MnjPoint<double> p1 ;
+           dbl_3d_pt p1 ;
            l1.GetPointOnLine(*(pt_vec[i]),r,p1);
        
            if(arc1->IsPointOnArc(p1)){
-               MnjPoint<double> cp = *(pt_vec[i]);
+               dbl_3d_pt cp = *(pt_vec[i]);
                oarc->SetSmallerArc(p1,cp,p2);
-               MnjPoint<double> cornerPoint = arc1->GetCommonPoint(arc2,error);
+               dbl_3d_pt cornerPoint = arc1->GetCommonPoint(arc2,error);
                arc1->ResetThePoint(cornerPoint,p1);
                //oarc->Set(p1,cp,p2);
                arc2->ResetThePoint(cornerPoint,p2);
@@ -1427,7 +1427,7 @@ int GeomUtils::GetPointsThatProjectOnLineSegment(MnjLine &il,
     int error = 0;
     if (ipt_vec.size() < 1 ) error = -1; 
     for (unsigned int i = 0 ; i < ipt_vec.size(); i++ ) {
-        MnjPoint<double> tmpPoint;
+        dbl_3d_pt tmpPoint;
         int tmpErr = il.Project(*ipt_vec[i],tmpPoint);
         if(tmpErr>=0){
             ocan_project_pt_vec.push_back(ipt_vec[i]);

@@ -36,11 +36,11 @@ int DistancePointInfiniteLine( MnjPoint<T> *p, MnjPoint<T> *LineStart, MnjPoint<
     return 0;
 }
 */
-void TestGeomUtils::TestGetExactArcCenterUsingRadius3(){
+void GeomUtils::TestGeomUtils::TestGetExactArcCenterUsingRadius3(){
 
 	//testing when bisector is parallel to Y;
 	double xc; double yc;
-	GetExactArcCenterUsingRadius(-5,0,5,0,.01,.01,xc,yc);
+	GeomUtils::GetExactArcCenterUsingRadius(-5,0,5,0,.01,.01,xc,yc);
 	cout << "\nExpected Center: 0,0 \n";
 	cout << "\nComputed Center(approx): " << xc <<", " << yc << endl;
 
@@ -48,11 +48,11 @@ void TestGeomUtils::TestGetExactArcCenterUsingRadius3(){
 
 //Case: When the two points are along x-axis. 
 //
-void TestGeomUtils::TestGetExactArcCenterUsingRadius2(){
+void GeomUtils::TestGeomUtils::TestGetExactArcCenterUsingRadius2(){
 
 	//testing when bisector is parallel to Y;
 	double xc; double yc;
-	GetExactArcCenterUsingRadius(-5,5,5,5,.01,.01,xc,yc);
+	GeomUtils::GetExactArcCenterUsingRadius(-5, 5, 5, 5, .01, .01, xc, yc);
 	cout << "\nExpected Center: 0,0 \n";
 	cout << "\nComputed Center(approx): " << xc <<", " << yc << endl;
 
@@ -61,22 +61,22 @@ void TestGeomUtils::TestGetExactArcCenterUsingRadius2(){
 ///////////////////////////////////////////////////////////////
 
 //Case: when the two points are along y-axis. 
-void TestGeomUtils::TestGetExactArcCenterUsingRadius1(){
+void GeomUtils::TestGeomUtils::TestGetExactArcCenterUsingRadius1(){
 
-	 double xc; double yc;
-	GetExactArcCenterUsingRadius(-5,5,-5,-5,.01,.01,xc,yc);
+	double xc; double yc;
+	GeomUtils::GetExactArcCenterUsingRadius(-5,5,-5,-5,.01,.01,xc,yc);
 	cout << "\nExpected Center: 0,0 \n";
 	cout << "\nComputed Center(approx): " << xc <<", " << yc << endl;
 
 }
 ///////////////////////////////////////////////////////////////
-void TestGeomUtils::TestGetExactArcCenterUsingRadius(){
-	TestGetExactArcCenterUsingRadius1();
-	TestGetExactArcCenterUsingRadius2();
-	TestGetExactArcCenterUsingRadius3();
+void GeomUtils::TestGeomUtils::TestGetExactArcCenterUsingRadius(){
+	TestGeomUtils::TestGetExactArcCenterUsingRadius1();
+	TestGeomUtils::TestGetExactArcCenterUsingRadius2();
+	TestGeomUtils::TestGetExactArcCenterUsingRadius3();
 }
 ///////////////////////////////////////////////////////////////
-int TestGeomUtils::TestDistancePointInfiniteLine(){
+int GeomUtils::TestGeomUtils::TestDistancePointInfiniteLine(){
 	//MnjPoint p(10,10,0);
 	MnjPoint<double> p(-5.0,1,0);
 	MnjPoint<double>  s(0.0,0,0);
@@ -87,7 +87,7 @@ int TestGeomUtils::TestDistancePointInfiniteLine(){
 	return 0;
 }
 //////////////////////////////////////////////////////////////
-int TestGeomUtils::TestDistancePointLine(){
+int GeomUtils::TestGeomUtils::TestDistancePointLine(){
 	//MnjPoint p(10,10,0);
 	MnjPoint<double>  p(-5,1,0);
 	MnjPoint<double>  s(0,0,0);
@@ -97,7 +97,7 @@ int TestGeomUtils::TestDistancePointLine(){
 	GeomUtils::DistancePointLine(p,s,e,d);
 	return 0;
 }
-int TestGeomUtils::TestLineLineIntersect1()
+int GeomUtils::TestGeomUtils::TestLineLineIntersect1()
 {
 	//test1 intersect x and y segment. the result should be origin. 
 	MnjPoint<double> p1(10,0,0);    MnjPoint<double> p2(-10,0,0);
@@ -114,7 +114,7 @@ int TestGeomUtils::TestLineLineIntersect1()
 #endif 
 	return flag;
 }
-int TestGeomUtils::TestLineLineIntersect2()
+int GeomUtils::TestGeomUtils::TestLineLineIntersect2()
 {
 
 	//test2 intersect x-axis and parallel to y-axis segments. the result should (15,0,0). 
@@ -131,7 +131,7 @@ int TestGeomUtils::TestLineLineIntersect2()
 	return flag;
 }
 ////////////////////////////////////////////////////////////////////////
-int TestGeomUtils::TestLineLineIntersect3()
+int GeomUtils::TestGeomUtils::TestLineLineIntersect3()
 {
 
 	//test3: The intersection is exactly at one end. the result should (10,0,0). 
@@ -147,7 +147,7 @@ int TestGeomUtils::TestLineLineIntersect3()
 #endif
 	return flag;
 }
-int TestGeomUtils::TestLineLineIntersect4()
+int GeomUtils::TestGeomUtils::TestLineLineIntersect4()
 {
 	//test4: Input parallel lines. It should return 0. That is error.  
 	MnjPoint<double> p1(10,0,0);    MnjPoint<double> p2(20,0,0);
@@ -163,7 +163,7 @@ int TestGeomUtils::TestLineLineIntersect4()
 	return flag;
 }
 ////////////////////////////////////////////////////////////////
-int TestGeomUtils::TestLineLineIntersect()
+int GeomUtils::TestGeomUtils::TestLineLineIntersect()
 {
 	int flag = -1;
 	flag = TestLineLineIntersect1();
@@ -174,7 +174,7 @@ int TestGeomUtils::TestLineLineIntersect()
 	return flag;
 }
 ///////////////////////////////////////////////////////////////////////////////////
-int TestGeomUtils::TestProject4(const MnjPoint<double> LineStart, const MnjPoint<double> LineEnd,
+int GeomUtils::TestGeomUtils::TestProject4(const MnjPoint<double> LineStart, const MnjPoint<double> LineEnd,
 				double tol ){
 	 MnjPoint<double> p=LineStart;
 	 MnjPoint<double> pProjection;
@@ -182,7 +182,7 @@ int TestGeomUtils::TestProject4(const MnjPoint<double> LineStart, const MnjPoint
      return GeomUtils::Project(LineStart, LineEnd, p,pProjection);
 }
 //////////////////////////////////////////////////////////////////////////////////////
-int TestGeomUtils::TestProject3(const MnjPoint<double> LineStart, const MnjPoint<double> LineEnd,
+int GeomUtils::TestGeomUtils::TestProject3(const MnjPoint<double> LineStart, const MnjPoint<double> LineEnd,
 				double tol ){
 	 MnjPoint<double> p(5,5,0);
 	 MnjPoint<double> pProjection;
@@ -190,7 +190,7 @@ int TestGeomUtils::TestProject3(const MnjPoint<double> LineStart, const MnjPoint
      return GeomUtils::Project(LineStart, LineEnd, p,pProjection);
 }
 ////////////////////////////////////////////////////////////////////////////////////////
-int TestGeomUtils::TestProject2(const MnjPoint<double> LineStart, const MnjPoint<double> LineEnd,
+int GeomUtils::TestGeomUtils::TestProject2(const MnjPoint<double> LineStart, const MnjPoint<double> LineEnd,
 				double tol ){
 	 MnjPoint<double> p(11,0,0);
 	 MnjPoint<double> pProjection;
@@ -198,7 +198,7 @@ int TestGeomUtils::TestProject2(const MnjPoint<double> LineStart, const MnjPoint
      return GeomUtils::Project(LineStart, LineEnd, p,pProjection);
 }
 ///////////////////////////////////////////////////////////////////////////////////
-int TestGeomUtils::TestProject1(const MnjPoint<double> LineStart, const MnjPoint<double> LineEnd,
+int GeomUtils::TestGeomUtils::TestProject1(const MnjPoint<double> LineStart, const MnjPoint<double> LineEnd,
 					   double tol ){
 	 MnjPoint<double> p(1,0,0);
 	 MnjPoint<double> pProjection;
@@ -206,7 +206,7 @@ int TestGeomUtils::TestProject1(const MnjPoint<double> LineStart, const MnjPoint
      return GeomUtils::Project(LineStart, LineEnd, p,pProjection);
 }
 ///////////////////////////////////////////////////////////////////////////////////
-int TestGeomUtils::TestProject(){
+int GeomUtils::TestGeomUtils::TestProject(){
 	const MnjPoint<double> LineStart(-10,0,0); 
 	const MnjPoint<double> LineEnd(10,0,0);
 	
@@ -225,7 +225,7 @@ int TestGeomUtils::TestProject(){
 		assert(1==flag);
 		return flag;
 }
-int TestGeomUtils::Test(){
+int GeomUtils::TestGeomUtils::Test(){
 
 int error = TestDistancePointInfiniteLine();
 error = TestDistancePointLine();

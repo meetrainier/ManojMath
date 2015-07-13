@@ -420,12 +420,12 @@ double MnjBiDirectionalMerge::GetAngle(std::shared_ptr<MnjSmoothableSegment> iSe
   //int error = 0;
   //TBD: Make sure that get Angle serves the purpose for Arc-line and arc-arc corners.
   //FlowPoint<double> commonPoint = SegmentCommonPoint(iSeg1,iSeg2,oerror);
-  MnjPoint<double> commonPoint = iSeg1->GetCommonPoint(iSeg2,oerror);
+  dbl_3d_pt commonPoint = iSeg1->GetCommonPoint(iSeg2,oerror);
   double angle = -9999;
   if(oerror>=0){
-      MnjPoint<double> p1 = iSeg1->GetOtherEnd(commonPoint,oerror);
+      dbl_3d_pt p1 = iSeg1->GetOtherEnd(commonPoint,oerror);
       if(oerror>=0){
-          MnjPoint<double> p2 = iSeg2->GetOtherEnd(commonPoint,oerror);
+          dbl_3d_pt p2 = iSeg2->GetOtherEnd(commonPoint,oerror);
           MnjDirection dir1(commonPoint,p1); 
           MnjDirection dir2(commonPoint,p2); 
           angle = dir1.Angle(dir2);

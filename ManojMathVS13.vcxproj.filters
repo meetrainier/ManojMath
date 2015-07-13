@@ -78,18 +78,6 @@
     <ClCompile Include="MnjVector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="opennurbs_arc.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="opennurbs_circle.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="opennurbs_crc.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="opennurbs_plane.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Segment.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -168,42 +156,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MnjVector.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="opennurbs.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="opennurbs_3dm.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="opennurbs_arc.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="opennurbs_circle.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="opennurbs_crc.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="opennurbs_defines.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="opennurbs_error.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="opennurbs_memory.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="opennurbs_plane.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="opennurbs_rand.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="opennurbs_system.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="opennurbs_uuid.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Segment.h">

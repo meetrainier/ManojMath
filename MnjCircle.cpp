@@ -10,7 +10,7 @@
 using namespace std;
 using namespace MnjMath; 
 
-void GetPointOnCircle(double &r,std::vector<double> &angleVec, std::vector<MnjPoint<double>> &pointVec){
+void GetPointOnCircle(double &r,std::vector<double> &angleVec, std::vector<dbl_3d_pt> &pointVec){
 
 	std::vector<double>::iterator  it; 
     for ( it=angleVec.begin(); it != angleVec.end() ; it++ ) 
@@ -18,7 +18,7 @@ void GetPointOnCircle(double &r,std::vector<double> &angleVec, std::vector<MnjPo
 		double x = r*cos(*it);
 		double y = r*sin(*it);
 		double z = 0.0;
-        MnjPoint<double> p(x,y,z);
+        dbl_3d_pt p(x,y,z);
 		pointVec.push_back(p);
 	}
 }
@@ -40,15 +40,15 @@ void MoveCoordinates(MnjPoint<T> &point, std::vector<MnjPoint<T>> &pointVec, std
 int MnjCircle::Intersect(
       const MnjLine& line, 
       double* line_t0,
-      MnjPoint<double>& circle_point0,
+      dbl_3d_pt& circle_point0,
       double* line_t1,
-      MnjPoint<double>& circle_point1
+      dbl_3d_pt& circle_point1
       )
 {
   // transform to coordinate system where equation of circle
   // is x^2 + y^2 = R^2 and solve for line parameter(s).
   Mnj4x4Matrix xform;
-  MnjPlane xy_plane(MnjPoint<double>(0,0,0),MnjVector(0,0,1));
+  MnjPlane xy_plane(dbl_3d_pt(0,0,0),MnjVector(0,0,1));
   xform.ChangeBasis( mplane, xy_plane );
   xform.ChangeBasis( xy_plane, mplane );
   MnjLine L = line;
@@ -67,8 +67,8 @@ int MnjCircle::Intersect(
   else
   {
 	//MnjPoint<double> from(L.from.x,L.from.y,L.from.z); //mnj
-	MnjPoint<double> from(L.StartPoint()); 
-    MnjPoint<double> to(L.EndPoint());
+	dbl_3d_pt from(L.StartPoint()); 
+    dbl_3d_pt to(L.EndPoint());
 	//xcnt = Intersect2dLineCircle( L.from, L.to, r, tol, line_t0, line_t1 );
 	xcnt = GeomUtils::Intersect2dLineCircle( from, to, r, tol, line_t0, line_t1 );
     if ( xcnt == 3 )
@@ -83,7 +83,7 @@ int MnjCircle::Intersect(
       *line_t1 = *line_t0;
     }
   }
-  MnjPoint<double> line_point1, line_point0 = line.PointAt(*line_t0);
+  dbl_3d_pt line_point1, line_point0 = line.PointAt(*line_t0);
   circle_point0 = ClosestPointTo(line_point0);
   double d1, d0 = line_point0.DistanceTo(circle_point0);
   if ( xcnt == 2 ) 
@@ -159,19 +159,19 @@ void MnjCircle::SetRadius(double &r){
     mradius = r;
 }
 ////////////////////////////////////////////////////////////
-const MnjPoint<double>& MnjCircle::Center() const
+const dbl_3d_pt& MnjCircle::Center() const
 	{
 	 return mplane.origin;
 	}
-MnjPoint<double> MnjCircle::PointAt( double t ) const
+dbl_3d_pt MnjCircle::PointAt( double t ) const
 {
   return mplane.PointAt( cos(t)*mradius, sin(t)*mradius );
 }
 
 	  // circle is in the plane with center at plane.m_origin.
-	MnjPoint<double> MnjCircle::ClosestPointTo( const MnjPoint<double>& point ) const
+	dbl_3d_pt MnjCircle::ClosestPointTo( const dbl_3d_pt& point ) const
 {
-  MnjPoint<double> P;
+  dbl_3d_pt P;
   MnjVector V = mplane.ClosestPointTo( point ) - Center();
   if ( V.Unitize() ) {
     V.Unitize();
@@ -185,16 +185,16 @@ MnjPoint<double> MnjCircle::PointAt( double t ) const
 //////////////////////////////////////////////////////////////////////////////
 int MnjCircle::Intersect(MnjInfiniteLine &il, shared_ptr_vec_pt  &opt_vec) {
         int error = 0;
-        MnjPoint<double> e1,e2;
+        dbl_3d_pt e1,e2;
         il.GetExtermeEnds(e1,e2);
         MnjLine line(e1,e2); 
         double line_t0;
-        MnjPoint<double> circle_point0;
+        dbl_3d_pt circle_point0;
         double line_t1;
-        MnjPoint<double> circle_point1;
+        dbl_3d_pt circle_point1;
         Intersect(line,&line_t0,circle_point0,&line_t1,circle_point1);
-        shared_ptr_pt sp1(new MnjPoint<double>(circle_point0.x,circle_point0.y,circle_point0.z));
-        std::shared_ptr<MnjPoint<double>> sp2(new MnjPoint<double>(circle_point1.x,circle_point1.y,circle_point1.z));
+        shared_ptr_pt sp1(new dbl_3d_pt(circle_point0.x,circle_point0.y,circle_point0.z));
+        std::shared_ptr<dbl_3d_pt> sp2(new dbl_3d_pt(circle_point1.x,circle_point1.y,circle_point1.z));
         opt_vec.push_back(sp1);
         opt_vec.push_back(sp2);
         return error;
@@ -207,17 +207,17 @@ int MnjCircle::Intersect(MnjInfiniteLine &il, shared_ptr_vec_pt  &opt_vec) {
 
        //call 2d circle intersection method. first center is at origin, the second center 
        // at coords ( x1, 0,0 ) where x1 = distance betwen circles. 
-         MnjPoint<double> C1 = Center();
-         MnjPoint<double> PI1;
-         MnjPoint<double> PI2;
-         MnjPoint<double> C2 = ic.Center();
+         dbl_3d_pt C1 = Center();
+         dbl_3d_pt PI1;
+         dbl_3d_pt PI2;
+         dbl_3d_pt C2 = ic.Center();
          double d = GeomUtils::GetDistance(C1,C2);
-         MnjPoint<double> C2InXY(d,0,0);
-         MnjPoint<double> C1InXY(0,0,0);
+         dbl_3d_pt C2InXY(d,0,0);
+         dbl_3d_pt C1InXY(0,0,0);
          int error = GeomUtils::GetIntersectionOfCircles2D(C1InXY,Radius(),C2InXY,ic.Radius(),PI1,PI2);
 
        //Tansform the intersection point from P0,X0,Y0,Z0 coords to P1,X1,Y1,Z1 
-         MnjPoint<double>  P0;//(0,0,0);
+         dbl_3d_pt  P0;//(0,0,0);
 
        MnjPlane thisPlane = Plane();
        //Mnj4x4Matrix trans(P0,XAxis,YAxis,ZAxis,C1,thisPlane.xaxis,thisPlane.yaxis,thisPlane.zaxis); 
@@ -228,12 +228,12 @@ int MnjCircle::Intersect(MnjInfiniteLine &il, shared_ptr_vec_pt  &opt_vec) {
        Mnj4x4Matrix trans;
        trans.Rotation(P0,MnjVector::XAxis,MnjVector::YAxis,MnjVector::ZAxis,C1,X1,Y1,Z1); 
     
-       MnjPoint<double> oPI1 =trans*PI1;
-       std::shared_ptr<MnjPoint<double>> pt1(new MnjPoint<double>(oPI1));
+       dbl_3d_pt oPI1 =trans*PI1;
+       std::shared_ptr<dbl_3d_pt> pt1(new dbl_3d_pt(oPI1));
        opt_vec.push_back(pt1);
 
-       MnjPoint<double> oPI2 =trans*PI2;
-       shared_ptr_pt pt2(new MnjPoint<double>(oPI2));
+       dbl_3d_pt oPI2 =trans*PI2;
+       shared_ptr_pt pt2(new dbl_3d_pt(oPI2));
        opt_vec.push_back(pt2);
        return error;
    }

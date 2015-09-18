@@ -168,15 +168,15 @@ void CreateArc(vector<boost::shared_ptr<Segment>> segVec,
 			   double r, 
 	           boost::shared_ptr<Arc> &oarc){
 	
-	boost::shared_ptr<FlowSegment> simpleSeg1;
-	boost::shared_ptr<FlowSegment> simpleSeg2;
+	boost::shared_ptr<MnjSegment> simpleSeg1;
+	boost::shared_ptr<Mnjegment> simpleSeg2;
 	GetSimplifiedSegments(segVec,r, simpleSeg1,simpleSeg2); 
 	
-	boost::shared_ptr<MnjArc> arc1 = boost::dynamic_pointer_cast<MnjArc,FlowSegment> (segVec[index]);
-    boost::shared_ptr<MnjLine> line1 = boost::dynamic_pointer_cast<MnjLine,FlowSegment> (segVec[index]);
+	boost::shared_ptr<MnjArc> arc1 = boost::dynamic_pointer_cast<MnjArc,MnjSegment> (segVec[index]);
+    boost::shared_ptr<MnjLine> line1 = boost::dynamic_pointer_cast<MnjLine,MnjSegment> (segVec[index]);
 	
-	boost::shared_ptr<MnjArc> arc2 = boost::dynamic_pointer_cast<MnjArc,FlowSegment> (segVec[index+1]);
-    boost::shared_ptr<MnjLine> line2 = boost::dynamic_pointer_cast<MnjLine,FlowSegment> (segVec[index+1]);
+	boost::shared_ptr<MnjArc> arc2 = boost::dynamic_pointer_cast<MnjArc,MnjSegment> (segVec[index+1]);
+    boost::shared_ptr<MnjLine> line2 = boost::dynamic_pointer_cast<MnjLine,MnjSegment> (segVec[index+1]);
 	
 	
 	CreateArc(line1,line2,r,oarc);
@@ -193,28 +193,7 @@ void CreateArc(vector<boost::shared_ptr<Segment>> segVec,
    //double *mua, double *mub);
 
 ///////////////////////////////////////////////////////////////////////////////////////////
-/*
-int main()
-{
-	vector<boost::shared_ptr<FlowSegment>> segVec;
-	MnjPoint<double> x1(10,0,0);
-	MnjPoint<double> y1(0,10,0);
-	MnjPoint<double> o(0,0,0);
-	boost::shared_ptr<MnjLine>  l1(new MnjLine(x1,o));
-	boost::shared_ptr<MnjLine>  l2(new MnjLine(o,y1));
 
-	unsigned int index =0; 
-	
-	double r=5;
-	boost::shared_ptr<MnjArc> arc(new MnjArc());
-	segVec.push_back(l1);
-	segVec.push_back(l2);
-	CreateArc(segVec, index, r,  arc);
-	
-	arc->Print();
-	return 0;
-}
-*/
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////

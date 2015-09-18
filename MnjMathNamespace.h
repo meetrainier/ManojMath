@@ -32,27 +32,21 @@ namespace MnjMath {
 	typedef shared_ptr<MnjPoint<double>> shared_ptr_pt;
 	typedef std::pair<double, double> dbl_dbl_pr;
 
-	//typedef boost::shared_ptr<MnjLine> shared_ptr_line;
-	//typedef boost::shared_ptr<MnjArc> shared_ptr_arc;
-
 	typedef vector<std::shared_ptr<MnjPoint<double>>>     shared_ptr_vec_pt; 
-	//typedef vector<std::shared_ptr<FlowSegment>> shared_ptr_vec;
-	//typedef vector<std::shared_ptr<FlowSegment>>::iterator shared_ptr_vec_it;
-	//typedef vector<std::shared_ptr<FlowSegment>>::const_iterator shared_ptr_vec_const_it;
+		
+	
 
-	//typedef list<std::shared_ptr<FlowSegment>> shared_ptr_list;
-	//typedef list<std::shared_ptr<FlowSegment>>::iterator shared_ptr_list_it;
-
-	////const counterprts of the above
-	//typedef std::shared_ptr<const FlowSegment> const_shared_ptr;
-	////typedef boost::shared_ptr<const FlowLine> const_shared_ptr_line;
-	////typedef boost::shared_ptr<const FlowArc> const_shared_ptr_arc;
-
-	//typedef vector<std::shared_ptr<const FlowSegment>> const_shared_ptr_vec;
-	//typedef vector<std::shared_ptr<const FlowSegment>>::iterator const_shared_ptr_vec_it;
-	//typedef vector<std::shared_ptr<const FlowSegment>>::const_iterator const_shared_ptr_vec_const_it;
-
-	//typedef list<std::shared_ptr<const FlowSegment>> const_shared_ptr_list;
-	//typedef list<std::shared_ptr<const FlowSegment>>::iterator const_shared_ptr_list_it;
+	
+	map < int , string > digit2string = {
+	{1,"one"},
+	{2,"two"},
+	{3,"three"},
+	{4,"four"},
+	{5,"five"},
+	{6,"six"},
+	{7,"seven"},
+	{8,"eight"},
+	{9,"nine"},
+}; 
 };
 #endif 

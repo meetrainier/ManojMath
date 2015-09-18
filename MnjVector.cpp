@@ -178,14 +178,12 @@ double& MnjVector::operator[](int i)
     len = fx; fx = fz; fz = len;
   }
 
-  // 15 September 2003 Dale Lear
-  //     For small denormalized doubles (positive but smaller
-  //     than DBL_MIN), some compilers/FPUs set 1.0/fx to +INF.
-  //     Without the FlowDBL_MIN test we end up with
+  
+ 
+  //     Without the MNJ_DBL_MIN test we end up with
   //     microscopic vectors that have infinte length!
   //
-  //     This code is absolutely necessary.  It is a critical
-  //     part of the bug fix for RR 11217.
+  //     This code is absolutely necessary.  .
   if ( fx > MNJ_DBL_MIN ) 
   {
     len = 1.0/fx;
@@ -202,8 +200,8 @@ double& MnjVector::operator[](int i)
 }
   bool MnjVector::Unitize()
 {
-  // 15 September 2003 Dale Lear
-  //     Added the FlowDBL_MIN test.  See MnjVector::Length()
+
+  //     Added the MNJ_DBL_MIN test.  See MnjVector::Length()
   //     for details.
   bool rc = false;
   double d = Length();
@@ -361,267 +359,6 @@ MnjVector& MnjVector::operator=(const MnjPoint<double>& p)
 }
 
 
-
-/*
-MnjVector MnjVector::operator-() const
-{
-  return MnjVector(-x,-y,-z);
-}
-
-MnjVector& MnjVector::operator*=(double d)
-{
-  x *= d;
-  y *= d;
-  z *= d;
-  return *this;
-}
-
-MnjVector& MnjVector::operator/=(double d)
-{
-  const double one_over_d = 1.0/d;
-  x *= one_over_d;
-  y *= one_over_d;
-  z *= one_over_d;
-  return *this;
-}
-
-MnjVector& MnjVector::operator+=(const MnjVector& v)
-{
-  x += v.x;
-  y += v.y;
-  z += v.z;
-  return *this;
-}
-
-MnjVector& MnjVector::operator-=(const MnjVector& v)
-{
-  x -= v.x;
-  y -= v.y;
-  z -= v.z;
-  return *this;
-}
-*/
-/*
-MnjVector MnjVector::operator*( int i ) const
-{
-  double d = i;
-  return MnjVector(x*d,y*d,z*d);
-}
-*/
-/*
-MnjVector MnjVector::operator*( float f ) const
-{
-  double d = f;
-  return MnjVector(x*d,y*d,z*d);
-}
-
-*/
-/*
-MnjVector MnjVector::operator+( const Flow2dVector& v ) const
-{
-  return MnjVector(x+v.x,y+v.y,z);
-}
-
-Flow3dPoint MnjVector::operator+( const Flow2dPoint& p ) const
-{
-  return Flow3dPoint(x+p.x,y+p.y,z);
-}
-
-MnjVector MnjVector::operator-( const Flow2dVector& v ) const
-{
-  return MnjVector(x-v.x,y-v.y,z);
-}
-
-Flow3dPoint MnjVector::operator-( const Flow2dPoint& v ) const
-{
-  return Flow3dPoint(x-v.x,y-v.y,z);
-}
-
-MnjVector MnjVector::operator+( const Flow3fVector& v ) const
-{
-  return MnjVector(x+v.x,y+v.y,z+v.z);
-}
-
-Flow3dPoint MnjVector::operator+( const Flow3fPoint& p ) const
-{
-  return Flow3dPoint(x+p.x,y+p.y,z+p.z);
-}
-
-MnjVector MnjVector::operator-( const Flow3fVector& v ) const
-{
-  return MnjVector(x-v.x,y-v.y,z-v.z);
-}
-
-Flow3dPoint MnjVector::operator-( const Flow3fPoint& v ) const
-{
-  return Flow3dPoint(x-v.x,y-v.y,z-v.z);
-}
-
-MnjVector MnjVector::operator+( const Flow2fVector& v ) const
-{
-  return MnjVector(x+v.x,y+v.y,z);
-}
-
-Flow3dPoint MnjVector::operator+( const Flow2fPoint& p ) const
-{
-  return Flow3dPoint(x+p.x,y+p.y,z);
-}
-*/
-/*
-MnjVector MnjVector::operator-( const Flow2fVector& v ) const
-{
-  return MnjVector(x-v.x,y-v.y,z);
-}
-
-Flow3dPoint MnjVector::operator-( const Flow2fPoint& v ) const
-{
-  return Flow3dPoint(x-v.x,y-v.y,z);
-}
-
-
-double MnjVector::operator*(const Flow4dPoint& h) const
-{
-  return x*h.x + y*h.y + z*h.z;
-}
-*/
-/*
-bool MnjVector::operator==( const MnjVector& v ) const
-{
-  return (x==v.x&&y==v.y&&z==v.z)?true:false;
-}
-
-bool MnjVector::operator!=( const MnjVector& v ) const
-{
-  return (x!=v.x||y!=v.y||z!=v.z)?true:false;
-}
-
-bool MnjVector::operator<=( const MnjVector& v ) const
-{
-  // dictionary order
-  return ((x<v.x)?true:((x==v.x)?((y<v.y)?true:(y==v.y&&z<=v.z)?true:false):false));
-}
-
-bool MnjVector::operator>=( const MnjVector& v ) const
-{
-  // dictionary order
-  return ((x>v.x)?true:((x==v.x)?((y>v.y)?true:(y==v.y&&z>=v.z)?true:false):false));
-}
-
-bool MnjVector::operator<( const MnjVector& v ) const
-{
-  // dictionary order
-  return ((x<v.x)?true:((x==v.x)?((y<v.y)?true:(y==v.y&&z<v.z)?true:false):false));
-}
-
-bool MnjVector::operator>( const MnjVector& v ) const
-{
-  // dictionary order
-  return ((x>v.x)?true:((x==v.x)?((y>v.y)?true:(y==v.y&&z>v.z)?true:false):false));
-}
-
-int MnjVector::MaximumCoordinateIndex() const
-{
-  return (fabs(y)>fabs(x)) ? ((fabs(z)>fabs(y))?2:1) : ((fabs(z)>fabs(x))?2:0);
-}
-
-double MnjVector::MaximumCoordinate() const
-{
-  double c = fabs(x); if (fabs(y)>c) c=fabs(y); if (fabs(z)>c) c=fabs(z);
-  return c;
-}
-
-int MnjVector::MinimumCoordinateIndex() const
-{
-  return (fabs(y)<fabs(x)) ? ((fabs(z)<fabs(y))?2:1) : ((fabs(z)<fabs(x))?2:0);
-}
-
-double MnjVector::MinimumCoordinate() const
-{
-  double c = fabs(x); if (fabs(y)<c) c=fabs(y); if (fabs(z)<c) c=fabs(z);
-  return c;
-}
-
-void MnjVector::Zero()
-{
-  x = y = z = 0.0;
-}
-
-void MnjVector::Reverse()
-{
-  x = -x;
-  y = -y;
-  z = -z;
-}
-
-
-
-double MnjVector::LengthAndUnitize()
-{
-  double d;
-  double len = Length();
-  if ( len > FLOW_DBL_MIN )
-  {
-    d = 1.0/len;
-    x *= d;
-    y *= d;
-    z *= d;
-  }
-  else if ( len > 0.0 && FLOW_IS_FINITE(len) )
-  {
-    // This code is rarely used and can be slow.
-    // It multiplies by 2^1023 in an attempt to 
-    // normalize the coordinates.
-    // If the renormalization works, then we're
-    // ok.  If the renormalization fails, we
-    // return false.
-    MnjVector tmp;
-    tmp.x = x*8.9884656743115795386465259539451e+307;
-    tmp.y = y*8.9884656743115795386465259539451e+307;
-    tmp.z = z*8.9884656743115795386465259539451e+307;
-    d = tmp.Length();
-    if ( d > FLOW_DBL_MIN )
-    {
-      d = 1.0/d;
-      x = tmp.x*d;
-      y = tmp.y*d;
-      z = tmp.z*d;
-    }
-    else
-    {
-      len = 0.0;
-      x = 0.0;
-      y = 0.0;
-      z = 0.0;
-    }
-  }
-  else
-  {
-    len = 0.0;
-    x = 0.0;
-    y = 0.0;
-    z = 0.0;
-  }
-
-  return len;
-}
-
-
-bool MnjVector::IsTiny( double tiny_tol ) const
-{
-  return (fabs(x) <= tiny_tol && fabs(y) <= tiny_tol && fabs(z) <= tiny_tol );
-}
-
-bool MnjVector::IsZero() const
-{
-  return (x==0.0 && y==0.0 && z==0.0);
-}
-
-bool MnjVector::IsUnitVector() const
-{
-  return (x != FLOW_UNSET_VALUE && y != FLOW_UNSET_VALUE && z != FLOW_UNSET_VALUE && fabs(Length() - 1.0) <= FLOW_SQRT_EPSILON);
-}
-*/ 
-
 const MnjVector MnjVector::ZeroVector(0.0,0.0,0.0);
 const MnjVector MnjVector::XAxis(1.0,0.0,0.0);
 const MnjVector MnjVector::YAxis(0.0,1.0,0.0);
@@ -629,61 +366,15 @@ const MnjVector MnjVector::ZAxis(0.0,0.0,1.0);
 const MnjVector MnjVector::UnsetVector(MNJ_UNSET_VALUE,MNJ_UNSET_VALUE,MNJ_UNSET_VALUE);
 
 ////////////////////////////////////////////////////////////////
+
 /*
-void MnjVector::Rotate( 
-      double angle,              // angle in radians
-      const MnjVector& axis   // axis of rotation
-      )
-{
-  Rotate( sin(angle), cos(angle), axis );
-}
-
-void MnjVector::Rotate( 
-      double sin_angle,        // sin(angle)
-      double cos_angle,        // cos(angle)
-      const MnjVector& axis  // axis of rotation
-      )
-{
-  //bool rc = false;
-  FlowXform rot;
-  rot.Rotation( sin_angle, cos_angle, axis, Floworigin );
-  Transform(rot);
-}
-*/
-/*
-
-bool MnjVector::Decompose( // Computes a, b, c such that this vector = a*X + b*Y + c*Z
-       //
-       // If X,Y,Z is known to be an orthonormal frame,
-       // then a = V*X, b = V*Y, c = V*Z will compute
-       // the same result more quickly.
-       const MnjVector& X,
-       const MnjVector& Y,
-       const MnjVector& Z,
-       double* a,
-       double* b,
-       double* c
-       ) const
-{
-  int rank;
-  double pivot_ratio = 0.0;
-  double row0[3], row1[3], row2[3];
-  row0[0] = X*X;   row0[1] = X*Y;   row0[2] = X*Z;
-  row1[0] = row0[1]; row1[1] = Y*Y;   row1[2] = Y*Z;
-  row2[0] = row0[2]; row2[1] = row1[2]; row2[2] = Z*Z;
-  rank = FlowSolve3x3( row0, row1, row2, 
-                    (*this)*X, (*this)*Y, (*this)*Z,
-                    a, b, c, &pivot_ratio );
-  return (rank == 3) ? true : false;
-}
-
 int MnjVector::IsParallelTo( 
       // returns  1: this and other vectors are and parallel
       //         -1: this and other vectors are anti-parallel
       //          0: this and other vectors are not parallel
       //             or at least one of the vectors is zero
       const MnjVector& v,
-      double angle_tolerance // (default=FlowDEFAULT_ANGLE_TOLERANCE) radians
+      double angle_tolerance 
       ) const
 {
   int rc = 0;
@@ -763,56 +454,7 @@ bool MnjVector::PerpendicularTo( const MnjVector& v )
   return (a != 0.0) ? true : false;
 }
 
-bool
-MnjVector::PerpendicularTo( 
-      const Flow3dPoint& P0, const Flow3dPoint& P1, const Flow3dPoint& P2
-      )
-{
-  // Find a the unit normal to a triangle defined by 3 points
-  MnjVector V0, V1, V2, N0, N1, N2;
-
-  Zero();
-
-  V0 = P2 - P1;
-  V1 = P0 - P2;
-  V2 = P1 - P0;
-
-  N0 = FlowCrossProduct( V1, V2 );
-  if ( !N0.Unitize() )
-    return false;
-  N1 = FlowCrossProduct( V2, V0 );
-  if ( !N1.Unitize() )
-    return false;
-  N2 = FlowCrossProduct( V0, V1 );
-  if ( !N2.Unitize() )
-    return false;
-
-  const double s0 = 1.0/V0.Length();
-  const double s1 = 1.0/V1.Length();
-  const double s2 = 1.0/V2.Length();
-
-  // choose normal with smallest total error
-  const double e0 = s0*fabs(FlowDotProduct(N0,V0)) + s1*fabs(FlowDotProduct(N0,V1)) + s2*fabs(FlowDotProduct(N0,V2));
-  const double e1 = s0*fabs(FlowDotProduct(N1,V0)) + s1*fabs(FlowDotProduct(N1,V1)) + s2*fabs(FlowDotProduct(N1,V2));
-  const double e2 = s0*fabs(FlowDotProduct(N2,V0)) + s1*fabs(FlowDotProduct(N2,V1)) + s2*fabs(FlowDotProduct(N2,V2));
-
-  if ( e0 <= e1 ) {
-    if ( e0 <= e2 ) {
-      *this = N0;
-    }
-    else {
-      *this = N2;
-    }
-  }
-  else if (e1 <= e2) {
-    *this = N1;
-  }
-  else {
-    *this = N2;
-  }
   
-  return true;
-}
 */
 ///////////////////////////////////////////////////////////////////////////
 bool MnjVector::IsPerpendicularTo(
@@ -820,7 +462,7 @@ bool MnjVector::IsPerpendicularTo(
       //         false: this and other vectors are not perpendicular
       //                or at least one of the vectors is zero
       const MnjVector& v,
-      double angle_tolerance // (default=FlowDEFAULT_ANGLE_TOLERANCE) radians
+      double angle_tolerance 
       ) const
 {
   bool rc = false;

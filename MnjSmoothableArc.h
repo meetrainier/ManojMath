@@ -5,14 +5,13 @@
 #include "MnjArc.h"
 #include "MnjSmoothableLine.h"
 #include "MnjMathNamespace.h"
-//class FlowICSLine;
+
 
 class MnjSmoothableArc: public MnjSmoothableSegment {
 
 public:
 	MnjSmoothableArc() { SetStatus(MnjSmoothableSegment::UNKNOWN);} 
-	//MnjSmoothableArc(FlowSegment &iSeg1, FlowSegment &iSeg2);
-	//MnjSmoothableArc(FlowSegment *iSeg1, FlowSegment *iSeg2);
+
 	MnjSmoothableArc(MnjPoint<double> &ip1, MnjPoint<double> &center,
                    MnjPoint<double> &ip2//,ICSAttribute &iattr 
                );

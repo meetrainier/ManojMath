@@ -3,16 +3,11 @@
 
 ////////////////////////////////////////////////////////////
 ///
-///     Flow International Corp.
-///     Project : Cycle time prediction
+/
 ///     Subsystem : None
 ///     Author : Manoj Lnu
 ///     Date : 1/30/2015
 ///
-///     Copyright (C) 2015 Flow International Corp.
-///		All rights reserved.
-///
-/// 1/30/2015:Manoj : Name space for Flow Math Infrastructure 
 #include <utility>
 #include <vector>
 #include <memory>

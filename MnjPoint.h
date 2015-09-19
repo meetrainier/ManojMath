@@ -70,7 +70,7 @@ class MnjPoint
     MnjPoint(const MnjPoint<double> &ip);
 //MnjPoint operator*( const Mnj4x4Matrix& xform ) const;
     static const MnjPoint Origin;     // (0.0,0.0,0.0)
-    static const MnjPoint UnsetPoint; // (FLOW_UNSET_VALUE,FLOW_UNSET_VALUE,FLOW_UNSET_VALUE)
+    static const MnjPoint UnsetPoint; //uses macros meant for unset values 
 
 int MaximumCoordinateIndex() const;
 MnjPoint<double>& operator=(const float* p);

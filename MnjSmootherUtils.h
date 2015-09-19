@@ -27,7 +27,7 @@ class MnjSmootherUtils {
 public:
 
   enum SegmentType{//returns which type of segment is stored
-        SMOOTHABLE_SEG_LINE,//this segment is of type FlowSmoothableLine
+        SMOOTHABLE_SEG_LINE,//this segment is of type MnjSmoothableLine
         SMOOTHABLE_SEG_ARC,//this segment is of type MnjSmoothableArc
         SMOOTHABLE_SEG_UNKOWN
     };

@@ -688,44 +688,6 @@ public:
     MnjInterval new_interval
     );
 
-  // Description: The ChangeBasis() function is overloaded 
-  //   and provides several
-  //   ways to compute a change of basis transformation.
-  //
-  // Parameters:
-  //   plane0 - inital plane
-  //   plane1 - final plane
-  //
-  // Returns:
-  //   @untitled table
-  //   true    success
-  //   false   vectors for initial frame are not a basis
-  //
-  // Remarks: 
-  //   If you have points defined with respect to planes, the
-  //   version of ChangeBasis() that takes two planes computes
-  //   the transformation to change coordinates from one plane to 
-  //   another.  The predefined world plane Flow_world_plane can
-  //   be used as an argument.
-  //
-  //   If P = plane0.Evaluate( a0,b0,c0 ) and 
-  //
-  //   (a1,b1,c1) = ChangeBasis(plane0,plane1)*MnjPoint<double>(a0,b0,c0),
-  //
-  //   then P = plane1.Evaluate( a1, b1, c1 )
-  //          
-  //   The version of ChangeBasis() that takes six vectors
-  //   maps (a0,b0,c0) to (a1,b1,c1) where
-  //   a0*X0 + b0*Y0 + c0*Z0 = a1*X1 + b1*Y1 + c1*Z1
-  //
-  //   The version of ChangeBasis() that takes six vectors
-  //   with center points
-  //   maps (a0,b0,c0) to (a1,b1,c1) where
-  //   P0 + a0*X0 + b0*Y0 + c0*Z0 = P1 + a1*X1 + b1*Y1 + c1*Z1
-  //
-  //   The change of basis transformation is not the same as
-  //   the rotation transformation that rotates one orthonormal
-  //   frame to another.  See Mnj4x4Matrix::Rotation().
   	
   bool ChangeBasis( 
   const MnjPlane& plane0, // initial plane

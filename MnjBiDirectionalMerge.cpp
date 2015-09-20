@@ -148,7 +148,6 @@ std::shared_ptr<MnjSmoothableSegment>  MnjBiDirectionalMerge::Merge(std::shared_
         vector< boost::shared_ptr<MnjSmoothableSegment> > icsSegVec;
 	    icsSegVec.push_back(iSeg1);
 	    icsSegVec.push_back(iSeg2);
-        FlowSmoother s;
 	    s.GetAttributeWithLowestValues(icsSegVec,attr);
         */
       std::shared_ptr<MnjSmoothableArc> arc1 = std::dynamic_pointer_cast<MnjSmoothableArc,MnjSmoothableSegment> (iSeg1);
@@ -202,7 +201,7 @@ boost::shared_ptr<MnjSmoothableSegment>  MnjBiDirectionalMerge::Merge(boost::sha
         vector< boost::shared_ptr<MnjSmoothableSegment> > icsSegVec;
 	    icsSegVec.push_back(iSeg1);
 	    icsSegVec.push_back(iSeg2);
-        FlowSmoother s;
+        MnjSmoother s;
 	    s.GetAttributeWithLowestValues(icsSegVec,attr);
 
         boost::shared_ptr<MnjSmoothableArc> arc1 = boost::dynamic_pointer_cast<MnjSmoothableArc,MnjSmoothableSegment> (iSeg1);
@@ -419,7 +418,6 @@ double MnjBiDirectionalMerge::GetAngle(std::shared_ptr<MnjSmoothableSegment> iSe
                                        std::shared_ptr<MnjSmoothableSegment> iSeg2, int &oerror){
   //int error = 0;
   //TBD: Make sure that get Angle serves the purpose for Arc-line and arc-arc corners.
-  //FlowPoint<double> commonPoint = SegmentCommonPoint(iSeg1,iSeg2,oerror);
   dbl_3d_pt commonPoint = iSeg1->GetCommonPoint(iSeg2,oerror);
   double angle = -9999;
   if(oerror>=0){

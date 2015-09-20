@@ -237,7 +237,6 @@ public:
   // set this vector to be perpendicular to a plane defined by 3 points
   bool PerpendicularTo(
                // about 3 times slower than
-               //    MnjVector N = FlowCrossProduct(P1-P0,P2-P0); 
                //    N.Unitize();
                // returns false if points are coincident or colinear
          const MnjPoint<double>&, const MnjPoint<double>&, const MnjPoint<double>& 

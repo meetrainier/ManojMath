@@ -3,7 +3,6 @@
 
 ////////////////////////////////////////////////////////////
 ///
-/
 ///     Subsystem : None
 ///     Author : Manoj Lnu
 ///     Date : 1/30/2015
@@ -11,7 +10,7 @@
 #include <utility>
 #include <vector>
 #include <memory>
-
+#include <map>
 #include "MnjPoint.h"
 
 using namespace std;
@@ -19,20 +18,18 @@ using namespace std;
 
 namespace MnjMath {
 
-	typedef vector<double> vec_dbl;
-	typedef vector<vector<double>> vec_vec_dbl;
-	typedef vector<vector<vector<double>>> vec_vec_vec_dbl;
+	//changing the above to using 
+	using vec_dbl = vector<double> ;
+	using vec_vec_dbl= vector<vector<double>> ;
+	using vec_vec_vec_dbl= vector<vector<vector<double>>> ;
 
-	typedef MnjPoint<double> dbl_3d_pt;
-	typedef shared_ptr<MnjPoint<double>> shared_ptr_pt;
-	typedef std::pair<double, double> dbl_dbl_pr;
+	using dbl_3d_pt= MnjPoint<double> ;
+	using shared_ptr_pt = shared_ptr<MnjPoint<double>> ;
+	using dbl_dbl_pr= std::pair<double, double> ;
 
-	typedef vector<std::shared_ptr<MnjPoint<double>>>     shared_ptr_vec_pt; 
-		
+	using shared_ptr_vec_pt = vector<std::shared_ptr<MnjPoint<double>>>     ;
 	
-
-	
-	map < int , string > digit2string = {
+	const map < int , string > digit2string = {
 	{1,"one"},
 	{2,"two"},
 	{3,"three"},

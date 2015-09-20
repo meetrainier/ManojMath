@@ -491,7 +491,6 @@ dbl_3d_pt MnjArc::GetPointAtAngle(const double &itheta) {
 		double  r = GetRadius();
 		MnjDirection X = GetXAxis();
 		MnjDirection Y = GetYAxis();
-		//FlowVector vec = centerPoint + (X*r)*cos(itheta)+ Y*r*sin(itheta);
         {//debug code 
             MnjDirection z_cal = X.CrossProduct(Y);
             //double num  = z_cal.DotProduct(Z);
@@ -509,7 +508,6 @@ double MnjArc::Distance(dbl_3d_pt &ip,int &oerror) {
     oerror =0;
     //MnjPoint<double> C = GetCenter();
     //MnjInfiniteLine infLine(centerPoint,ip);
-    //FlowCircle circle(*this);
     //circle.Intersect(infLine);
 
     double r = GetRadius();

@@ -98,24 +98,6 @@ private:
 	char *amassmn;
 };
 
-/*
-   bool operator<(FlowSegment *s){
-	   MnjPoint<double>  p1;
-	   s->GetStartPoint(p1);
-	   MnjPoint<double>  p;
-	   GetStartPoint(p);
-	   return p.x < p1.x;
-   }
 
-   bool operator==(FlowSegment &s){
-	   MnjPoint<double>  p1;
-	   s.GetStartPoint(p1);
-	   MnjPoint<double>  p;
-	   GetStartPoint(p);
-	   return (p.x == p1.x && p.y == p1.y  && p.z == p1.z );
-   }
-
-
-*/
 
 

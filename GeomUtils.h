@@ -8,16 +8,8 @@
 
 #include "MnjMathNamespace.h"
 
-//#include <boost/shared_ptr.hpp>
-//#include <boost/weak_ptr.hpp>
 
 #include "MnjPoint.h" 
-
-/*
-#include "MnjLine.h" 
-#include "MnjArc.h" 
-#include "MnjSmoothableSegment.h"
-*/
 
 using namespace std;
 using namespace MnjMath; 

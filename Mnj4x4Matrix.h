@@ -71,7 +71,7 @@ public:
     Test the entries of the transformation matrix
     to see if they are valid number.
   Returns:
-    True if FlowIsValid() is true for every number
+    True if IsValid() is true for every number
     in the transformation matrix.
   */
   bool IsValid() const;

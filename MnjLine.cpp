@@ -12,17 +12,9 @@
 #include "MnjVector.h"
 #include "Mnj4x4Matrix.h"
 #include "GeomUtils.h"
-/*
-#include "FlowOperators.h"
-#include "FlowLine.h"
-#include "FlowInfiniteLine.h" 
-#include "FlowPoint.h"
-#include "FlowDirection.h"
-#include "FlowVector.h"
-#include "Flow4x4Matrix.h"
-#include "GeomUtils.h"
-*/
+
 using namespace std; 
+
 MnjLine::MnjLine(MnjPoint<double> &s, MnjPoint<double> &e){
 	startPoint = s;
 	endPoint = e;

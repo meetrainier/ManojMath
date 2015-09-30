@@ -17,11 +17,11 @@ class MnjArc: public Segment {
 public:
      typedef std::shared_ptr<MnjArc> shared_ptr;
 	
-	typedef vector<std::shared_ptr<MnjArc>> shared_ptr_vec;
-	typedef vector<std::shared_ptr<MnjArc>>::iterator shared_ptr_vec_it;
+	using shared_ptr_vec = vector<std::shared_ptr<MnjArc>> ;
+	using shared_ptr_vec_it = vector<std::shared_ptr<MnjArc>>::iterator ;
     
-	typedef list<std::shared_ptr<MnjArc>> shared_ptr_list;
-	typedef list<std::shared_ptr<MnjArc>>::iterator shared_ptr_list_it;
+	using shared_ptr_list = list<std::shared_ptr<MnjArc>> ;
+	using shared_ptr_list_it = list<std::shared_ptr<MnjArc>>::iterator ;
 
 	MnjArc() { } 
 	MnjArc(Segment &iSeg1, Segment &iSeg2);

@@ -3,8 +3,6 @@
 #include <vector>
 #include <list>
 #include <memory>
-//#include <boost/shared_ptr.hpp>
-//#include <boost/weak_ptr.hpp>
 
 #include "MnjPoint.h"
 
@@ -19,13 +17,14 @@ class Segment {
 
 public:
 
-  typedef shared_ptr<Segment> shared_ptr;
+  typedef shared_ptr<Segment> shared_ptr;// postponing change of this "typedef" to "using"  
+  					//since no compilation fcilityis currently available.
 	
-	typedef vector<std::shared_ptr<Segment>> shared_ptr_vec;
-	typedef vector<std::shared_ptr<Segment>>::iterator shared_ptr_vec_it;
+	using shared_ptr_vec  = vector<std::shared_ptr<Segment>> ;
+        using shared_ptr_vec_it = vector<std::shared_ptr<Segment>>::iterator ;
     
-	typedef list<std::shared_ptr<Segment>> shared_ptr_list;
-	typedef list<std::shared_ptr<Segment>>::iterator shared_ptr_list_it;
+	using shared_ptr_list = list<std::shared_ptr<Segment>> ;
+	using shared_ptr_list_it = list<std::shared_ptr<Segment>>::iterator ;
   ///////////////////////////////////////////////////////////////////////////////////////////////
   enum  SegmentChange{UNKNOWN, //default value ( if constructor argument doesn't specify anything) 
                        ORIGINAL,//No change took place. 

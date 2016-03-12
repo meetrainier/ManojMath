@@ -65,12 +65,53 @@ void product_otherthan_self(const vector<int> iv, vector<int> &ov) {
 /*4) Give an array of 100 random integers. Write an algorithm to find the closest 2 integers (closest by position) in the array that 
 add up to 100.
 */
+#include <algorithm> 
+#include <iostream> 
+#include <cassert>
 
+using namespace std; 
+
+/*
+Role: 
+The function returns:
+  true,  if input integer array contains any two elements summing to 100
+  false, if input integer array does not contains any two elements summing to 100
+  Note: For invalid inputs( 0 or 1 size arrays ) it will return false; 
+Side effect: 
+  the vector is sorted now. 
+  This side effect can be easily removed if a copy of the input vector is created.  
+  
+Other possible enhancements:
+1. For invalid inputs, it should throw errors.
+2. create a template function so that if needed the function can be resused for other data-types(e.g. unsigned int , long , long long ).  
+*/ 
+bool AddUpTo(vector<int> &v) {
+
+  bool AddUpToNum = false; 
+
+  const int num = 100; 
+
+  sort(begin(v),end(v)); 
+
+  for (auto x: v) {
+    auto it = find (begin(v),end(v),num - x);  
+    if (it != v.end()){
+      AddUpToNum = true;
+      break; 
+    }
+  }
+
+return AddUpToNum; 
+
+}
 
 
 /*
 5)-+ Given the root node to a singly linked list, write an algorithm to detect if there is a loop in the list.
 */
+
+
+
 /*
 6) Given the function: "bool numExists( int array[], int array_len, int num )" where "array" is a sorted array of integers.  Determine if "num" exists in the array.
 */

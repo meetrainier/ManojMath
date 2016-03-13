@@ -110,7 +110,36 @@ return AddUpToNum;
 5)-+ Given the root node to a singly linked list, write an algorithm to detect if there is a loop in the list.
 */
 
+struct Node {
+  int data; 
+  int *next; 
+}
 
+bool FindLoop(Node *root){
+
+if(nullptr==root){
+  //tbd ; Throw error accrding to developemtn environment
+}
+
+bool  result = false; 
+
+Node *speed1 =  root; 
+Node *speed2 =  root;  
+
+while(speed1->next) {
+
+   speed1 = speed1->next; 
+   speed2 = speed2->next->next; 
+   if(spped1==speed2){
+     result = true; 
+     break; 
+   } 
+  
+}; 
+
+return result; 
+
+}
 
 /*
 6) Given the function: "bool numExists( int array[], int array_len, int num )" where "array" is a sorted array of integers.  Determine if "num" exists in the array.

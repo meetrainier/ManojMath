@@ -3,7 +3,7 @@ Manoj 4/13/2012 Added 3d line-line intersection LineLineIntersect()
 Manoj /10/2015 Migration from boost to std. Now using <memory> header 
 
 */
-//#include <algorithm>
+
 #include <cmath>
 #include <iostream>
 #include <list>

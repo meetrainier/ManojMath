@@ -1,4 +1,5 @@
 #pragma once
+//Manoj : 21May 2016: Replaced typedesf by using 
 //#include "MnjSmoothableSegment.h"
 #include <memory> 
 #include "MnjArc.h"
@@ -14,19 +15,23 @@
 
 #define MAX_STR_SIZE 10000
 
-//template <typename MnjSmoothableSegment, typename MnjSmoothableLine, typename MnjSmoothableArc>
-//template <class MnjSmoothableSegment, class MnjSmoothableLine, class MnjSmoothableArc>
+
 class TestMnjSmoother {
 
 public:
+ using shared_ptr_seg     = std::shared_ptr<MnjSmoothableSegment> shared_ptr_seg;
+ using vec_shared_ptr_seg = vector<std::shared_ptr<MnjSmoothableSegment>> vec_shared_ptr_seg;
+
+ using  shared_ptr_arc = std::shared_ptr<MnjSmoothableArc> ;
+ using  shared_ptr_line = std::shared_ptr<MnjSmoothableLine> ;
  
+ /*
  typedef  std::shared_ptr<MnjSmoothableSegment> shared_ptr_seg;
  typedef vector<std::shared_ptr<MnjSmoothableSegment>> vec_shared_ptr_seg;
- //typedef typename vector<boost::shared_ptr<MnjSmoothableSegment>>::iterator vec_shared_ptr_seg_it;
 
  typedef  std::shared_ptr<MnjSmoothableArc> shared_ptr_arc;
  typedef  std::shared_ptr<MnjSmoothableLine> shared_ptr_line;
- 
+ */
  //Call all other tests
   static int Test(void);
  //template <class MnjSmoothableSegment, class MnjSmoothableLine, class MnjSmoothableArc>

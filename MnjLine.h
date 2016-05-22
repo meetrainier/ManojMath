@@ -1,4 +1,5 @@
 #pragma once
+//Manoj : 21May 2016: Replaced typedesf by using 
 
 #include <vector>
 #include <list>
@@ -24,7 +25,14 @@ using namespace std;
 class MnjLine: public Segment {
 
 public:
-
+  typedef shared_ptr = std::shared_ptr<MnjLine> ;
+	
+  typedef shared_ptr_vec = vector<std::shared_ptr<MnjLine>> ;
+  typedef shared_ptr_vec_it = vector<std::shared_ptr<MnjLine>>::iterator ;
+    
+  typedef shared_ptr_list = list<std::shared_ptr<MnjLine>> ;
+  typedef shared_ptr_list_it = list<std::shared_ptr<MnjLine>>::iterator ;
+/*
     typedef std::shared_ptr<MnjLine> shared_ptr;
 	
 	typedef vector<std::shared_ptr<MnjLine>> shared_ptr_vec;
@@ -32,7 +40,7 @@ public:
     
 	typedef list<std::shared_ptr<MnjLine>> shared_ptr_list;
 	typedef list<std::shared_ptr<MnjLine>>::iterator shared_ptr_list_it;
-
+*/
 	MnjLine(){ }
 
 	MnjLine(const MnjLine &l){ 

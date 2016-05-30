@@ -58,14 +58,60 @@ class GeomUtils{
 	
 
 public:
-	/* Projects point p , on line segment defined by LineStart and LineEnd.
+		
+	/*
+  	  Role:Creates an arc between two adjacent line segments
+  	  Input: two segments and a radius. The segments could be a line or a radius
+    	*/
+   	static int CreateArc(     shared_ptr<Segment> &iSeg1, 
+                                  shared_ptr<Segment> &iSeg2, 
+                            const double &ir,
+	                          shared_ptr<MnjArc>  &arc);
+  	/*
+  	  Role:Creates an arc between two adjacent line segments
+  	  Input: two lines and a radius
+    	*/
+   	static int CreateArc(      shared_ptr<MnjLine> &seg1, 
+                                   shared_ptr<MnjLine> &seg2, 
+                             const double &r,
+	                           shared_ptr<MnjArc>  &arc);
+
+        /*
+  	  Role:  Creates an arc between two adjacent line segments
+  	  Input: one line, one arc and a radius
+    	*/
+        static int CreateArc(      shared_ptr<MnjLine> &seg1, 
+                                   shared_ptr<MnjArc> &seg2, 
+                             const double &r,
+	                           shared_ptr<MnjArc>  &arc);
+
+   	/*
+  	  Role:Creates an arc between two adjacent line segments
+  	  Input:  one arc, one line and a radius
+    	*/
+    	static int CreateArc(      shared_ptr<MnjArc> &seg1, 
+                                   shared_ptr<MnjLine> &seg2, 
+                             const double &r,
+	                           shared_ptr<MnjArc>  &arc);
+
+   	/*
+  	  Role:Creates an arc between two adjacent line segments
+  	  Input: two arcs and a radius
+    	*/
+    	static int CreateArc(        shared_ptr<MnjArc> &seg1, 
+                                     shared_ptr<MnjArc> &seg2, 
+                               const double &r,
+	                             shared_ptr<MnjArc>  &arc);
+	
+	/* 
+	Projects point p, on line segment defined by LineStart and LineEnd.
 	*/
 	static int Project(const dbl_3d_pt LineStart, const dbl_3d_pt LineEnd,
 	                   const dbl_3d_pt &p, 
-				                   dbl_3d_pt &pProjection, double tol = .001);
+				dbl_3d_pt &pProjection, double tol = .001);
 	/*
 	  Role: Calculate the line segment PaPb that is the shortest route between
-      two lines P1P2 and P3P4. Calculate also the values of mua and mub where
+                two lines P1P2 and P3P4. Calculate also the values of mua and mub where
 			Pa = P1 + mua (P2 - P1)
 			Pb = P3 + mub (P4 - P3)
 	 Return 0 if no solution or multiple solutions exist.
@@ -80,7 +126,8 @@ public:
 			dbl_3d_pt & p3,dbl_3d_pt & p4,
 			dbl_3d_pt & pa,dbl_3d_pt & pb,
 			double *mua, double *mub,const double  tol = .001 );
-/*
+	
+	/*
 	  Role: Calculate the intersection between line1 and line2; 
 		 p1= start of line1;
 		 p2= start of line2;
@@ -100,14 +147,18 @@ public:
 			const double  tol = .001);
 			*/
 	/**
-	Gets distance between a point p and Line segment(defined by Linestart and LineSegment).
+	Gets distance between a point p and Line segment(defined by Linestart and LineEnd).
 	*/
 
 	static int DistancePointLine( const dbl_3d_pt &p, const dbl_3d_pt &LineStart, const dbl_3d_pt &LineEnd, double &od );
+	/**
+	Gets distance between a point p and and infinite Line segment(defined by Linestart and LineEnd).
+	*/
 	static int DistancePointInfiniteLine( dbl_3d_pt &p, dbl_3d_pt &LineStart, dbl_3d_pt &LineEnd, double &od );
-	//static void GetDistance(MnjPoint<double> &p1,
-	//				          MnjPoint<double> &p2, 
-	//					      double& distance); 
+ 
+ 	/*
+	Get distance between two points.
+	*/
 	static void GetDistance(const dbl_3d_pt& p1, const dbl_3d_pt &p2, 
 				      double&    distance); 
 							                  
@@ -116,19 +167,19 @@ public:
 	*/
   	static double GetDistance(const dbl_3d_pt &p1, const dbl_3d_pt &p2);
   
-/*
-Get distance between two points.
-*/
-  static void GetDistance(const double &x1, const double &y1, 
-		          const double &x2, const double &y2, 
+	/*
+	Get distance between two points.
+	*/
+  	static void GetDistance(const double &x1, const double &y1, 
+		                const double &x2, const double &y2, 
 				                        double& distance);
-/*
-Get distance between two 3d points.
-*/
+	/*
+	Get distance between two 3d points.
+	*/
 
 	static void GetDistance(const double &x1, const double &y1, 
-		                      const double &z1, const double &x2, 
-							            const double &y2, const double &z2,
+		                const double &z1, const double &x2, 
+				const double &y2, const double &z2,
 				                        double& distance);
 
         /*
@@ -136,8 +187,8 @@ Get distance between two 3d points.
           out of (ix1,iy1) and (ix2,iy2) 
         */
 	static void FindNearest(const double &ix, const double &iy,
-				                  const double &ix1,const double &iy1,
-				                  const double &ix2,const double &iy2,
+			        const double &ix1,const double &iy1,
+				const double &ix2,const double &iy2,
 				                  double &near_x,  double &near_y);
 	/*
 		find mid point of  between two 2d points.
@@ -262,50 +313,7 @@ Get distance between two 3d points.
                         list<shared_ptr<MnjSmoothableSegment>>::iterator it);
 
    	static bool Circulable(list<shared_ptr<MnjSmoothableSegment>> &l);
-	
-	/*
-  	  Role:Creates an arc between two adjacent line segments
-  	  Input: two segments and a radius. The segments could be a line or a radius
-    	*/
-   	static int CreateArc(     shared_ptr<Segment> &iSeg1, 
-                                  shared_ptr<Segment> &iSeg2, 
-                            const double &ir,
-	                          shared_ptr<MnjArc>  &arc);
-  	/*
-  	  Role:Creates an arc between two adjacent line segments
-  	  Input: two lines and a radius
-    	*/
-   	static int CreateArc(shared_ptr<MnjLine> &seg1, 
-                             shared_ptr<MnjLine> &seg2, 
-                             const double &r,
-	                     shared_ptr<MnjArc>  &arc);
 
-        /*
-  	  Role:  Creates an arc between two adjacent line segments
-  	  Input: one line, one arc and a radius
-    	*/
-        static int CreateArc(      shared_ptr<MnjLine> &seg1, 
-                                   shared_ptr<MnjArc> &seg2, 
-                             const double &r,
-	                           shared_ptr<MnjArc>  &arc);
-
-   	/*
-  	  Role:Creates an arc between two adjacent line segments
-  	  Input:  one arc, one line and a radius
-    	*/
-    	static int CreateArc(      shared_ptr<MnjArc> &seg1, 
-                                   shared_ptr<MnjLine> &seg2, 
-                             const double &r,
-	                           shared_ptr<MnjArc>  &arc);
-
-   	/*
-  	  Role:Creates an arc between two adjacent line segments
-  	  Input: two arcs and a radius
-    	*/
-    	static int CreateArc(        shared_ptr<MnjArc> &seg1, 
-                                     shared_ptr<MnjArc> &seg2, 
-                               const double &r,
-	                             shared_ptr<MnjArc>  &arc);
 
    	static int GetCenter(shared_ptr<MnjLine> &l,
 	                     shared_ptr<MnjArc> &a,

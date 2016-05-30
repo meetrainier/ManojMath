@@ -20,15 +20,13 @@ class MnjLine;
 class Segment;
 class MnjSmoothableSegment;
 
-
+/*
+Get distance between two points.
+*/
 template <class T> 						
 void GetDistance(MnjPoint<T> &p1,
                  MnjPoint<T> &p2, 
 							   double& distance);
-
-
-
-
 
 
 /*
@@ -57,37 +55,7 @@ int DistancePointLine( MnjPoint<T> *p, MnjPoint<T> *LineStart,
 	                     MnjPoint<T> *LineEnd, double &od );
 class GeomUtils{
 
-	class TestGeomUtils{
-	public:
-
-		static int Test();
-
-		static int TestDistancePointInfiniteLine();
-		static int TestDistancePointLine();
-
-		//A wrapper of other test cases 
-
-		static void TestGetExactArcCenterUsingRadius(void);
-		static void TestGetExactArcCenterUsingRadius1(void);
-		static void TestGetExactArcCenterUsingRadius2(void);
-		static void TestGetExactArcCenterUsingRadius3(void);
-
-		static int TestLineLineIntersect(void);
-		static int TestLineLineIntersect1(void);
-		static int TestLineLineIntersect2(void);
-		static int TestLineLineIntersect3(void);
-		static int TestLineLineIntersect4(void);
-
-		static int TestProject();
-		static int TestProject1(const dbl_3d_pt LineStart, const dbl_3d_pt LineEnd,
-			double tol = .001);
-		static int TestProject2(const dbl_3d_pt LineStart, const dbl_3d_pt LineEnd,
-			double tol = .001);
-		static int TestProject3(const dbl_3d_pt LineStart, const dbl_3d_pt LineEnd,
-			double tol = .001);
-		static int TestProject4(const dbl_3d_pt LineStart, const dbl_3d_pt LineEnd,
-			double tol = .001);
-	};
+	
 
 public:
 	/* Projects point p , on line segment defined by LineStart and LineEnd.
@@ -140,56 +108,94 @@ public:
 	//static void GetDistance(MnjPoint<double> &p1,
 	//				          MnjPoint<double> &p2, 
 	//					      double& distance); 
-	static void GetDistance(const dbl_3d_pt &p1, const dbl_3d_pt &p2, 
-							                  double& distance); 
-  static double GetDistance(const dbl_3d_pt &p1, const dbl_3d_pt &p2);
+	static void GetDistance(const dbl_3d_pt& p1, const dbl_3d_pt &p2, 
+				      double&    distance); 
+							                  
+	/*
+	Get distance between two points.
+	*/
+  	static double GetDistance(const dbl_3d_pt &p1, const dbl_3d_pt &p2);
+  
+/*
+Get distance between two points.
+*/
   static void GetDistance(const double &x1, const double &y1, 
-		                      const double &x2, const double &y2, 
+		          const double &x2, const double &y2, 
 				                        double& distance);
+/*
+Get distance between two 3d points.
+*/
 
 	static void GetDistance(const double &x1, const double &y1, 
 		                      const double &z1, const double &x2, 
 							            const double &y2, const double &z2,
 				                        double& distance);
 
-	static void FindNearest(const double &x, const double &y,
-				                  const double &x1,const double &y1,
-				                  const double &x2,const double &y2,
+        /*
+         Finds which point is nearer to ix,iy 
+          out of (ix1,iy1) and (ix2,iy2) 
+        */
+	static void FindNearest(const double &ix, const double &iy,
+				                  const double &ix1,const double &iy1,
+				                  const double &ix2,const double &iy2,
 				                  double &near_x,  double &near_y);
-
+	/*
+		find mid point of  between two 2d points.
+	*/
 	static void GetMidPoint(const double &x1, const double &y1, 
-  					 const double &x2, const double &y2,
+  				const double &x2, const double &y2,
 					 double &xmid, double &ymid);
+					 
 	static void GetAngle(const double &x,       const double &y, 
-				  const double &centerX, const double &centerY, 
-				  double &angle);
+			     const double &centerX, const double &centerY, 
+				   double &angle);
 
+        /*
+          input:  Coordinates of two points
+          output: Coefficient to define equation of line ( as in form y = mx+c )
+         */
 	static void GetLineEquation(const double &x1,const double &y1,
-						 const  double &x2,const double &y2, 
+				   const  double &x2,const double &y2, 
 						 double &m, double &c, 
 						 int &bisectorParallelToY );
 
+	/*
+	  Translates a point along a given vector. 
+	*/
 	static void Translate(const dbl_3d_pt &p,
-		                 const MnjVector &v,
-						 dbl_3d_pt &pt );
+		              const MnjVector &v,
+				    dbl_3d_pt &pt );
 
-  static double  DotProduct(const MnjVector &vec1, const MnjVector &vec2);
+        /*
+         finds dot product of two vectors. 
+         */
+  	static double  DotProduct(const MnjVector &vec1, const MnjVector &vec2);
 
-  static MnjVector CrossProduct(const MnjVector &vec1, const MnjVector &vec2);
+	/*
+         finds dot product of two vectors. 
+         */
+  	static MnjVector CrossProduct(const MnjVector &vec1, const MnjVector &vec2);
 
-
-    static int Intersect2dLineCircle(dbl_3d_pt line_from, // 2d line from point
+         /*
+         Takes intersection between a circle (centered at origin) and a line (defined by two points).
+         */
+    	static int Intersect2dLineCircle(dbl_3d_pt line_from, // 2d line from point
                  dbl_3d_pt  line_to,
                  double r,
                  double tol,
                  double* t0,
                  double* t1
                  );
-    static bool IsSame(const dbl_3d_pt &ip1,
-		               const dbl_3d_pt &ip2);
+        /*
+                  Compares that given points are same or not. 
+        */
+    	static bool IsSame(const dbl_3d_pt &ip1,
+		           const dbl_3d_pt &ip2);
 
-
-      static int GetIntersectionOfCircles2D(
+        /*
+         Find inetrsection points between two circles. 
+         */
+      	static int GetIntersectionOfCircles2D(
             dbl_3d_pt &center1,
             double radius1,
             dbl_3d_pt &center2,
@@ -204,92 +210,114 @@ public:
             double radius2,
             dbl_3d_pt &P1,
             dbl_3d_pt &P2);
-
-    static int SolveSquareEquation(
+     	/*
+     	Solves a qudratic equation
+      	*/
+    	static int SolveSquareEquation(
             double a,
             double b,
             double c,
             vector<double> &result);
-    static int Inv( const double* src, double dst[4][4], double* determinant, double* pivot );
-
-    static void SwapRow( double matrix[4][4], int i0, int i1 );
-    static void SwapCol( double matrix[4][4], int j0, int j1 );
+    	
+    	static int Inv( const double* src, double dst[4][4], double* determinant, double* pivot );
+    	
+    	/*
+    	Swaps two row of a matrix 
+     	*/
+    	static void SwapRow( double matrix[4][4], int i0, int i1 );
+     	
+     	/*
+    	Swaps two columns of a matrix 
+     	*/
+    	static void SwapCol( double matrix[4][4], int j0, int j1 );
     
-    static void ScaleRow( double matrix[4][4], double c, int i );
-    static void AddCxRow( double matrix[4][4], double c, int i0, int i1 );
+    	static void ScaleRow( double matrix[4][4], double c, int i );
+    	static void AddCxRow( double matrix[4][4], double c, int i0, int i1 );
 
-    //find all points in vector pt_vec that are at distance r from ip 
-   //static int GetPointsAtDistance(MnjPoint<double> &ip, double &d, 
-     //            vector<vec_str &currentLine, int iLineNumber,shared_ptr<MnjPoint<double>>> &pt_vec,
-       //          vector<shared_ptr<MnjPoint<double>>> &opt_vec);
+    	//find all points in vector pt_vec that are at distance r from ip 
+   	//static int GetPointsAtDistance(MnjPoint<double> &ip, double &d, 
+     	//            vector<vec_str &currentLine, int iLineNumber,shared_ptr<MnjPoint<double>>> &pt_vec,
+       	//          vector<shared_ptr<MnjPoint<double>>> &opt_vec);
 
-   static int GetPointsAtDistance(dbl_3d_pt &ip, double &d,
-	   vector<std::shared_ptr<dbl_3d_pt>> &pt_vec,
-	   vector<std::shared_ptr<dbl_3d_pt>> &opt_vec);
+   	static int GetPointsAtDistance(dbl_3d_pt &ip, double &d,
+	                               vector<std::shared_ptr<dbl_3d_pt>> &pt_vec,
+	                               vector<std::shared_ptr<dbl_3d_pt>> &opt_vec);
 
    //BOOST_TO_STD_MIGRATION static int GetPointsAtGivenDistanceFromArc(MnjArc &ia,  const double &ir, 
    //                                                                 vector<shared_ptr<MnjPoint<double>>>  &ipt_vec,
    //                                                                 vector<shared_ptr<MnjPoint<double>>>  &opt_at_distance_r_from_arc_vec);
 
    static int GetPointsAtGivenDistanceFromArc(MnjArc &ia, const double &ir,
-	   vector<shared_ptr<MnjPoint<double>>>  &ipt_vec,
-	   vector<shared_ptr<MnjPoint<double>>>  &opt_at_distance_r_from_arc_vec);
+	                                      vector<shared_ptr<MnjPoint<double>>>  &ipt_vec,
+	                                      vector<shared_ptr<MnjPoint<double>>>  &opt_at_distance_r_from_arc_vec);
 
-   static int GetPointsThatProjectOnLineSegment(MnjLine &il,  
-	   MnjMath::shared_ptr_vec_pt &ipt_vec,
-	   MnjMath::shared_ptr_vec_pt &ocan_project_pt_vec);
+   	static int GetPointsThatProjectOnLineSegment(MnjLine &il,  
+	                                        MnjMath::shared_ptr_vec_pt &ipt_vec,
+	                                        MnjMath::shared_ptr_vec_pt &ocan_project_pt_vec);
 
-   
-
-   static list<shared_ptr<MnjSmoothableSegment>>::iterator NextIter( list<shared_ptr<MnjSmoothableSegment>>  &ilist,
+   	static list<shared_ptr<MnjSmoothableSegment>>::iterator NextIter( list<shared_ptr<MnjSmoothableSegment>>  &ilist,
                         list<shared_ptr<MnjSmoothableSegment>>::iterator it);
 
-   static list<shared_ptr<MnjSmoothableSegment>>::iterator PrevIter( list<shared_ptr<MnjSmoothableSegment>>  &ilist,
+   	static list<shared_ptr<MnjSmoothableSegment>>::iterator PrevIter( list<shared_ptr<MnjSmoothableSegment>>  &ilist,
                         list<shared_ptr<MnjSmoothableSegment>>::iterator it);
 
-   static bool Circulable(list<shared_ptr<MnjSmoothableSegment>> &l);
-
-   static int CreateArc(shared_ptr<Segment> &iSeg1, 
-                        shared_ptr<Segment> &iSeg2, 
-                        const double &ir,
-	                    shared_ptr<MnjArc>  &arc);
-  
-   static int CreateArc(shared_ptr<MnjLine> &seg1, 
-                         shared_ptr<MnjLine> &seg2, 
-                         const double &r,
+   	static bool Circulable(list<shared_ptr<MnjSmoothableSegment>> &l);
+	
+	/*
+  	  Role:Creates an arc between two adjacent line segments
+  	  Input: two segments and a radius. The segments could be a line or a radius
+    	*/
+   	static int CreateArc(     shared_ptr<Segment> &iSeg1, 
+                                  shared_ptr<Segment> &iSeg2, 
+                            const double &ir,
+	                          shared_ptr<MnjArc>  &arc);
+  	/*
+  	  Role:Creates an arc between two adjacent line segments
+  	  Input: two lines and a radius
+    	*/
+   	static int CreateArc(shared_ptr<MnjLine> &seg1, 
+                             shared_ptr<MnjLine> &seg2, 
+                             const double &r,
 	                     shared_ptr<MnjArc>  &arc);
 
-   static int CreateArc(shared_ptr<MnjLine> &seg1, 
-                        shared_ptr<MnjArc> &seg2, 
-                        const double &r,
-	                    shared_ptr<MnjArc>  &arc);
+        /*
+  	  Role:  Creates an arc between two adjacent line segments
+  	  Input: one line, one arc and a radius
+    	*/
+        static int CreateArc(      shared_ptr<MnjLine> &seg1, 
+                                   shared_ptr<MnjArc> &seg2, 
+                             const double &r,
+	                           shared_ptr<MnjArc>  &arc);
 
-   static int CreateArc(shared_ptr<MnjArc> &seg1, 
-                        shared_ptr<MnjLine> &seg2, 
-                        const double &r,
-	                    shared_ptr<MnjArc>  &arc);
+   	/*
+  	  Role:Creates an arc between two adjacent line segments
+  	  Input:  one arc, one line and a radius
+    	*/
+    	static int CreateArc(      shared_ptr<MnjArc> &seg1, 
+                                   shared_ptr<MnjLine> &seg2, 
+                             const double &r,
+	                           shared_ptr<MnjArc>  &arc);
 
-   static int CreateArc(shared_ptr<MnjArc> &seg1, 
-                        shared_ptr<MnjArc> &seg2, 
-                        const double &r,
-	                    shared_ptr<MnjArc>  &arc);
-   /*
-   static void GetFarEndOfOtherLine(const shared_ptr<MnjLine> &l1,
-	                                  const shared_ptr<MnjLine> &l2,
-	                                       dbl_3d_pt  &oPoint
-          );
-   */
-   static int GetCenter(
-          shared_ptr<MnjLine> &l,
-	        shared_ptr<MnjArc> &a,
-	        const double &ir,
-	        dbl_3d_pt &ocp
-    );
+   	/*
+  	  Role:Creates an arc between two adjacent line segments
+  	  Input: two arcs and a radius
+    	*/
+    	static int CreateArc(        shared_ptr<MnjArc> &seg1, 
+                                     shared_ptr<MnjArc> &seg2, 
+                               const double &r,
+	                             shared_ptr<MnjArc>  &arc);
 
-   static int GetAPointTowardsArc(shared_ptr<MnjLine> &l,
-	                                shared_ptr<MnjArc> &a,
-                                  dbl_3d_pt &op) ;
-  static void GetFarEndOfOtherLine( 
+   	static int GetCenter(shared_ptr<MnjLine> &l,
+	                     shared_ptr<MnjArc> &a,
+	                     const double &ir,
+	                     dbl_3d_pt &ocp
+                             );
+
+   	static int GetAPointTowardsArc(shared_ptr<MnjLine> &l,
+	                               shared_ptr<MnjArc> &a,
+                                       dbl_3d_pt          &op) ;
+                                       
+        static void GetFarEndOfOtherLine( 
 	           const shared_ptr<MnjLine> &l1,
 	           const shared_ptr<MnjLine> &l2,
 	                 dbl_3d_pt  &oPoint);
@@ -357,6 +385,63 @@ public:
 		  const double &ix2, const double &iy2,
 		  const double &guessX, const double &guessY,//guessed center
 		  double &xc, double &yc);
+		  
+		  class TestGeomUtils{
+	public:
+
+		static int Test();
+                  /*
+                 Refer to the documentation of TestLineLineIntersect() 
+                 */
+		static int TestLineLineIntersect(void);
+		 /*
+                 Refer to the documentation of TestLineLineIntersect() 
+                 */
+		static int TestLineLineIntersect1(void);
+		 /*
+                 Refer to the documentation of TestLineLineIntersect() 
+                 */
+		static int TestLineLineIntersect2(void);
+		 /*
+                 Refer to the documentation of TestLineLineIntersect() 
+                 */
+		static int TestLineLineIntersect3(void);
+		 /*
+                 Refer to the documentation of TestLineLineIntersect() 
+                 */
+		static int TestLineLineIntersect4(void);
+                /*
+                 Refer to the documentation of 
+                 */
+		static int TestDistancePointInfiniteLine();
+		 /*
+                 Refer to the documentation of DistancePointLine() 
+                 */
+		static int TestDistancePointLine();
+
+		//A wrapper of other test cases 
+                   /*
+                 Refer to the documentation of GetExactArcCenterUsingRadius() 
+                 */
+		static void TestGetExactArcCenterUsingRadius(void);
+		   /*
+                 Refer to the documentation of 
+                 */
+		static void TestGetExactArcCenterUsingRadius1(void);
+		static void TestGetExactArcCenterUsingRadius2(void);
+		static void TestGetExactArcCenterUsingRadius3(void);
+
+               
+		static int TestProject();
+		static int TestProject1(const dbl_3d_pt LineStart, const dbl_3d_pt LineEnd,
+			double tol = .001);
+		static int TestProject2(const dbl_3d_pt LineStart, const dbl_3d_pt LineEnd,
+			double tol = .001);
+		static int TestProject3(const dbl_3d_pt LineStart, const dbl_3d_pt LineEnd,
+			double tol = .001);
+		static int TestProject4(const dbl_3d_pt LineStart, const dbl_3d_pt LineEnd,
+			double tol = .001);
+	};
 
 };
 

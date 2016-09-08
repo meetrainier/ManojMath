@@ -48,71 +48,72 @@ int TestMnjSmoother::Test(void){
 void TestMnjSmoother::TestLineLineOpen(){
 	
   MnjPoint<double> x1(10,0,0);
-	MnjPoint<double> y1(0,10,0);
+  MnjPoint<double> y1(0,10,0);
   ICSAttribute attr1;
-	attr1.color = 80;
-	MnjPoint<double> o(0,0,0);
-	std::shared_ptr<MnjSmoothableLine> l1(new MnjSmoothableLine(x1,o));//,attr1));
-	ICSAttribute attr2;
-	attr2.color = 60;
-	std::shared_ptr<MnjSmoothableLine>  l2(new MnjSmoothableLine(o,y1));//,attr2));
-
-	vector<std::shared_ptr<MnjSmoothableSegment>> segVec;
-	if(l1){
+  attr1.color = 80;
+  MnjPoint<double> o(0,0,0);
+  std::shared_ptr<MnjSmoothableLine> l1(new MnjSmoothableLine(x1,o));//,attr1));
+  ICSAttribute attr2;
+  attr2.color = 60;
+  std::shared_ptr<MnjSmoothableLine>  l2(new MnjSmoothableLine(o,y1));//,attr2));
+	
+  vector<std::shared_ptr<MnjSmoothableSegment>> segVec;
+   if(l1){
 	  segVec.push_back(l1);
 	  //l1->SetCorner(true);
 	  double r=5;
 	  l1->SetCornerRadius(r);
-    l1->SetSegProp(ICSAttribute::SEG_SCRIBE);
-	}
+	l1->SetSegProp(ICSAttribute::SEG_SCRIBE);
+  }
 
-	if(l2){
+  if(l2){
     l2->SetSegProp(ICSAttribute::SEG_SCRIBE);
-	  segVec.push_back(l2);
-	}
+    segVec.push_back(l2);
+  }
 
     //execute
-	vector<std::shared_ptr<MnjSmoothableSegment>> osegVec;
-	//MnjSmoother<Segment,MnjLine,MnjArc> s;
-	MnjSmoother s;
+  vector<std::shared_ptr<MnjSmoothableSegment>> osegVec;
+  //MnjSmoother<Segment,MnjLine,MnjArc> s;
+  MnjSmoother s;
   map<unsigned int, int> changes;
-	s.CreateArcs(segVec, osegVec,changes );
+  s.CreateArcs(segVec, osegVec,changes );
 	
-    //verify the result 
-	bool connected = MnjSmootherUtils::IsConnected(osegVec);
+  //verify the result 
+  bool connected = MnjSmootherUtils::IsConnected(osegVec);
   assert(true==connected);
   assert(3==osegVec.size());
-	//ICSAttribute icsAttr;
-	assert(osegVec[1]);
+  //ICSAttribute icsAttr;
+  assert(osegVec[1]);
 	
   //osegVec[1]->GetICSAttribute(icsAttr);
-	std::shared_ptr<MnjSmoothableArc> resultArc = std::dynamic_pointer_cast<MnjSmoothableArc,MnjSmoothableSegment> (osegVec[1]);
-	assert(resultArc);
+  std::shared_ptr<MnjSmoothableArc> resultArc = std::dynamic_pointer_cast<MnjSmoothableArc,MnjSmoothableSegment> (osegVec[1]);
+  assert(resultArc);
   assert(5 == resultArc->GetRadius());
-   //assert(60==icsAttr.color);
+  //assert(60==icsAttr.color);
     
-   //test: scribe status of the new arc
+  //test: scribe status of the new arc
   bool scribe = resultArc->IsScribe();
   assert(true==scribe);
   double angle = resultArc->GetAngle();
 
   MnjSmootherUtils::SegmentType seg_type = MnjSmootherUtils::GetType(osegVec[1]);
-    assert(MnjSmootherUtils::SMOOTHABLE_SEG_ARC==seg_type) ;
-    assert(MnjSmoothableSegment::MODIFIED == osegVec[0]->Status());
-    assert(MnjSmoothableSegment::NEW == resultArc->Status());
-    assert(MnjSmoothableSegment::MODIFIED == osegVec[2]->Status());
-	double result_r = resultArc->GetRadius();
+  assert(MnjSmootherUtils::SMOOTHABLE_SEG_ARC==seg_type) ;
+  assert(MnjSmoothableSegment::MODIFIED == osegVec[0]->Status());
+  assert(MnjSmoothableSegment::NEW == resultArc->Status());
+  assert(MnjSmoothableSegment::MODIFIED == osegVec[2]->Status());
+  double result_r = resultArc->GetRadius();
 	
 	//print the result
-	char tmp[MAX_STR_SIZE];
-	strcpy_s(tmp,MAX_STR_SIZE,"");
 #ifdef _DEBUG 
-	GetString(osegVec,tmp);
+  char tmp[MAX_STR_SIZE];
+  strcpy_s(tmp,MAX_STR_SIZE,"");
 
-	std::cout << "Printing whole string" << endl;
-	std::cout << tmp << endl;
+  GetString(osegVec,tmp);
+
+  std::cout << "Printing whole string" << endl;
+  std::cout << tmp << endl;
 #endif
-  //	std::for_each(osegVec.begin(),osegVec.begin(),Print);
+  // std::for_each(osegVec.begin(),osegVec.begin(),Print);
 }
 
 //////////////////////////////////////////////////////////////

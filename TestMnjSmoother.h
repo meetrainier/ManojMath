@@ -66,12 +66,8 @@ static	void TestArcLineClosedSmallSegmentsInputs(vec_shared_ptr_seg &osegVec);
 	   
     //template <typename MnjSmoothableSegment, typename MnjSmoothableArc, typename MnjSmoothableLine>
     static void Print(MnjPoint<double>&c,char str[]);
-    
-    //template <class  MnjSmoothableArc>
-    //void Print(boost::shared_ptr<MnjSmoothableArc> &icsarc,char str[] );
-//    typedef typename boost::shared_ptr<MnjSmoothableArc> shared_ptr_arc;
     static void Print(const shared_ptr_line&icsline,char str[] );
-
+    
     static void Print( shared_ptr_arc  &icsarc,char str[] ){
       
      MnjArc arc;

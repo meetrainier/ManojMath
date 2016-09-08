@@ -19,8 +19,8 @@
 class TestMnjSmoother {
 
 public:
- using shared_ptr_seg     = std::shared_ptr<MnjSmoothableSegment> shared_ptr_seg;
- using vec_shared_ptr_seg = vector<std::shared_ptr<MnjSmoothableSegment>> vec_shared_ptr_seg;
+ using shared_ptr_seg     = std::shared_ptr<MnjSmoothableSegment> ;
+ using vec_shared_ptr_seg = vector<std::shared_ptr<MnjSmoothableSegment>> ;
 
  using  shared_ptr_arc = std::shared_ptr<MnjSmoothableArc> ;
  using  shared_ptr_line = std::shared_ptr<MnjSmoothableLine> ;

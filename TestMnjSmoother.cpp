@@ -1,25 +1,23 @@
+#include <algorithm> 
 #include "TestMnjSmoother.h"
 #include "MnjSmootherUtils.h"
 #include "MnjSmoothableSegment.h"
 #include <memory> 
 #include <assert.h> 
-//#include <boost/weak_ptr.hpp>
 
-//template <typename MnjSmoothableSegment, typename MnjSmoothableLine, typename MnjSmoothableArc>
-/*template <class MnjSmoothableSegment, class MnjSmoothableLine, class MnjSmoothableArc>
-*/
 int TestMnjSmoother::Test(void){
    	
     //////////////////Line Line case///////
  try{
+
   TestLineLineOpen();               //working 
   
-   TestLineLineClosed();             //working
-    TestLineLineOpenSmallSegments();  //working
-	TestLineLineClosedSmallSegments();//working
+  TestLineLineClosed();             //working
+  TestLineLineOpenSmallSegments();  //working
+  TestLineLineClosedSmallSegments();//working
  
-    //////////////////Line-Arc case////////////////////////
-	TestLineArcOpen();               //working
+  //////////////////Line-Arc case////////////////////////
+  TestLineArcOpen();               //working
   TestLineArcClosed();             //working
   TestLineArcClosedRedundant();    //working
     
@@ -40,6 +38,7 @@ int TestMnjSmoother::Test(void){
   
   TestArcArcOpenSmallSegments();// working 
   TestArcArcClosedSmallSegments();//working 
+
  }catch(std::exception e) {
    cout << e.what() << std::endl;
  }
@@ -109,10 +108,11 @@ void TestMnjSmoother::TestLineLineOpen(){
 	strcpy_s(tmp,MAX_STR_SIZE,"");
 #ifdef _DEBUG 
 	GetString(osegVec,tmp);
-#endif
 
 	std::cout << "Printing whole string" << endl;
 	std::cout << tmp << endl;
+#endif
+  //	std::for_each(osegVec.begin(),osegVec.begin(),Print);
 }
 
 //////////////////////////////////////////////////////////////
@@ -268,6 +268,7 @@ void TestMnjSmoother::TestLineLineOpen(){
 //////////////////////////////////////////////////////////////////////////////
 //template <typename MnjSmoothableSegment, typename MnjSmoothableLine, typename MnjSmoothableArc>
 void TestMnjSmoother::TestLineLineClosed(){
+
 	MnjPoint<double> x1(10,0,0);
 	MnjPoint<double> y1(0,10,0);
 //	ICSAttribute attr1,attr2;
@@ -348,15 +349,17 @@ void TestMnjSmoother::TestLineLineClosed(){
    assert(MnjSmoothableSegment::NEW == osegVec[5]->Status());
   
 	//print 
-	char tmp[MAX_STR_SIZE];
+#ifdef _DEBUG 	
+  char tmp[MAX_STR_SIZE];
 	strcpy_s(tmp,MAX_STR_SIZE,"");
 
-#ifdef _DEBUG 
+
 	GetString(osegVec,tmp);
-#endif
 
 	std::cout << "Printing whole string" << endl;
 	std::cout << tmp << endl;
+#endif
+  //	std::for_each(osegVec.begin(),osegVec.begin(),Print);
 }//TestLineLineClosed
 
 //template <typename MnjSmoothableSegment, typename MnjSmoothableLine, typename MnjSmoothableArc>
@@ -365,11 +368,11 @@ void TestMnjSmoother::TestLineLineOpenSmallSegments(){
 	
 	vector<std::shared_ptr<MnjSmoothableSegment>> segVec;
 	for ( int i = 0 ; i < 10 ; i++){
-	     MnjPoint<double> x2(10-i,0,0);
-	     MnjPoint<double> x1(9-i,0,0);
-	     ICSAttribute attr1;
-	     attr1.color = 80;
-	     MnjSmoothableLine::shared_ptr l(new MnjSmoothableLine(x2,x1));//,attr1));
+	   MnjPoint<double> x2(10-i,0,0);
+	   MnjPoint<double> x1(9-i,0,0);
+	   ICSAttribute attr1;
+	   attr1.color = 80;
+	   MnjSmoothableLine::shared_ptr l(new MnjSmoothableLine(x2,x1));//,attr1));
 		 if(9==i){
 			 //l->SetCorner(true);
 			 l->SetCornerRadius(5);
@@ -377,12 +380,12 @@ void TestMnjSmoother::TestLineLineOpenSmallSegments(){
 		 segVec.push_back(l);
 	}
 	for ( int i = 0 ; i < 10 ; i++){
-	     MnjPoint<double> y2(0,i+1,0);
-	     MnjPoint<double> y1(0,i,0);
-	     ICSAttribute attr1;
-	     attr1.color = 60;
-	     MnjSmoothableLine::shared_ptr l(new MnjSmoothableLine(y1,y2));//,attr1));
-		 segVec.push_back(l);
+	  MnjPoint<double> y2(0,i+1,0);
+	  MnjPoint<double> y1(0,i,0);
+	  ICSAttribute attr1;
+	  attr1.color = 60;
+	  MnjSmoothableLine::shared_ptr l(new MnjSmoothableLine(y1,y2));//,attr1));
+		segVec.push_back(l);
 	}
 	vector<std::shared_ptr<MnjSmoothableSegment>> osegVec;
 	MnjSmoother s;
@@ -398,11 +401,15 @@ void TestMnjSmoother::TestLineLineOpenSmallSegments(){
     double out_r = oarc->GetRadius();
     assert(fabs(out_r - 5 ) < .001) ; 
 	//Print
-	char tmp[MAX_STR_SIZE];
+
+#ifdef _DEBUG 
+  char tmp[MAX_STR_SIZE];
 	strcpy_s(tmp,MAX_STR_SIZE,"");
-	//GetString(osegVec,tmp);
+	GetString(osegVec,tmp);
 	std::cout << "Printing whole string" << endl;
 	std::cout << tmp << endl;
+
+#endif 
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////
 //template <typename MnjSmoothableSegment, typename MnjSmoothableLine, typename MnjSmoothableArc>
@@ -483,11 +490,14 @@ void TestMnjSmoother::TestLineLineClosedSmallSegments(){
 
 
     //Print
+#ifdef _DEBUG 
 	char tmp[MAX_STR_SIZE];
 	strcpy_s(tmp,MAX_STR_SIZE,"");
-	//GetString(osegVec,tmp);
+	GetString(osegVec,tmp);
 	std::cout << "Printing whole string" << endl;
 	std::cout << tmp << endl;
+#endif 
+  //	std::for_each(osegVec.begin(),osegVec.begin(),Print);
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -548,11 +558,14 @@ void TestMnjSmoother::TestLineArcOpen(){
 	assert(fabs(s1.x - 9.95832) < .001);//by hand 9.958932064677038 //prog s1.x = 9.9585919546387061
   assert(fabs(s1.y - 0.9053018181818182) < .01);// by hand 0.9053574604251853 //prog s1.y = y = 0.90909090909834389
 	//print the result
+#ifdef _DEBUG 
 	char tmp[MAX_STR_SIZE];
 	strcpy_s(tmp,MAX_STR_SIZE,"");
-	//GetString(osegVec,tmp);
+	GetString(osegVec,tmp);
 	std::cout << "Printing whole string" << endl;
 	std::cout << tmp << endl;
+#endif 
+  //	std::for_each(osegVec.begin(),osegVec.begin(),Print);
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////
 //template <typename MnjSmoothableSegment, typename MnjSmoothableLine, typename MnjSmoothableArc>
@@ -773,16 +786,20 @@ void TestMnjSmoother::TestLineArcOpenSmallSegments(){
 	assert(fabs(s1.x - 9.958932064677038) < .001);//by hand 9.958932064677038 //prog s1.x = 9.9585919546387061
     assert(fabs(s1.y - 0.9053018181818182) < .01);// by hand 0.9053574604251853 //prog s1.y = y = 0.90909090909834389
 	//print the result
+#ifdef _DEBUG 
 	char tmp[MAX_STR_SIZE];
 	strcpy_s(tmp,MAX_STR_SIZE,"");
-	//GetString(osegVec,tmp);
+	GetString(osegVec,tmp);
 	std::cout << "Printing whole string" << endl;
 	std::cout << tmp << endl;
+#endif 
+  //	std::for_each(osegVec.begin(),osegVec.begin(),Print);
 }
 ////////////////////////////////////////////////////////////////////////////
 
 //template <typename MnjSmoothableSegment, typename MnjSmoothableLine, typename MnjSmoothableArc>
 void TestMnjSmoother::TestArcLineOpen(){
+
 	MnjPoint<double> P2(20,0,0);
 	MnjPoint<double> P1(10,0,0);
 	ICSAttribute attr1;
@@ -822,20 +839,30 @@ void TestMnjSmoother::TestArcLineOpen(){
 	osegVec[1]->GetICSAttribute(icsAttr);
 	std::shared_ptr<MnjSmoothableArc> resultArc = std::dynamic_pointer_cast<MnjSmoothableArc,MnjSmoothableSegment> (osegVec[1]);
 	assert(resultArc);
-	double result_r = resultArc->GetRadius();
+	
+  double result_r = resultArc->GetRadius();
   double rad_diff = 1 -resultArc->GetRadius();
-	assert(fabs(rad_diff) < .001);
-	//assert(60==icsAttr.color);
+	
+  assert(fabs(rad_diff) < .001);
+	
+  //assert(60==icsAttr.color);
 	MnjPoint<double> s1,e1;
 	resultArc->GetEnds(s1,e1);
+
 	assert(fabs(s1.x - 9.95832) < .001);//by hand 9.958932064677038 //prog s1.x = 9.9585919546387061
   assert(fabs(s1.y - 0.9053018181818182) < .01);// tbd: check for accuracy; Sby hand 0.9053574604251853 //prog s1.y = y = 0.90909090909834389
-	//print the result
+
+                                                //print the result
+#ifdef _DEBUG 
 	char tmp[MAX_STR_SIZE];
 	strcpy_s(tmp,MAX_STR_SIZE,"");
-	//GetString(osegVec,tmp);
+	GetString(osegVec,tmp);
 	std::cout << "Printing whole string" << endl;
 	std::cout << tmp << endl;
+#endif 
+
+  //	std::for_each(osegVec.begin(),osegVec.begin(),Print);
+
 }
 
 
@@ -907,11 +934,14 @@ void TestMnjSmoother::TestArcLineOpenSmallSegments(){
   assert(fabs(s1.y - 0.9053018181818182) < .01);// by hand 0.9053574604251853 //prog s1.y = y = 0.90909090909834389
 	
     //print the result
+#ifdef _DEBUG 
 	char tmp[MAX_STR_SIZE];
 	strcpy_s(tmp,MAX_STR_SIZE,"");
-	//GetString(osegVec,tmp);
+	GetString(osegVec,tmp);
 	std::cout << "Printing whole string" << endl;
 	std::cout << tmp << endl;
+#endif 
+  //	std::for_each(osegVec.begin(),osegVec.begin(),Print);
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 //template <typename MnjSmoothableSegment, typename MnjSmoothableLine, typename MnjSmoothableArc>
@@ -1051,9 +1081,9 @@ void TestMnjSmoother::TestArcArcClosed(){
 //template <typename MnjSmoothableSegment, typename MnjSmoothableLine, typename MnjSmoothableArc>
 void TestMnjSmoother::TestArcArcOpenSmallSegments(){
 
-    vector<std::shared_ptr<MnjSmoothableSegment>> segVec;
+  vector<std::shared_ptr<MnjSmoothableSegment>> segVec;
 
-    MnjPoint<double> s1(10,0,0);
+  MnjPoint<double> s1(10,0,0);
 	MnjPoint<double> c1(0,0,0);
 	MnjPoint<double> e1(0,10,0);
 	ICSAttribute attr1;
@@ -1061,7 +1091,7 @@ void TestMnjSmoother::TestArcArcOpenSmallSegments(){
 	std::shared_ptr<MnjSmoothableArc>  a1(new MnjSmoothableArc(s1,c1,e1));//,attr1));
     
 
-    MnjPoint<double> s2(20,10,0);
+  MnjPoint<double> s2(20,10,0);
 	MnjPoint<double> c2(20,0,0);
 	MnjPoint<double> e2(10,0,0);
 	ICSAttribute attr2;
@@ -1073,14 +1103,14 @@ void TestMnjSmoother::TestArcArcOpenSmallSegments(){
 	list<std::shared_ptr<MnjSmoothableSegment>> a1segs;
   a1->Partition(20,a1segs);
 
-    (*a1segs.begin())->SetCornerRadius(1);
-    (*a1segs.begin())->SetCorner(true);
-    segVec.assign(a1segs.rbegin(),a1segs.rend());
+  (*a1segs.begin())->SetCornerRadius(1);
+  (*a1segs.begin())->SetCorner(true);
+  segVec.assign(a1segs.rbegin(),a1segs.rend());
     
-    list<std::shared_ptr<MnjSmoothableSegment>> a2segs;
-    a2->Partition(20,a2segs);
-   // list<std::shared_ptr<MnjSmoothableSegment>>::iterator ittmp1 = a2segs.rbegin();
-	//segVec.insert(segVec.end(),a2segs.begin(),a2segs.end());
+  list<std::shared_ptr<MnjSmoothableSegment>> a2segs;
+  a2->Partition(20,a2segs);
+  // list<std::shared_ptr<MnjSmoothableSegment>>::iterator ittmp1 = a2segs.rbegin();
+	// segVec.insert(segVec.end(),a2segs.begin(),a2segs.end());
 	segVec.insert(segVec.end(),a2segs.rbegin(),a2segs.rend());
 
     //temp code 
@@ -1097,80 +1127,96 @@ void TestMnjSmoother::TestArcArcOpenSmallSegments(){
     double l20 = arc20.GetLength();
 
     for (unsigned int i = 0 ; i < segVec.size() ;i++) {
-		double c = segVec[i]->GetCharacteristic();
-        std::shared_ptr<MnjSmoothableArc> arc = std::dynamic_pointer_cast<MnjSmoothableArc,MnjSmoothableSegment>(segVec[i]);
-        double angle =0;
-        if(arc){
-           angle = arc->GetAngle();
-        }
-        if(c>2)
-            bool e = 1;
-	}
-	//execute
-    MnjSmoother s;
-	  vector<std::shared_ptr<MnjSmoothableSegment>> osegVec;
-    map<unsigned int, int> changes;
-	  s.CreateArcs(segVec, osegVec, changes);
-    
-    //test
-    bool connected = MnjSmootherUtils::IsConnected(osegVec);
-    assert(true==connected);
-    //assert(33==osegVec.size());
-    assert(31==osegVec.size());
-    //std::for_each(osegVec.begin(),osegVec.begin(),&TestMnjSmoother<Segment,MnjArc,MnjLine>::IsNew);
+		  
+      double c = segVec[i]->GetCharacteristic();
+      std::shared_ptr<MnjSmoothableArc> arc = std::dynamic_pointer_cast<MnjSmoothableArc,MnjSmoothableSegment>(segVec[i]);
+      double angle =0;
 
-    //vector<boost::shared_ptr<MnjSmoothableSegment>> it1;
+      if(arc){
+          angle = arc->GetAngle();
+      }
+      
+      if(c>2)
+          bool e = 1;
+	  }
+
+	//execute
+  MnjSmoother s;
+	vector<std::shared_ptr<MnjSmoothableSegment>> osegVec;
+  map<unsigned int, int> changes;
+	s.CreateArcs(segVec, osegVec, changes);
+    
+  //test
+  bool connected = MnjSmootherUtils::IsConnected(osegVec);
+  assert(true==connected);
+  //assert(33==osegVec.size());
+  assert(31==osegVec.size());
+  //std::for_each(osegVec.begin(),osegVec.begin(),&TestMnjSmoother<Segment,MnjArc,MnjLine>::IsNew);
+
+  //vector<boost::shared_ptr<MnjSmoothableSegment>> it1;
 	for (unsigned int i = 0 ; i < osegVec.size() ;i++) {
 		if(MnjSmoothableSegment::NEW == osegVec[i]->Status())
             break;
 	}
 
-    std::shared_ptr<MnjSmoothableSegment> prev =  osegVec[14];
-    std::shared_ptr<MnjSmoothableSegment> newseg =  osegVec[15];
-    std::shared_ptr<MnjSmoothableSegment> next =  osegVec[16];
+  std::shared_ptr<MnjSmoothableSegment> prev =  osegVec[14];
+  std::shared_ptr<MnjSmoothableSegment> newseg =  osegVec[15];
+  std::shared_ptr<MnjSmoothableSegment> next =  osegVec[16];
 
-    assert(MnjSmoothableSegment::MODIFIED == prev->Status());
-    assert(MnjSmoothableSegment::NEW == newseg->Status());
-    assert(MnjSmoothableSegment::MODIFIED == next->Status());
+  assert(MnjSmoothableSegment::MODIFIED == prev->Status());
+  assert(MnjSmoothableSegment::NEW == newseg->Status());
+  assert(MnjSmoothableSegment::MODIFIED == next->Status());
 
-    std::shared_ptr<MnjSmoothableArc> resultArc = std::dynamic_pointer_cast<MnjSmoothableArc,MnjSmoothableSegment> (newseg);
-    double r_arc = resultArc->GetRadius();
-	  assert(fabs(r_arc-1.00) < .0001);
+  std::shared_ptr<MnjSmoothableArc> resultArc = std::dynamic_pointer_cast<MnjSmoothableArc,MnjSmoothableSegment> (newseg);
+  double r_arc = resultArc->GetRadius();
+	assert(fabs(r_arc-1.00) < .0001);
     
-    MnjPoint<double> sp(9.0909090909090899 ,4.1659779045053087 ,0.00000000000000000);
-    MnjPoint<double> r_sp ; resultArc->GetStartPoint(r_sp);
-    double dsp = GeomUtils::GetDistance(sp,r_sp);
-    assert(fabs(dsp) < .0001);
+  MnjPoint<double> sp(9.0909090909090899 ,4.1659779045053087 ,0.00000000000000000);
+  MnjPoint<double> r_sp ; resultArc->GetStartPoint(r_sp);
+  double dsp = GeomUtils::GetDistance(sp,r_sp);
+  assert(fabs(dsp) < .0001);
 
-    MnjPoint<double> ep(10.909090909090910 ,4.1659779045053087, 0.00000000000000000);
-    MnjPoint<double> r_ep ; resultArc->GetEndPoint(r_ep);
-    double d_ep = GeomUtils::GetDistance(ep,r_ep);
-    assert(fabs(d_ep) < .0001);
+  MnjPoint<double> ep(10.909090909090910 ,4.1659779045053087, 0.00000000000000000);
+  MnjPoint<double> r_ep ; resultArc->GetEndPoint(r_ep);
+  double d_ep = GeomUtils::GetDistance(ep,r_ep);
+  assert(fabs(d_ep) < .0001);
 
-    MnjPoint<double> cp(10.000000000000000 ,4.5825756949558398, 0.00000000000000000);
-    MnjPoint<double> r_cp ; resultArc->GetCenter(r_cp);
-    double d_cp = GeomUtils::GetDistance(cp,r_cp);
-    assert(d_cp < .0001);
+  MnjPoint<double> cp(10.000000000000000 ,4.5825756949558398, 0.00000000000000000);
+  MnjPoint<double> r_cp ; resultArc->GetCenter(r_cp);
+  double d_cp = GeomUtils::GetDistance(cp,r_cp);
+  assert(d_cp < .0001);
 
-    int error = 0;
-    MnjPoint<double> i1= prev->GetCommonPoint(resultArc,error);
-    std::shared_ptr<MnjSmoothableArc> prevarc = std::dynamic_pointer_cast<MnjSmoothableArc,MnjSmoothableSegment> (prev);
-    MnjArc arc1 = prevarc->GetArc();
-    double cal_r1 = GeomUtils::GetDistance(arc1.GetCenter(),i1);
-    assert(fabs(cal_r1-a1->GetRadius())<.0001);
+  int error = 0;
+  MnjPoint<double> i1= prev->GetCommonPoint(resultArc,error);
+  std::shared_ptr<MnjSmoothableArc> prevarc = std::dynamic_pointer_cast<MnjSmoothableArc,MnjSmoothableSegment> (prev);
+  MnjArc arc1 = prevarc->GetArc();
+  double cal_r1 = GeomUtils::GetDistance(arc1.GetCenter(),i1);
+  assert(fabs(cal_r1-a1->GetRadius())<.0001);
 
-    std::shared_ptr<MnjSmoothableArc> nextArc = std::dynamic_pointer_cast<MnjSmoothableArc,MnjSmoothableSegment> (next);
-    assert(nextArc);
-    MnjArc arc2= nextArc->GetArc();
-    MnjPoint<double> i2 = next->GetCommonPoint(newseg,error);
-    double cal_r2 = GeomUtils::GetDistance(arc2.GetCenter(),i2);
-    assert(fabs(cal_r2-a1->GetRadius())<.0001);
-//	std::for_each(osegVec.begin(),osegVec.begin(),Print);
+  std::shared_ptr<MnjSmoothableArc> nextArc = std::dynamic_pointer_cast<MnjSmoothableArc,MnjSmoothableSegment> (next);
+  assert(nextArc);
+  MnjArc arc2= nextArc->GetArc();
+  MnjPoint<double> i2 = next->GetCommonPoint(newseg,error);
+  double cal_r2 = GeomUtils::GetDistance(arc2.GetCenter(),i2);
+  assert(fabs(cal_r2-a1->GetRadius())<.0001);
+  
+  //print 
+#ifdef _DEBUG 	
+    char tmp[MAX_STR_SIZE];
+    strcpy_s(tmp, MAX_STR_SIZE, "");
+
+    GetString(osegVec, tmp);
+
+    std::cout << "Printing whole string" << endl;
+    std::cout << tmp << endl;
+#endif
+
+    // std::for_each(osegVec.begin(),osegVec.begin(),Print);
+
 }
 ////////////////////////////////////////////////////////////////////////////////////
 //template <typename MnjSmoothableSegment, typename MnjSmoothableLine, typename MnjSmoothableArc>
 void TestMnjSmoother::TestArcArcClosedSmallSegments(){
-
 
   MnjPoint<double> e1(10,0,0);
 	MnjPoint<double> c1(10,10,0);
@@ -1178,17 +1224,17 @@ void TestMnjSmoother::TestArcArcClosedSmallSegments(){
 	ICSAttribute attr1;
 	attr1.color = 80;
 	std::shared_ptr<MnjSmoothableArc>  a1(new MnjSmoothableArc(s1,c1,e1));//,attr1));
-    a1->SetCornerRadius(1);
-    a1->SetCorner(true);
+  a1->SetCornerRadius(1);
+  a1->SetCorner(true);
    
-    MnjPoint<double> e2(0,10,0);
+  MnjPoint<double> e2(0,10,0);
 	MnjPoint<double> c2(-10,10,0);
 	MnjPoint<double> s2(-10,0,0);
 	ICSAttribute attr2;
 	attr2.color = 60;
 	std::shared_ptr<MnjSmoothableArc>  a2(new MnjSmoothableArc(s2,c2,e2));//,attr2));
-    a2->SetCornerRadius(1);
-    a2->SetCorner(true);
+  a2->SetCornerRadius(1);
+  a2->SetCorner(true);
 	
   MnjPoint<double> e3(-10,0,0);
 	MnjPoint<double> c3(-10,-10,0);
@@ -1244,26 +1290,37 @@ void TestMnjSmoother::TestArcArcClosedSmallSegments(){
     assert(44==osegVec.size());
     for ( unsigned int i = 1; i < osegVec.size(); i++){
 
-		std::shared_ptr<MnjSmoothableArc> arc = std::dynamic_pointer_cast<MnjSmoothableArc, MnjSmoothableSegment> (osegVec[i]);
+		  std::shared_ptr<MnjSmoothableArc> arc = std::dynamic_pointer_cast<MnjSmoothableArc, MnjSmoothableSegment> (osegVec[i]);
      
       if(0==(i+1)%11){
         assert(arc);
         assert(MnjSmoothableSegment::NEW == osegVec[i]->Status());
         int newarc = 1;
         double r_arc = arc->GetRadius();
-	    assert(fabs(r_arc-1.00) < .0001);
-		std::shared_ptr<MnjSmoothableArc> prev_arc = std::dynamic_pointer_cast<MnjSmoothableArc, MnjSmoothableSegment> (osegVec[i - 1]);
-         CheckResults(prev_arc,arc);
+	      assert(fabs(r_arc-1.00) < .0001);
+		    std::shared_ptr<MnjSmoothableArc> prev_arc = std::dynamic_pointer_cast<MnjSmoothableArc, MnjSmoothableSegment> (osegVec[i - 1]);
+          CheckResults(prev_arc,arc);
         }
       }
 
- 
+  //print 
+#ifdef _DEBUG 	
+    char tmp[MAX_STR_SIZE];
+    strcpy_s(tmp, MAX_STR_SIZE, "");
+
+    GetString(osegVec, tmp);
+
+    std::cout << "Printing whole string" << endl;
+    std::cout << tmp << endl;
+#endif
+    //std::for_each(osegVec.begin(),osegVec.begin(),Print);
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //template <typename MnjSmoothableSegment, typename MnjSmoothableLine, typename MnjSmoothableArc>
 void TestMnjSmoother::CheckResults(std::shared_ptr<MnjSmoothableArc> icsarc1, std::shared_ptr<MnjSmoothableArc> icsarc2){
-    int error = 0;
-    MnjPoint<double> i1= icsarc1->GetCommonPoint(icsarc2,error);//mnj
+    
+  int error = 0;
+  MnjPoint<double> i1= icsarc1->GetCommonPoint(icsarc2,error);//mnj
 
     MnjArc arc1; 
     icsarc1->GetArc(arc1);

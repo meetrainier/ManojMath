@@ -1,3 +1,4 @@
+//Manoj 09/27/2016 Increased use of "auto"
 #include <iostream>
 #include <cmath>
 #include <vector>
@@ -15,9 +16,9 @@ void GetPointOnCircle(double &r,std::vector<double> &angleVec, std::vector<dbl_3
 	std::vector<double>::iterator  it; 
     for ( it=angleVec.begin(); it != angleVec.end() ; it++ ) 
 	{
-		double x = r*cos(*it);
-		double y = r*sin(*it);
-		double z = 0.0;
+		auto x = r*cos(*it);
+		auto y = r*sin(*it);
+		auto z = 0.0;
         dbl_3d_pt p(x,y,z);
 		pointVec.push_back(p);
 	}
@@ -53,8 +54,8 @@ int MnjCircle::Intersect(
   xform.ChangeBasis( xy_plane, mplane );
   MnjLine L = line;
   L.Transform(xform);
-  double r = fabs(mradius);
-  double tol = r*MNJ_SQRT_EPSILON;
+  auto r = fabs(mradius);
+  auto tol = r*MNJ_SQRT_EPSILON;
   if ( tol < MNJ_ZERO_TOLERANCE )
     tol = MNJ_ZERO_TOLERANCE;
   int xcnt;

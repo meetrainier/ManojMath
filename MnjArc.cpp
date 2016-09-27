@@ -1,6 +1,6 @@
 /**
 7/13/2012 Added error messaging in constructors and set
-
+Manoj 09/27/2016 Increased use of "auto"
 */
 #include <exception>
 #include <typeinfo> 
@@ -243,7 +243,7 @@ MnjArc::Arc(Segment &iSeg1, Segment &iSeg2){
 
 }
 */
-void MnjArc::SetStartPoint(dbl_3d_pt &p){
+void MnjArc::SetStartPoint(const dbl_3d_pt &p){
 	startPoint = p;
 }
 
@@ -306,8 +306,8 @@ double MnjArc::GetRadius(void) const{
  */
 ///////////////////////////////////////////////////////////////////////
 double MnjArc::GetLength()const{
-	double thetaInRadian = GetAngle();
-	double r = GetRadius();
+	auto thetaInRadian = GetAngle();
+	auto r = GetRadius();
 	double length=0;
 	
 	return length = (thetaInRadian/(2*M_PI))*2*M_PI*r;
@@ -323,7 +323,7 @@ double MnjArc::GetAngle()const{
 
 	MnjDirection X(centerPoint,startPoint);
 	MnjDirection vec2(centerPoint,endPoint);
-	double angle = X.Angle(vec2);
+	auto angle = X.Angle(vec2);
 	return angle;
 }
 
@@ -333,7 +333,7 @@ double MnjArc::GetAngle(dbl_3d_pt &ip)const{
 
 	MnjDirection X(centerPoint,startPoint);
 	MnjDirection vec2(centerPoint,ip);
-	double angle = X.Angle(vec2);
+	auto angle = X.Angle(vec2);
 	return angle;
 }
 //////////////////////////////////////////////////////
@@ -358,8 +358,8 @@ int MnjArc::CreateSmallestArc(shared_ptr_vec_pt &pt_vec,MnjArc &oa){
 		 int error = 0;
 		 for(it=pt_vec.end();it!=pt_vec.end();it++){
             tmp_arc.SetEndPoint(**it); 
-			double tmpLength =  tmp_arc.GetLength();
-			double oaLength =  oa.GetLength();
+			auto tmpLength =  tmp_arc.GetLength();
+			auto oaLength =  oa.GetLength();
 			if(tmpLength< oaLength) {
 				dbl_3d_pt tmpe;
 				oa.GetEndPoint(tmpe);
@@ -373,8 +373,8 @@ int MnjArc::CreateSmallestArc(shared_ptr_vec_pt &pt_vec,MnjArc &oa){
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 int MnjArc::Intersect(MnjInfiniteLine &il, shared_ptr_vec_pt &opt_vec){
 		int error = 0;
-		MnjDirection X = GetXAxis();
-		MnjDirection Y = GetYAxis();
+		auto X = GetXAxis();
+		auto Y = GetYAxis();
 		MnjPlane plane(centerPoint,X,Y);
 		MnjCircle circle(plane,GetRadius());
         shared_ptr_vec_pt pt_vec;
@@ -394,10 +394,12 @@ int MnjArc::Intersect(MnjInfiniteLine &il, shared_ptr_vec_pt &opt_vec){
 }
 ////////////////////////////////////////////////////////////////////////////////////////
 bool MnjArc::IsPointOnArc(dbl_3d_pt &p)const{
-		double angle = GetAngle(p);
-        double dist = GeomUtils::GetDistance(centerPoint,p);
-        double endangle = GetAngle(dbl_3d_pt(endPoint));
-        if (angle <   endangle  && fabs(GetRadius() -dist) < .0001) 
+		
+    auto angle = GetAngle(p);
+    auto dist = GeomUtils::GetDistance(centerPoint,p);
+    auto endangle = GetAngle(dbl_3d_pt(endPoint));
+        
+    if (angle <   endangle  && fabs(GetRadius() -dist) < .0001) 
             return true;
         else 
             return false;
@@ -405,8 +407,8 @@ bool MnjArc::IsPointOnArc(dbl_3d_pt &p)const{
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 int MnjArc::ResetThePoint(dbl_3d_pt &icornerPoint,dbl_3d_pt &ip){
-        double ds = GeomUtils::GetDistance(icornerPoint,startPoint);
-        double de = GeomUtils::GetDistance(icornerPoint,endPoint);
+        auto ds = GeomUtils::GetDistance(icornerPoint,startPoint);
+        auto de = GeomUtils::GetDistance(icornerPoint,endPoint);
         if(ds<de){
             startPoint = ip;
         }
@@ -447,8 +449,8 @@ int MnjArc::Set(dbl_3d_pt &s,dbl_3d_pt &center,dbl_3d_pt &e){
  int error = 0;
  string msg;
 
- double d1 = GeomUtils::GetDistance(s,center) ;
- double d2 = GeomUtils::GetDistance(e,center) ;
+ auto d1 = GeomUtils::GetDistance(s,center) ;
+ auto d2 = GeomUtils::GetDistance(e,center) ;
  if( fabs(d1-d2) > .001 ){
      msg = "Start and End Point at different distance from center.";
      error = -1;
@@ -469,14 +471,14 @@ int MnjArc::Set(dbl_3d_pt &s,dbl_3d_pt &center,dbl_3d_pt &e){
 }
 ///////////////////////////////////////////////////////////////////////////////////////////
 MnjDirection MnjArc::Tangent(dbl_3d_pt &ip) {
-	double theta = GetAngle(ip);
+	auto theta = GetAngle(ip);
 	//do not make it 1.001*theta (problem when 0==theta ) 
 	dbl_3d_pt &p1 =GetPointAtAngle(0.00001 + theta);
 	return MnjDirection(ip,p1); 
 }
 ///////////////////////////////////////////////////////////////////////////
 MnjDirection MnjArc::TangentAtEnd(dbl_3d_pt &ip){
-	  double theta = GetAngle(ip);
+	 auto theta = GetAngle(ip);
  
 	dbl_3d_pt &p1 =GetPointAtAngle(theta + 0.00001 );
     if(!IsPointOnArc(p1)){
@@ -497,8 +499,8 @@ dbl_3d_pt MnjArc::GetPointAtAngle(const double &itheta) {
             //MnjDirection prod = z_cal.CrossProduct(Z);
             int a = 0;
         }
-		double x_c= fabs(r*cos(itheta)); 
-		double y_c= fabs(r*sin(itheta));
+		auto x_c= fabs(r*cos(itheta)); 
+		auto y_c= fabs(r*sin(itheta));
 		MnjVector vec = MnjVector(centerPoint) + X*x_c+ Y*y_c;
 		return dbl_3d_pt(vec.x,vec.y,vec.z); 
 }
@@ -510,8 +512,8 @@ double MnjArc::Distance(dbl_3d_pt &ip,int &oerror) {
     //MnjInfiniteLine infLine(centerPoint,ip);
     //circle.Intersect(infLine);
 
-    double r = GetRadius();
-    double d = GeomUtils::GetDistance(ip,centerPoint);
+    auto r = GetRadius();
+    auto d = GeomUtils::GetDistance(ip,centerPoint);
 
     return fabs(d-r);
 }
@@ -520,8 +522,8 @@ bool MnjArc::PointProjectOnArc(dbl_3d_pt &ip,dbl_3d_pt &op,int &oerror) {
 		
     oerror =0;
 
-    double r = GetRadius();
-    double d = GeomUtils::GetDistance(ip,centerPoint);
+    auto r = GetRadius();
+    auto d = GeomUtils::GetDistance(ip,centerPoint);
     op = centerPoint + MnjDirection(centerPoint,ip)*r;
     return IsPointOnArc(op);
 }
@@ -538,8 +540,8 @@ bool MnjArc::PointProjectOnArc(dbl_3d_pt &ip,int &oerror) {
     if(n<=0 || ol.size()> 0)
         error = -1;
     if(!error){
-        double startA = GetAngle(startPoint);
-        double endA = GetAngle(endPoint);
+        auto startA = GetAngle(startPoint);
+        auto endA = GetAngle(endPoint);
         //MnjPoint<double> cp = 
         for(  unsigned int i = 0; i < n ; i++ ) {
             dbl_3d_pt stmp = GetPointAtAngle(startA + ((endA -startA)*i)/n);
@@ -554,15 +556,14 @@ bool MnjArc::PointProjectOnArc(dbl_3d_pt &ip,int &oerror) {
  int MnjArc::Project(dbl_3d_pt &ip,dbl_3d_pt &op) {
 		
     int error =0;
-    double r = GetRadius();
+    auto r = GetRadius();
     dbl_3d_pt  centerPoint = GetCenter();
-    double d = GeomUtils::GetDistance(ip,centerPoint);
+    auto d = GeomUtils::GetDistance(ip,centerPoint);
     op = centerPoint + MnjDirection(centerPoint,ip)*r;
     if(!IsPointOnArc(op) ) error = -1;
     return error;
 }
  //////////////////////////////////////////////////////////////////////////////////
-	////////////////////////////////////////////////////////////
 	inline MnjDirection MnjArc::GetXAxis(void)const{
 		return MnjDirection(centerPoint,startPoint);
 	}

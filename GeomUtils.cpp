@@ -1,7 +1,7 @@
 /**
 Manoj 4/13/2012 Added 3d line-line intersection LineLineIntersect()
 Manoj /10/2015 Migration from boost to std. Now using <memory> header 
-
+Manoj 09/27/2016 Increasead use of "auto"
 */
 
 #include <cmath>
@@ -237,16 +237,20 @@ void GeomUtils::GetExactArcCenterUsingRadius(const double &x1, const double &y1,
   //Get points at radius distance from (x1,y1) or (x2,y2)on the line
    double line_segment = 0;
    GeomUtils::GetDistance(x1,y1,x2,y2,line_segment);
-   double l = line_segment/2;//half of line segment
-   double b = sqrt(r*r-l*l);
+   auto l = line_segment/2;//half of line segment
+   auto b = sqrt(r*r-l*l);
   
    double xmid, ymid;
    GeomUtils::GetMidPoint(x1,y1,x2,y2,xmid,ymid);
-   double xc1 = xmid + b/sqrt(1+m*m);
-   double yc1 = m*xc1 + c;
+   //double xc1 = xmid + b/sqrt(1+m*m);
+   //double yc1 = m*xc1 + c;
+   auto xc1 = xmid + b / sqrt(1 + m*m);
+   auto yc1 = m*xc1 + c;
 
-   double xc2 = xmid - b/sqrt(1+m*m);
-   double yc2 = m*xc2 + c;
+   //double xc2 = xmid - b/sqrt(1+m*m);
+   //double yc2 = m*xc2 + c;
+   auto xc2 = xmid - b / sqrt(1 + m*m);
+   auto yc2 = m*xc2 + c;
    if( bisectorParallelToY ) {
 	   xc1 = xmid;
 	   yc1 = ymid +b;
@@ -276,21 +280,21 @@ void GeomUtils::GetExactArcCenterUsingRadiusNOrientation(const double &x1,const 
   GeomUtils::GetDistance(x1,y1,guessX,guessY,d1);
   double d2=0;
   GeomUtils::GetDistance(x2,y2,guessX,guessY,d2);
-  double r = (d1+d2)*0.5; 
+  auto r = (d1+d2)*0.5; 
   
   //Get points at radius distance from (x1,y1) or (x2,y2)on the line
    double line_segment = 0;
    GeomUtils::GetDistance(x1,y1,x2,y2,line_segment);
-   double l = line_segment/2;//half of line segment
-   double b = sqrt(r*r-l*l);
+   auto l = line_segment/2;//half of line segment
+   auto b = sqrt(r*r-l*l);
   
    double xmid, ymid;
    GeomUtils::GetMidPoint(x1,y1,x2,y2,xmid,ymid);
-   double xc1 = xmid + b/sqrt(1+m*m);
-   double yc1 = m*xc1 + c;
+   auto xc1 = xmid + b/sqrt(1+m*m);
+   auto yc1 = m*xc1 + c;
 
-   double xc2 = xmid - b/sqrt(1+m*m);
-   double yc2 = m*xc2 + c;
+   auto xc2 = xmid - b/sqrt(1+m*m);
+   auto yc2 = m*xc2 + c;
 
    //FindNearest(guessX,guessY,xc1,yc1,xc2,yc2,xc,yc);
    SelectCenter(x1,y1,x2,y2,xc1,yc1,xc2,yc2,true,xc,yc);
@@ -301,9 +305,9 @@ void GeomUtils::GetExactArcCenterUsingRadiusNOrientation(const double &x1,const 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 void GeomUtils::SelectCenterCounterClockWise(const double &x1, const double &y1, 
 	                              const double &x2, const double &y2, 
-			                      const double &xc1,const double &yc1,
-								  const double &xc2,const double &yc2, 
-			                      double &xc, double &yc){
+			                          const double &xc1,const double &yc1,
+								                const double &xc2,const double &yc2, 
+			                          double &xc, double &yc){
 
 double a1=0;
 GeomUtils::GetAngle(x1,y1,xc1,yc1,a1);
@@ -323,8 +327,8 @@ if( positveNLessThanPI || negativeNBteweenPIAnd2PI ){
 }
 /////////////////////////////////////////////////////////////////////////////
 int GeomUtils::Flip(const double &xc1, const double &yc1,
-	         const double &xc2,const double &yc2, 
-			 double &xc, double &yc){
+	                  const double &xc2,const double &yc2, 
+			              double &xc, double &yc){
 
 		bool center1 = xc == xc1 && yc == yc1;
 		if(center1) { xc = xc2 ; yc = yc2 ; return 0;}  
@@ -421,12 +425,12 @@ int DistancePointInfiniteLine( MnjPoint<T> *p, MnjPoint<T> *LineStart, MnjPoint<
 }
 /////////////////////////////////////////////////////////////////////////////////
 void GeomUtils::GetAngle(const double &x,       const double &y, 
-		      const double &centerX, const double &centerY, 
-			  double &angle){
-double local_x = x - centerY;
-double local_y = y - centerY;
-angle  = atan2(y,x);
-if(angle< 0 ) angle = angle + 2*M_PI;
+		                     const double &centerX, const double &centerY, 
+			                   double &angle){
+  auto local_x = x - centerY;
+  auto local_y = y - centerY;
+  angle  = atan2(y,x);
+  if(angle< 0 ) angle = angle + 2*M_PI;
 }
 //void RangeBasedForLoop(void);
 ///////////////////////////////////////////////////////////
@@ -460,9 +464,9 @@ for ( int i = 0; i < 4 ; i++ ){
 }
 */
 void GeomUtils::GetLineEquation(const double &x1,const double &y1,
-				     const  double &x2,const double &y2, 
-				     double &m, double &c, 
-			         int &bisectorParallelToY )
+				                        const double &x2,const double &y2, 
+				                              double &m, double &c, 
+			                                int &bisectorParallelToY )
 {
 	bisectorParallelToY = 0;
 	if(y2!=y1){
@@ -750,8 +754,8 @@ void GeomUtils::GetLineEquation(const double &x1,const double &y1,
 //	::MessageBox(NULL,msgline,"Inverse",MB_OK);
 */
 void GeomUtils::Translate(const dbl_3d_pt &p,
-		                  const MnjVector &v,
-						  dbl_3d_pt &pt ){
+		                      const MnjVector &v,
+						                    dbl_3d_pt &pt ){
 			 pt.x = p.x+v.x; 
 			 pt.y = p.y+v.y ; 
 			 pt.z = p.z+v.z;
@@ -760,7 +764,7 @@ void GeomUtils::Translate(const dbl_3d_pt &p,
 //////////////////////////////////////////////////////////////////////////
 bool GeomUtils::IsSame(const dbl_3d_pt &ip1,
                        const dbl_3d_pt &ip2){
-   double d = GeomUtils::GetDistance(ip1,ip2);
+   auto d = GeomUtils::GetDistance(ip1,ip2);
    return ( d < MNJ_ZERO_TOLERANCE);
 }
 ///////////////////////////////////////////////////////////////////////////
@@ -917,12 +921,12 @@ MnjVector GeomUtils::CrossProduct(const MnjVector &vec1, const MnjVector &vec2)
             dbl_3d_pt &P2){
     const double Epsilon = .0001;
             //var result = Math.InfinitePointPair;
-    double x1 = center1.x;
-    double y1 = center1.y;
-    double x2 = center2.x;
-    double y2 = center2.y;
+    auto x1 = center1.x;
+    auto y1 = center1.y;
+    auto x2 = center2.x;
+    auto y2 = center2.y;
 
-    double r3 = GeomUtils::GetDistance(center1,center2);
+    auto r3 = GeomUtils::GetDistance(center1,center2);
     if (r3 == 0)
     {
         return -1;
@@ -935,15 +939,15 @@ MnjVector GeomUtils::CrossProduct(const MnjVector &vec1, const MnjVector &vec2)
             && radius2 + r3 > radius1 + Epsilon
             && x1 != x2)
                 {
-                    double x3 = (pow(radius1,2) + pow(r3,2) - pow(radius2,2)) / (2 * r3);
-                    double tsqr = sqrt((pow(radius1,2)- pow(x3,2)));
+                    auto x3 = (pow(radius1,2) + pow(r3,2) - pow(radius2,2)) / (2 * r3);
+                    auto tsqr = sqrt((pow(radius1,2)- pow(x3,2)));
                     P1.x = x1 + (x2 - x1) * x3 / r3;
                     P1.y = y1 - tsqr;
                     P2.x = P1.x;
                     P2.y = y1 + tsqr;
                     if (x2 < x1)
                     {
-                        double t = P1.y;
+                        auto t = P1.y;
                         P1.y = P2.y;
                         P2.y = t;
                     }
@@ -983,14 +987,14 @@ MnjVector GeomUtils::CrossProduct(const MnjVector &vec1, const MnjVector &vec2)
                 return 0;
             }
 
-            double k = -(x2 - x1) / (y2 - y1);
-            double b = ((radius1 - radius2) * (radius1 + radius2)
+            auto k = -(x2 - x1) / (y2 - y1);
+            auto b = ((radius1 - radius2) * (radius1 + radius2)
                     + (x2 - x1) * (x2 + x1)
                     + (y2 - y1) * (y2 + y1))
                 / (2 * (y2 - y1));
-            double ea = k * k + 1;
-            double eb = 2 * (k * b - x1 - k * y1);
-            double ec = pow(x1,2) + pow(b,2) - 2 * b * y1 + pow(y1,2) - pow(radius1,2);
+            auto ea = k * k + 1;
+            auto eb = 2 * (k * b - x1 - k * y1);
+            auto ec = pow(x1,2) + pow(b,2) - 2 * b * y1 + pow(y1,2) - pow(radius1,2);
             vector<double> roots ;
             SolveSquareEquation(ea, eb, ec,roots);
             if ( roots.size() != 2)
@@ -1125,13 +1129,13 @@ int GeomUtils::CreateArc(shared_ptr<Segment> &isimpleSeg1,
                          shared_ptr<Segment> &isimpleSeg2, 
                          const double &ir,
 	                     std::shared_ptr<MnjArc>  &arc){
-	int error = 0;
+	auto error = 0;
 	if(!isimpleSeg1 || !isimpleSeg1 || !arc ) 
         return -1;
 	
     shared_ptr<MnjArc> arc1 = std::dynamic_pointer_cast<MnjArc,Segment> (isimpleSeg1);
     shared_ptr<MnjLine> line1 = std::dynamic_pointer_cast<MnjLine,Segment> (isimpleSeg1);
-	shared_ptr<MnjArc> arc2 = std::dynamic_pointer_cast<MnjArc,Segment> (isimpleSeg2);
+	  shared_ptr<MnjArc> arc2 = std::dynamic_pointer_cast<MnjArc,Segment> (isimpleSeg2);
     shared_ptr<MnjLine> line2 = std::dynamic_pointer_cast<MnjLine,Segment> (isimpleSeg2);
 	
 	if(line1 && line2){
@@ -1229,22 +1233,22 @@ int GeomUtils::CreateArc(
 ////////////////////////////////////////////////////////////////////////
 int GeomUtils::GetCenter(
     shared_ptr<MnjLine> &l,
-	shared_ptr<MnjArc> &a,
-	const double &ir,
-	dbl_3d_pt &ocp
+	  shared_ptr<MnjArc> &a,
+	        const double &ir,
+	          dbl_3d_pt &ocp
     ){
         int error =0;
         //Create Circle 
-        dbl_3d_pt commonPoint = l->GetCommonPoint(a,error);
-        MnjDirection  tangent= a->TangentAtEnd(commonPoint);
+        auto commonPoint = l->GetCommonPoint(a,error);
+        auto  tangent    = a->TangentAtEnd(commonPoint);
         int factor = 1;
         dbl_3d_pt otherEndOfLine = l->GetOtherEnd(commonPoint,error);
         if(tangent.IsObtuse(MnjDirection(commonPoint,otherEndOfLine))) 
             factor = -1; 
          
         MnjCircle tmpCircle(a);
-        double R = a->GetRadius();
-        double tmpCicrleR = R+factor*ir;
+        auto R = a->GetRadius();
+        auto tmpCicrleR = R+factor*ir;
         tmpCircle.SetRadius(tmpCicrleR);
 
         //Create Line
@@ -1293,8 +1297,8 @@ int GeomUtils::GetCenter(
 }
 //////////////////////////////////////////////////////////////////////////
 int GeomUtils::GetAPointTowardsArc(shared_ptr<MnjLine> &l,
-	                                         shared_ptr<MnjArc> &a,
-                                             dbl_3d_pt &op) {
+	                                 shared_ptr<MnjArc>  &a,
+                                   dbl_3d_pt          &op) {
    int error = 0;
   
    dbl_3d_pt cornerPoint = l->GetCommonPoint(a,error);
@@ -1319,25 +1323,25 @@ int GeomUtils::CreateArc(
 		return -1;
    
    MnjCircle circle1(arc1); 
-
    MnjCircle circle2(arc2); 
 
    shared_ptr_vec_pt pt_vec;
    //Increment the radii by r and Intersect
    //double r = a1->GetCornerRadius(); 
 
-   double r1 = circle1.Radius();
-   double locus_r1 = r1+r ;
+   auto r1 = circle1.Radius();
+   auto locus_r1 = r1+r ;
    circle1.SetRadius(locus_r1);
 
-   double r2 = circle2.Radius();
-   double locus_r2 = r2+r ;
+   auto r2 = circle2.Radius();
+   auto locus_r2 = r2+r ;
    circle2.SetRadius(locus_r2);
   
   circle1.Intersect( circle2,pt_vec);
-  dbl_3d_pt c1 = circle1.Center();
-  dbl_3d_pt c2 = circle2.Center();
-
+  //dbl_3d_pt c1 = circle1.Center();
+  //dbl_3d_pt c2 = circle2.Center();
+  auto c1 = circle1.Center();
+  auto c2 = circle2.Center();
   
   for( unsigned int i = 0; i <pt_vec.size() ; i++ ) {
 
@@ -1410,7 +1414,7 @@ int GeomUtils::CreateArc(
 
       for (unsigned int i = 0 ; i < ipt_vec.size(); i++ ) {
         //double tmp=0;
-        double tmpD = ia.Distance(*ipt_vec[i],error);
+        auto tmpD = ia.Distance(*ipt_vec[i],error);
         if(fabs(tmpD-ir)<.0001){
             if(ia.PointProjectOnArc(*ipt_vec[i],error)){
                opt_at_distance_r_from_arc_vec.push_back(ipt_vec[i]);
@@ -1442,7 +1446,7 @@ int GeomUtils::GetPointsThatProjectOnLineSegment(MnjLine &il,
 //CodeImp:make it a function template 
 //Manoj 7/12/2012
 list<shared_ptr<MnjSmoothableSegment>>::iterator GeomUtils::NextIter( list<shared_ptr<MnjSmoothableSegment>> &l,
-                                                                       list<shared_ptr<MnjSmoothableSegment>>::iterator it){
+                                                                      list<shared_ptr<MnjSmoothableSegment>>::iterator it){
        //if(Circulable(l))
        {
 
@@ -1462,7 +1466,7 @@ list<shared_ptr<MnjSmoothableSegment>>::iterator GeomUtils::NextIter( list<share
   }
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 list<shared_ptr<MnjSmoothableSegment>>::iterator GeomUtils::PrevIter( list<shared_ptr<MnjSmoothableSegment>> &l,
-                                                                       list<shared_ptr<MnjSmoothableSegment>>::iterator it){
+                                                                      list<shared_ptr<MnjSmoothableSegment>>::iterator it){
   //if(Circulable(l))
   {
       if(l.begin() == it) 

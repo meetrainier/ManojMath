@@ -1,3 +1,4 @@
+//copyright(c) 2009- 2016 Manoj Lnu. All rights reserved. 
 //2016/09/29: Manoj: Some member function were made const
 #include "MnjSmoothableLine.h"
 #include "MnjLine.h"
@@ -17,7 +18,7 @@ MnjSmoothableLine::MnjSmoothableLine(MnjPoint<double> &s, MnjPoint<double> &e){/
 MnjSmoothableLine::MnjSmoothableLine(MnjLine &l, ICSAttribute& iattr){
 	mline = l;
 	SetICSAttribute(iattr);
-    mstatus =MnjSmoothableSegment::UNKNOWN;
+  mstatus =MnjSmoothableSegment::UNKNOWN;
 }
 ////////////////////////////////////////////////////////////////
 /*
@@ -56,16 +57,16 @@ MnjSmoothableLine::MnjSmoothableLine(shared_ptr&iSeg1, shared_ptr&iSeg2,
   MnjLine tmpLine(iSeg1->GetLine(),iSeg2->GetLine());
 	mline = tmpLine;
 	SetICSAttribute(iAttr);
-    //mnj SetCorner(iSeg1->IsCorner());
-    SetCornerRadius (iSeg1->GetCornerRadius());
-    SetStatus(MnjSmoothableSegment::UNKNOWN);
+  //mnj SetCorner(iSeg1->IsCorner());
+  SetCornerRadius (iSeg1->GetCornerRadius());
+  SetStatus(MnjSmoothableSegment::UNKNOWN);
 }
 /////////////////////////////////////////////////////////////
 MnjSmoothableLine::MnjSmoothableLine(shared_ptr&iSeg1, shared_ptr&iSeg2,
                          //ICSAttribute &iAttr,
                          MnjSmoothableSegment::SegmentChange iStatus){
     
-    MnjLine tmpLine(iSeg1->GetLine(),iSeg2->GetLine());
+  MnjLine tmpLine(iSeg1->GetLine(),iSeg2->GetLine());
 	mline = tmpLine;
 
 	MergeAndSetAttributes(iSeg1,iSeg2,iStatus);
@@ -89,7 +90,7 @@ void MnjSmoothableLine::SetEndPoint(MnjPoint<double> &p){
 }
 
 double MnjSmoothableLine::GetMaxDistance(MnjPoint<double> &p)const{
-  double d = GetDistance(p);
+  auto d = GetDistance(p);
 	return d;
 }
 
@@ -135,13 +136,13 @@ int MnjSmoothableLine::Intersect(MnjLine &line, MnjPoint<double> &pIntersection)
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 int MnjSmoothableLine::Project(const MnjPoint<double> &p, MnjPoint<double> &pProjection,double tol ){
-   double LineMag;
-    double U;
+  double LineMag;
+  double U;
   //  MnjPoint<double> Intersection;
      
 	MnjPoint<double> LineStart, LineEnd;
 	GetEnds(LineStart,LineEnd);
-    GeomUtils::GetDistance( LineEnd, LineStart, LineMag );
+  GeomUtils::GetDistance( LineEnd, LineStart, LineMag );
 	if( 0.0f == LineMag ) 
 		return -1;
  
@@ -157,6 +158,7 @@ int MnjSmoothableLine::Project(const MnjPoint<double> &p, MnjPoint<double> &pPro
     pProjection.y = LineStart.y + U * ( LineEnd.y - LineStart.y );
     pProjection.z = LineStart.z + U * ( LineEnd.z - LineStart.z );
 	return 1;
+
 }
 ////////////////////////////////////////////////////////////////
 void MnjSmoothableLine::GetEnds( 
@@ -168,8 +170,8 @@ void MnjSmoothableLine::GetEnds(
 
 }
 ///////////////////////////////////////////////////
-void MnjSmoothableLine::CreateParallelLine( double r,
-							   const MnjPoint<double>  &p,
+void MnjSmoothableLine::CreateParallelLine(       double r,
+							                              const MnjPoint<double>  &p,
 	                           std::shared_ptr<MnjLine> &l){
 
    mline.CreateParallelLine(r,p,l);

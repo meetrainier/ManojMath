@@ -1,4 +1,5 @@
 /**
+//copyright(c) 2009- 2016 Manoj Lnu 
 7/13/2012 Added error messaging in constructors and set
 Manoj 09/27/2016 Increased use of "auto"
 */

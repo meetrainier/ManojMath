@@ -1,3 +1,5 @@
+//copyright(c) 2009- 2016 Manoj Lnu 
+#pragma once
 #include "MnjPoint.h"
 template <class T>
 void print(MnjPoint<T> &point);

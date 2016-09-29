@@ -1,3 +1,4 @@
+//copyright(c) 2009- 2016 Manoj Lnu. All rights reserved. 
 #include <algorithm> 
 #include "TestMnjSmoother.h"
 #include "MnjSmootherUtils.h"

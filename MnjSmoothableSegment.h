@@ -1,4 +1,5 @@
 #pragma once 
+//copyright(c) 2009- 2016 Manoj Lnu. All rights reserved. 
 //9/29/2016 : Manoj : Print is a const method now. 
 #include <memory> 
 #include "MnjPoint.h"

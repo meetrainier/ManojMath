@@ -1,4 +1,5 @@
 #pragma once
+//copyright(c) 2009- 2016 Manoj Lnu 
 //9/29/2016 : Manoj : some set... functions take const arg now. 
 #include <vector>
 #include <list>

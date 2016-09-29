@@ -1,3 +1,4 @@
+//copyright(c) 2009- 2016 Manoj Lnu 
 #include "MnjLine.h"
 #include "MnjInfiniteLine.h"
 #include "MnjPoint.h"

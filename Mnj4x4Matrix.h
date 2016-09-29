@@ -1,4 +1,5 @@
 #pragma once
+//copyright(c) 2009- 2016 Manoj Lnu 
 #include "MnjInterval.h"
 #include "MathConstant.h"
 #include "MnjVector.h"

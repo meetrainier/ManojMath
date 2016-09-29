@@ -1,4 +1,5 @@
 #pragma once
+//copyright(c) 2009- 2016 Manoj Lnu 
 #include "MnjPoint.h"
 #include "MnjVector.h"
 #include "MnjOperators.h"

@@ -1,3 +1,4 @@
+//copyright(c) 2009- 2016 Manoj Lnu 
 //Manoj 09/27/2016 Increased use of "auto"
 #include <iostream>
 #include <cmath>

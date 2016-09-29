@@ -1,5 +1,6 @@
  
 /*
+//copyright(c) 2009- 2016 Manoj Lnu
 5/31/2012 : manoj : Added new class CompressPrior,CompressNext 
 
 */

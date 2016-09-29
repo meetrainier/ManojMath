@@ -1,4 +1,5 @@
 #pragma once
+//copyright(c) 2009- 2016 Manoj Lnu. All rights reserved. 
 //2016/09/29: Manoj: Some member function were made const
 #include <memory> 
 #include "MnjSmoothableSegment.h"

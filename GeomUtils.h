@@ -1,3 +1,4 @@
+//copyright(c) 2009- 2016 Manoj Lnu 
 #pragma once 
  
 #include <iostream>

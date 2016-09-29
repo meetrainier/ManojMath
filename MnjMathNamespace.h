@@ -1,3 +1,4 @@
+//copyright(c) 2009- 2016 Manoj Lnu 
 #ifndef MnjMathNamespace
 #define MnjMathNamespace
 

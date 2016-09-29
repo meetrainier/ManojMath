@@ -1,12 +1,11 @@
 ////////////////////////////////////////////////////////////
 ///
-///     Mnj International Corp.
+//copyright(c) 2009- 2016 Manoj Lnu. All rights reserved. 
 ///     Project : Insert arc among a sequence of segments(lines/arcs).
 ///     Subsystem : None
 ///     Author : Manoj Lnu
 ///     Date : 4/23/2012
 ///
-///     Copyright (C) 2012 Mnj International Corp.
 ///		All rights reserved.
 ///
 ////////////////////////////////////////////////////////////

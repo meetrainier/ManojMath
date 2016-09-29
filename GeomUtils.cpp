@@ -1,4 +1,5 @@
 /**
+//copyright(c) 2009- 2016 Manoj Lnu
 Manoj 4/13/2012 Added 3d line-line intersection LineLineIntersect()
 Manoj /10/2015 Migration from boost to std. Now using <memory> header 
 Manoj 09/27/2016 Increasead use of "auto"

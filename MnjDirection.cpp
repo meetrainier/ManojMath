@@ -1,3 +1,4 @@
+//copyright(c) 2009- 2016 Manoj Lnu 
 #include "MnjDirection.h"
 //#include "MnjDirection.h"
 MnjDirection::MnjDirection(const MnjVector &v){

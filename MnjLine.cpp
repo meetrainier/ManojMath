@@ -1,5 +1,6 @@
 /*
-7/12/2012 :Manoj : bug_fix, now, void CreateParallelLine( double r,const MnjPoint<double>  &p,boost::shared_ptr<MnjLine> &l) creates a new 
+//copyright(c) 2009- 2016 Manoj Lnu 
+7/12/2012 :Manoj : bug_fix, now, void CreateParallelLine( double r,const MnjPoint<double>  &p,boost::shared_ptr<MnjLine> &l) creates a new
                    smart pointer and returns it. 
 29Sep 2016: Manoj : Some member function were made const
                    */

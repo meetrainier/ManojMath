@@ -1,6 +1,7 @@
 #pragma once
 /*
-07/12/2012: Bugfix: MnjDirection cnstr that takes three double will behave correctly when magnitude is 0. 
+//copyright(c) 2009- 2016 Manoj Lnu 
+07/12/2012: Bugfix: MnjDirection cnstr that takes three double will behave correctly when magnitude is 0.
 09/27/2016: manoj : Increased use of "auto"
 
 */

@@ -1,4 +1,5 @@
 #pragma once
+//copyright(c) 2009- 2016 Manoj Lnu 
 //21May 2016: Manoj : Replaced typedefs by using 
 //29Sep 2016: Manoj : Some member function made const
 

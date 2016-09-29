@@ -1,3 +1,4 @@
+//copyright(c) 2009- 2016 Manoj Lnu. All rights reserved. 
 #include <memory>
 #include "Segment.h"   
 #include "GeomUtils.h"   

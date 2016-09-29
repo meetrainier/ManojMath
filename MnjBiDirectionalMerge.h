@@ -1,5 +1,5 @@
 #pragma once
-
+//copyright(c) 2009- 2016 Manoj Lnu 
 #include <list>
 #include <map>
 #include <memory> 

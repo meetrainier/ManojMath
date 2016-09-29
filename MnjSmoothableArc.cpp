@@ -1,11 +1,11 @@
 ////////////////////////////////////////////////////////////
 ///
+//copyright(c) 2009- 2016 Manoj Lnu. All rights reserved. 
 ///     Subsystem : None
 ///     Author : Manoj Lnu
 ///     Date : 4/23/2012
 ///
-///     Copyright (C) 2012 - 2016 Manoj Lnu
-///		All rights reserved.
+///		
 ///
 ////////////////////////////////////////////////////////////
 //29Sep 2016: Manoj: Some member function were made const

@@ -1,4 +1,5 @@
 #pragma once
+//9/29/2016 : Manoj : some set... functions take const arg now. 
 #include <vector>
 #include <list>
 #include <memory>
@@ -14,8 +15,10 @@
 using namespace std;
 
 class MnjArc: public Segment {
+
 public:
-     typedef std::shared_ptr<MnjArc> shared_ptr;
+  
+  using shared_ptr = std::shared_ptr<MnjArc> ;
 	
 	using shared_ptr_vec = vector<std::shared_ptr<MnjArc>> ;
 	using shared_ptr_vec_it = vector<std::shared_ptr<MnjArc>>::iterator ;
@@ -44,15 +47,15 @@ public:
 		SetEndPoint(e);
 	}
   */
-  void SetStartPoint(MnjPoint<double> &p);
-  void SetEndPoint(MnjPoint<double> &p);
+  void SetStartPoint(const MnjPoint<double> &p);
+  void SetEndPoint(const MnjPoint<double> &p);
 	
 	double GetRadius(void) const;
 	
   void GetCenter(MnjPoint<double> &c);
   MnjPoint<double> GetCenter(void)const;
 
-	void SetCenter(MnjPoint<double> &p);
+	void SetCenter(const MnjPoint<double> &p);
 	
   //virtual void GetNormalAtStartPoint(MnjLine &l);
   //virtual void GetNormalAtEndPoint(MnjLine &l);
@@ -69,45 +72,38 @@ public:
   //////////////////////////////////////////////////////////////////////////////////////////////////////
   
   int Intersect(MnjInfiniteLine &il, shared_ptr_vec_pt &opt_vec);
-  ////////////////////////////////////////////////////////////////////////////////////////
   
-  bool IsPointOnArc(MnjPoint<double> &p)const;
-  //////////////////////////////////////////////////////////////////////////////////////////
-  int ResetThePoint(MnjPoint<double> &icornerPoint,MnjPoint<double> &ip);
+  bool IsPointOnArc(const MnjPoint<double> &p)const;
+  int  ResetThePoint(MnjPoint<double> &icornerPoint,MnjPoint<double> &ip);
   
   /////////////////////////////////////////////////////////////////////////////////
   void Flip(void);
   
-  int SetSmallerArc(MnjPoint<double> &e1,MnjPoint<double> &c,MnjPoint<double> &e2);
+  int  SetSmallerArc(MnjPoint<double> &e1,MnjPoint<double> &c,MnjPoint<double> &e2);
   
   //////////////////////////////////////////////////////////////////////////////////
   MnjPoint<double> GetOtherEnd(const MnjPoint<double> &ip,int &oerror)const;
   
-  ///////////////////////////////////////////////////////////////////////////////////////////
   int Set(MnjPoint<double> &s,MnjPoint<double> &center,MnjPoint<double> &e);
-///////////////////////////////////////////////////////////////////////////////////////////
-MnjDirection Tangent(MnjPoint<double> &ip);
-///////////////////////////////////////////////////////////////////////////
-MnjDirection TangentAtEnd(MnjPoint<double> &ip);
+  MnjDirection Tangent(MnjPoint<double> &ip);
+  ///////////////////////////////////////////////////////////////////////////
+  MnjDirection TangentAtEnd(MnjPoint<double> &ip);
 
-MnjPoint<double> GetPointAtAngle(const double &itheta);
-  //////////////////////////////////////////////////////////////////////
+  MnjPoint<double> GetPointAtAngle(const double &itheta);
   double Distance(MnjPoint<double> &ip,int &oerror);
-  /////////////////////////////////////////////////////////////////////////////////////////////////////
   bool PointProjectOnArc(MnjPoint<double> &ip,MnjPoint<double> &op,int &oerror);
-  ////////////////////////////////////////////////////////////////////////////////////////////////////
   bool PointProjectOnArc(MnjPoint<double> &ip,int &oerror);
- /////////////////////////////////////////////////////////////////////////////////////////////////////
- int Partition(const unsigned int &n, list<std::shared_ptr<MnjArc>> &ol);
   /////////////////////////////////////////////////////////////////////////////////
- int Project(MnjPoint<double> &ip,MnjPoint<double> &op);
+  int Partition(const unsigned int &n, list<std::shared_ptr<MnjArc>> &ol);
+  /////////////////////////////////////////////////////////////////////////////////
+  int Project(MnjPoint<double> &ip,MnjPoint<double> &op);
   //////////////////////////////////////////////////////////////////////////////////
- double GetLength()const;
- double GetAngle()const;
+  double GetLength()const;
+  double GetAngle()const;
  
- ///gets the angle subtended at center by startPoint and ip 
-	double GetAngle(MnjPoint<double> &ip)const;
-  	////////////////////////////////////////////////////////////
+  ///gets the angle subtended at center by startPoint and ip 
+	double GetAngle(const MnjPoint<double> &ip)const;
+  ////////////////////////////////////////////////////////////
 	inline MnjDirection GetXAxis(void)const;
 	///////////////////////////////////////////////////////////
 	inline MnjDirection GetYAxis(void)const;

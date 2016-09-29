@@ -247,11 +247,11 @@ void MnjArc::SetStartPoint(const dbl_3d_pt &p){
 	startPoint = p;
 }
 
-void MnjArc::SetCenter(dbl_3d_pt &p){
+void MnjArc::SetCenter(const dbl_3d_pt &p){
 	centerPoint = p;
 }
 
-void MnjArc::SetEndPoint(dbl_3d_pt &p){
+void MnjArc::SetEndPoint(const dbl_3d_pt &p){
 	endPoint = p;
 }
 
@@ -320,16 +320,15 @@ dbl_3d_pt  MnjArc::GetCenter(void)const{
 ////////////////////////////////////////////////
 double MnjArc::GetAngle()const{
 
-
 	MnjDirection X(centerPoint,startPoint);
 	MnjDirection vec2(centerPoint,endPoint);
 	auto angle = X.Angle(vec2);
 	return angle;
+
 }
 
 
-double MnjArc::GetAngle(dbl_3d_pt &ip)const{
-
+double MnjArc::GetAngle(const dbl_3d_pt &ip)const{
 
 	MnjDirection X(centerPoint,startPoint);
 	MnjDirection vec2(centerPoint,ip);
@@ -352,12 +351,14 @@ void MnjArc::GetNormalAtEndPoint(MnjLine &l){
 }
 */
 int MnjArc::CreateSmallestArc(shared_ptr_vec_pt &pt_vec,MnjArc &oa){
-		 shared_ptr_vec_pt::iterator  it;
-		 oa = *this;
-		 MnjArc tmp_arc=*this;
-		 int error = 0;
-		 for(it=pt_vec.end();it!=pt_vec.end();it++){
-            tmp_arc.SetEndPoint(**it); 
+
+  shared_ptr_vec_pt::iterator  it;
+	oa = *this;
+	MnjArc tmp_arc=*this;
+	int error = 0;
+	
+  for(it=pt_vec.end();it!=pt_vec.end();it++){
+      tmp_arc.SetEndPoint(**it); 
 			auto tmpLength =  tmp_arc.GetLength();
 			auto oaLength =  oa.GetLength();
 			if(tmpLength< oaLength) {
@@ -367,7 +368,7 @@ int MnjArc::CreateSmallestArc(shared_ptr_vec_pt &pt_vec,MnjArc &oa){
 					oa.SetEndPoint(**it);
 				//tbd reset to prvous vlue of the new point result in different radius
 			}
-		 }
+	}
 		 return 0;
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -393,7 +394,7 @@ int MnjArc::Intersect(MnjInfiniteLine &il, shared_ptr_vec_pt &opt_vec){
 		return error;
 }
 ////////////////////////////////////////////////////////////////////////////////////////
-bool MnjArc::IsPointOnArc(dbl_3d_pt &p)const{
+bool MnjArc::IsPointOnArc(const dbl_3d_pt &p)const{
 		
     auto angle = GetAngle(p);
     auto dist = GeomUtils::GetDistance(centerPoint,p);
@@ -417,19 +418,23 @@ int MnjArc::ResetThePoint(dbl_3d_pt &icornerPoint,dbl_3d_pt &ip){
         }
         return 0;
     }
- /////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
   void MnjArc::Flip(void){
+
         dbl_3d_pt tmp = startPoint;
         startPoint  = endPoint;
         endPoint = tmp;
- }
-  int MnjArc::SetSmallerArc(dbl_3d_pt &e1,dbl_3d_pt &c,dbl_3d_pt &e2){
-    int error = Set(e1,c,e2);//mnj
-    if(GetAngle()>M_PI)
+ 
+}
+int MnjArc::SetSmallerArc(dbl_3d_pt &e1,dbl_3d_pt &c,dbl_3d_pt &e2){
+
+  int error = Set(e1,c,e2);//mnj
+  if(GetAngle()>M_PI)
         Flip();
     return error;
- }
-  //////////////////////////////////////////////////////////////////////////////////
+ 
+}
+//////////////////////////////////////////////////////////////////////////////////
   dbl_3d_pt MnjArc::GetOtherEnd(const dbl_3d_pt &ip,int &oerror)const{
       oerror = 0;
       if(GeomUtils::IsSame(startPoint,ip)){
@@ -518,7 +523,7 @@ double MnjArc::Distance(dbl_3d_pt &ip,int &oerror) {
     return fabs(d-r);
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////
-bool MnjArc::PointProjectOnArc(dbl_3d_pt &ip,dbl_3d_pt &op,int &oerror) {
+bool MnjArc::PointProjectOnArc(dbl_3d_pt &ip, dbl_3d_pt &op,int &oerror) {
 		
     oerror =0;
 

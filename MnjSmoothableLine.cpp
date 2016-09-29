@@ -1,3 +1,4 @@
+//2016/09/29: Manoj: Some member function were made const
 #include "MnjSmoothableLine.h"
 #include "MnjLine.h"
 #include "MnjInfiniteLine.h" 
@@ -87,8 +88,8 @@ void MnjSmoothableLine::SetEndPoint(MnjPoint<double> &p){
 	mline.SetEndPoint(p);
 }
 
-double MnjSmoothableLine::GetMaxDistance(MnjPoint<double> &p){
-    double d = GetDistance(p);
+double MnjSmoothableLine::GetMaxDistance(MnjPoint<double> &p)const{
+  double d = GetDistance(p);
 	return d;
 }
 
@@ -110,7 +111,7 @@ void MnjSmoothableLine::GetNormalAtEndPoint(MnjLine &l){
 
 }
 */
-double MnjSmoothableLine::GetDistance(MnjPoint<double> &p){
+double MnjSmoothableLine::GetDistance(MnjPoint<double> &p)const{
 	MnjPoint<double> sp ;
 	GetStartPoint(sp);
 	MnjPoint<double> ep ;
@@ -185,7 +186,7 @@ void MnjSmoothableLine::Flip(void){
 
 ////////////////////////////////////////////////////////////////////////////////////
 #if _DEBUG 
-void MnjSmoothableLine::Print(void){
+void MnjSmoothableLine::Print(void)const{
 /*cout << "MnjLine: ";
 cout << "\tstart: ";
 	startPoint.Print();

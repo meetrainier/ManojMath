@@ -1,15 +1,14 @@
 ////////////////////////////////////////////////////////////
 ///
-///     Mnj International Corp.
-///     Project : Insert arc among a sequence of segments(lines/arcs).
 ///     Subsystem : None
 ///     Author : Manoj Lnu
 ///     Date : 4/23/2012
 ///
-///     Copyright (C) 2012 Mnj International Corp.
+///     Copyright (C) 2012 - 2016 Manoj Lnu
 ///		All rights reserved.
 ///
 ////////////////////////////////////////////////////////////
+//29Sep 2016: Manoj: Some member function were made const
 #include <iostream>
 #include <exception>
 #include <typeinfo> 
@@ -159,7 +158,7 @@ void MnjSmoothableArc::SetEndPoint(MnjPoint<double> &p){
 }
 
 
-double MnjSmoothableArc::GetMaxDistance(MnjPoint<double> &p){
+double MnjSmoothableArc::GetMaxDistance(MnjPoint<double> &p)const{
 	return -1;//tbd
 }
 
@@ -172,7 +171,7 @@ double MnjSmoothableArc::GetRadius(void){
 }
  /////////////////////////////////////////////////////////////////////////////////////////
 #if _DEBUG 
-	void MnjSmoothableArc::Print(void){
+	void MnjSmoothableArc::Print(void)const{
 		marc.Print();
 	}
 #endif 

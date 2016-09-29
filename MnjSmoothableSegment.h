@@ -1,5 +1,5 @@
 #pragma once 
-
+//9/29/2016 : Manoj : Print is a const method now. 
 #include <memory> 
 #include "MnjPoint.h"
 #include "Segment.h"
@@ -33,7 +33,7 @@ private:
 class MnjSmoothableSegment:public Segment  {
 
 public:
-    typedef std::shared_ptr<MnjSmoothableSegment> shared_ptr;
+  typedef std::shared_ptr<MnjSmoothableSegment> shared_ptr;
 	
 	typedef vector<std::shared_ptr<MnjSmoothableSegment>> shared_ptr_vec;
 	typedef vector<std::shared_ptr<MnjSmoothableSegment>>::iterator shared_ptr_vec_it;
@@ -205,7 +205,7 @@ public:
     
   void SetSegProp(ICSAttribute::ICSSegProperty iprop){mattr.SetSegProp(iprop);}
 #if _DEBUG
-   virtual void Print(void)=0;
+   virtual void Print(void)const=0;
 #endif 
 private: 
     CornerAttribute mCornerAttr; 

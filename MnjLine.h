@@ -1,5 +1,6 @@
 #pragma once
-//Manoj : 21May 2016: Replaced typedesf by using 
+//21May 2016: Manoj : Replaced typedefs by using 
+//29Sep 2016: Manoj : Some member function made const
 
 #include <vector>
 #include <list>
@@ -57,12 +58,13 @@ public:
 
 	void Set(MnjPoint<double> &s,MnjPoint<double> &e);
 	void GetStartPoint(MnjPoint<double> &p)const;
-    void GetEndPoint(MnjPoint<double> &p)const;
+  void GetEndPoint(MnjPoint<double> &p)const;
+
 	void SetStartPoint(MnjPoint<double> &p);
-    void SetEndPoint(MnjPoint<double> &p);
+  void SetEndPoint(MnjPoint<double> &p);
 	
   //gets maximum distance between a point and a line segment
-	virtual double GetMaxDistance(MnjPoint<double> &p) override;
+	virtual double GetMaxDistance(MnjPoint<double> &p) const override;
 	
   //virtual void GetNormalAtStartPoint(MnjLine &l) ;
   //virtual void GetNormalAtEndPoint(MnjLine &l);
@@ -71,13 +73,16 @@ public:
 
   //virtual bool IsSameGeometry(Segment *s,double &tol);
 	//////////////////////////////////////////////////////////////////
-  double GetDistance(MnjPoint<double> &p);
+  double GetDistance(MnjPoint<double> &p)const;
+  
   //////////////////////////////////////////////////////////////////
   double GetLength(void) const;
 	// returns 0 when the two lines do not intersect 
+
 	int Intersect(MnjLine &line, MnjPoint<double> &pIntersection);
 	// returns 0 when the point is on line or will be projected beyond  
-	int Project(const MnjPoint<double> &pIntersection, MnjPoint<double> &pProjection,double tol = .001);
+	
+  int Project(const MnjPoint<double> &pIntersection, MnjPoint<double> &pProjection,double tol = .001);
 	MnjInfiniteLine GetPerpendicularBisector(const MnjPoint<double> &ipt_not_on_line,
                                                     int error);
  
@@ -107,8 +112,8 @@ public:
 /////////////////////////////////////////////////////////////////////////////////
 
   bool Transform( const Mnj4x4Matrix& tr );
- MnjPoint<double> StartPoint(void);
- MnjPoint<double> EndPoint(void);
+  MnjPoint<double> StartPoint(void);
+  MnjPoint<double> EndPoint(void);
   MnjVector Direction() const;
 //////////////////////////////////////////////
   bool ClosestPointTo( const MnjPoint<double>& point, double *t ) const;
@@ -137,7 +142,7 @@ public:
 
  void Flip(void);
 #if _DEBUG 
-	virtual void Print(void);
+	virtual void Print(void)const;
 #endif 
 
 private: 

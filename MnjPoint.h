@@ -117,27 +117,27 @@ bool operator<( const MnjPoint& p ) const;
 
 bool operator>( const MnjPoint& p ) const;
 
-double operator[](int i) const;
+  double operator[](int i) const;
 
-double& operator[](int i);
-//operator double*();
+  double& operator[](int i);
+  //operator double*();
 
-//operator const double*() const;
-double DistanceTo( const MnjPoint& p ) const;
+  //operator const double*() const;
+  double DistanceTo( const MnjPoint& p ) const;
 
-//int MaximumCoordinateIndex() const;
+  //int MaximumCoordinateIndex() const;
 
-double MaximumCoordinate() const;
+  double MaximumCoordinate() const;
 
-int MinimumCoordinateIndex() const;
+  int MinimumCoordinateIndex() const;
 
-double MinimumCoordinate() const;
+  double MinimumCoordinate() const;
 
-void Zero();
+  void Zero();
 
 		//MnjPoint<class T>& operator+(MnjVector &p);
 #ifdef _DEBUG 
-		void Print(){
+		void Print()const{
 		   cout << x <<"\t" << y <<"\t"<< z << endl; 
 	    }
 #endif

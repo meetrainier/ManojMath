@@ -1,7 +1,8 @@
 /*
-7/12/2012 bug_fix: now, void CreateParallelLine( double r,const MnjPoint<double>  &p,boost::shared_ptr<MnjLine> &l) creates a new 
+7/12/2012 :Manoj : bug_fix, now, void CreateParallelLine( double r,const MnjPoint<double>  &p,boost::shared_ptr<MnjLine> &l) creates a new 
                    smart pointer and returns it. 
-*/
+29Sep 2016: Manoj : Some member function were made const
+                   */
 #include <cmath> 
 #include <memory> 
 #include "MnjOperators.h"
@@ -73,7 +74,7 @@ void MnjLine::SetEndPoint(MnjPoint<double> &p){
 	endPoint = p;
 }
 //////////////////////////////////////////////////////////
-double MnjLine::GetMaxDistance(MnjPoint<double> &p){
+double MnjLine::GetMaxDistance(MnjPoint<double> &p)const{
     double d = GetDistance(p);
 	return d;
 }
@@ -86,7 +87,7 @@ void MnjLine::GetEndPoint(MnjPoint<double> &op)const{
 	op = endPoint;
 }
 /////////////////////////////////////////////////////////
-double MnjLine::GetDistance(MnjPoint<double> &p){
+double MnjLine::GetDistance(MnjPoint<double> &p)const{
 	MnjPoint<double> sp ;
 	GetStartPoint(sp);
 	MnjPoint<double> ep ;
@@ -171,7 +172,7 @@ void MnjLine::CreateParallelLine( double r,
 }
 ////////////////////////////////////////////////////////////////////////////////////
 #if _DEBUG 
-void MnjLine::Print(void){
+void MnjLine::Print(void)const{
 cout << "Line: ";
 cout << "\tstart: ";
 	startPoint.Print();

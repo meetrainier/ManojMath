@@ -13,7 +13,7 @@ Manoj 09/27/2016 Increased use of "auto"
 #include "MnjCircle.h"
 using namespace std;
 
-MnjArc::MnjArc(shared_ptr &iSeg1, shared_ptr& iSeg2){
+MnjArc::MnjArc(const shared_ptr &iSeg1, const shared_ptr& iSeg2){
   
   //TestMnjSmoother test;
   
@@ -99,7 +99,7 @@ void MnjArc::CreateErrorString(char *file, int line_no,char *func, string &imsg,
 }
 */
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
-MnjArc::MnjArc(std::shared_ptr<MnjLine> &iSeg1, shared_ptr& iSeg2){
+MnjArc::MnjArc(const std::shared_ptr<MnjLine> &iSeg1, const shared_ptr& iSeg2){
   int error = 0;
   dbl_3d_pt commonPoint = iSeg1->GetCommonPoint(iSeg2,error);
   if(error>=0){
@@ -137,7 +137,7 @@ MnjArc::MnjArc(std::shared_ptr<MnjLine> &iSeg1, shared_ptr& iSeg2){
   }
 }
 /////////////////////////////////////////////////////
-MnjArc::MnjArc(shared_ptr &iSeg1, MnjLine::shared_ptr& iSeg2){
+MnjArc::MnjArc(const shared_ptr &iSeg1, const MnjLine::shared_ptr& iSeg2){
 
   int error = 0;
   dbl_3d_pt commonPoint = iSeg1->GetCommonPoint(iSeg2,error);
@@ -206,7 +206,7 @@ void MnjArc::GetStartPoint(dbl_3d_pt &op)const{
 	op = startPoint;
 }
 
-void MnjArc::GetCenter(dbl_3d_pt &oc){
+void MnjArc::GetCenter(dbl_3d_pt &oc)const{
 	oc = centerPoint;
 }
 /////////////////////////////////////////////////////////////
@@ -256,7 +256,7 @@ void MnjArc::SetEndPoint(const dbl_3d_pt &p){
 }
 
 
-double MnjArc::GetMaxDistance(dbl_3d_pt &p){
+double MnjArc::GetMaxDistance(dbl_3d_pt &p)const{
 	return -1;//tbd
 }
 /*
@@ -588,7 +588,7 @@ void MnjArc::GetEnds(dbl_3d_pt &s, dbl_3d_pt &e)const{
 }
  /////////////////////////////////////////////////////////////////////////////////////////
 #if _DEBUG 
-	void MnjArc::Print(void){
+	void MnjArc::Print(void)const {
 cout << "Arc: ";
 cout << "\tStart: ";
 	startPoint.Print();

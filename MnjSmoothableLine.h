@@ -1,4 +1,5 @@
 #pragma once
+//2016/09/29: Manoj: Some member function were made const
 #include <memory> 
 #include "MnjSmoothableSegment.h"
 #include "MnjPoint.h"
@@ -43,7 +44,7 @@ public:
   virtual MnjPoint<double> GetOtherEnd(const MnjPoint<double> &ip,int &oerror)const;
 
 	//gets maximum distance between a point and a line segment
-	virtual double GetMaxDistance(MnjPoint<double> &p);
+	virtual double GetMaxDistance(MnjPoint<double> &p)const;
 	
   MnjDirection TangentAtEnd(MnjPoint<double> &p){
 	  return mline.TangentAtEnd(p); 
@@ -52,7 +53,7 @@ public:
   std::shared_ptr<MnjLine> GetLine(void)const;
   
   std::shared_ptr<Segment> GetSegment(void);
-	double GetDistance(MnjPoint<double> &p);
+	double GetDistance(MnjPoint<double> &p)const;
 
 	// returns 0 when the two lines do not intersect 
 	int Intersect(MnjLine &line, MnjPoint<double> &pIntersection);
@@ -80,7 +81,7 @@ public:
     /////////////////////////////////////////////////////////////////////////////////
     int Partition(const unsigned int &n, list<std::shared_ptr<MnjSmoothableSegment>> &ol);
 #if _DEBUG 
-	virtual void Print(void);
+	virtual void Print(void)const override;
 #endif 
 private: 
 	//MnjPoint<double> startPoint;

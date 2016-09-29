@@ -1,3 +1,4 @@
+//2016/09/29: Manoj: Some member function were made const
 #pragma once
 //#include "icspath.h"
 #include <vector>
@@ -18,7 +19,7 @@ class Segment {
 public:
 
   typedef shared_ptr<Segment> shared_ptr;// postponing change of this "typedef" to "using"  
-  					//since no compilation fcilityis currently available.
+  					//since no compilation facilityis currently available.
 	
 	using shared_ptr_vec  = vector<std::shared_ptr<Segment>> ;
         using shared_ptr_vec_it = vector<std::shared_ptr<Segment>>::iterator ;
@@ -51,14 +52,14 @@ public:
   virtual void GetStartPoint(MnjPoint<double> &p) const=0 ;
   virtual void GetEndPoint(MnjPoint<double> &p)const=0 ;
   virtual void GetEnds(MnjPoint<double> &s,MnjPoint<double> &e)const=0 ;
-  virtual double GetMaxDistance(MnjPoint<double> &p)=0;// do we really need it?
+  virtual double GetMaxDistance(MnjPoint<double> &p)const=0;// do we really need it?
   virtual  MnjPoint<double> Segment::GetCommonPoint(std::shared_ptr<Segment> seg2,int &oerror);
   virtual MnjPoint<double> GetOtherEnd(const MnjPoint<double> &ip,int &oerror)const=0;
    //virtual SegmentType GetType()=0;
 
    //virtual bool IsSameGeometry(boost::shared_ptr<Segment> s,double &tol)=0;
 #if _DEBUG
-   virtual void Print(void)=0;
+   virtual void Print(void)const=0;
 #endif 
   // virtual void GetEdge(EDGE *&e)=0;
    bool operator<(Segment &s){

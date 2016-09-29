@@ -27,15 +27,15 @@ public:
 	using shared_ptr_list_it = list<std::shared_ptr<MnjArc>>::iterator ;
 
 	MnjArc() { } 
-	MnjArc(Segment &iSeg1, Segment &iSeg2);
-	MnjArc(Segment *iSeg1, Segment *iSeg2);
+	//MnjArc(const Segment &iSeg1, const Segment &iSeg2);
+	//MnjArc(const Segment *iSeg1, const Segment *iSeg2);
 
 	MnjArc(const MnjPoint<double> &ip1, const MnjPoint<double> &center, const MnjPoint<double> &ip2);
-  MnjArc(shared_ptr &iSeg1, shared_ptr& iSeg2);
+  MnjArc(const shared_ptr &iSeg1, const shared_ptr& iSeg2);
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
-  MnjArc(std::shared_ptr<MnjLine> &iSeg1, shared_ptr& iSeg2);
+  MnjArc(const std::shared_ptr<MnjLine> &iSeg1, const shared_ptr& iSeg2);
 /////////////////////////////////////////////////////
-  MnjArc(shared_ptr &iSeg1, MnjLine::shared_ptr& iSeg2);
+  MnjArc(const shared_ptr &iSeg1, const MnjLine::shared_ptr& iSeg2);
 //	SegmentType GetType(){ return ARC;}
 
 	void GetStartPoint(MnjPoint<double> &p)const;
@@ -47,13 +47,13 @@ public:
 		SetEndPoint(e);
 	}
   */
-  void SetStartPoint(const MnjPoint<double> &p);
-  void SetEndPoint(const MnjPoint<double> &p);
+  void SetStartPoint(const MnjPoint<double> &ip);
+  void SetEndPoint(const MnjPoint<double> &ip);
 	
 	double GetRadius(void) const;
 	
-  void GetCenter(MnjPoint<double> &c);
-  MnjPoint<double> GetCenter(void)const;
+  void GetCenter(MnjPoint<double> &c) const;
+  MnjPoint<double> GetCenter(void) const;
 
 	void SetCenter(const MnjPoint<double> &p);
 	
@@ -61,11 +61,11 @@ public:
   //virtual void GetNormalAtEndPoint(MnjLine &l);
 	
   //gets maximum distance between a point and a arc segment
-	virtual double GetMaxDistance(MnjPoint<double> &p);
+	virtual double GetMaxDistance(MnjPoint<double> &p) const;
   
   //virtual bool IsSameGeometry(Segment *s,double &tol);
 #ifdef _DEBUG
-	virtual void Print(void);
+	virtual void Print(void) const;
 #endif 
 
   int CreateSmallestArc(shared_ptr_vec_pt &pt_vec,MnjArc &oa);

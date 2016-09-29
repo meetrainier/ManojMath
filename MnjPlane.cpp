@@ -14,7 +14,7 @@ bool MnjPlane::CreateFromFrame(
   yaxis = Y - GeomUtils::DotProduct( Y, xaxis)*xaxis;
   yaxis.Unitize();
   zaxis = GeomUtils::CrossProduct( xaxis, yaxis );
-  bool b = zaxis.Unitize();
+  auto b = zaxis.Unitize();
   //UpdateEquation();
   if ( b )
   {

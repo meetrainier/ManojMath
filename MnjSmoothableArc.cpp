@@ -84,7 +84,7 @@ MnjSmoothableArc::MnjSmoothableArc(const std::shared_ptr<MnjSmoothableArc> &iSeg
     
     MnjArc tmpArc(iSeg1->GetArc(0),iSeg2->GetLine());
 	
-	marc = tmpArc;
+	  marc = tmpArc;
     MergeAndSetAttributes(iSeg1,iSeg2,iStatus);
     /*
     SetICSAttribute(iSeg1,iSeg2);
@@ -226,23 +226,24 @@ int MnjSmoothableArc::ResetThePoint(MnjPoint<double> &icornerPoint,MnjPoint<doub
  ///////////////////////////////////////////////////////////////////////////////////////////////////
  std::shared_ptr<MnjArc> MnjSmoothableArc::GetArc(int dummy)const{
 	   std::shared_ptr<MnjArc> a(new MnjArc(marc));
-       return a;
+     return a;
 }
  ///////////////////////////////////////////////////////////////////////////////////////////////////////
 //int MnjSmoothableArc::Partition(const unsigned int &n, list<boost::shared_ptr<MnjSmoothableArc>> &ol){
 int MnjSmoothableArc::Partition(const unsigned int &n, list<std::shared_ptr<MnjSmoothableSegment>> &ol){
-    int error =0;
-    list<std::shared_ptr<MnjArc>> arcList;
-    marc.Partition(n, arcList);
-    list<std::shared_ptr<MnjArc>>::iterator it=arcList.begin();
     
-    ICSAttribute attr;
-    GetICSAttribute(attr);
+  int error =0;
+  list<std::shared_ptr<MnjArc>> arcList;
+  marc.Partition(n, arcList);
+  list<std::shared_ptr<MnjArc>>::iterator it=arcList.begin();
     
-    for ( ;it!= arcList.end(); it++ ) {
-        ol.push_back(std::shared_ptr<MnjSmoothableArc>(new MnjSmoothableArc(**it)));//,attr)));
-    }
-    return error;
+  ICSAttribute attr;
+  GetICSAttribute(attr);
+    
+  for ( ;it!= arcList.end(); it++ ) {
+      ol.push_back(std::shared_ptr<MnjSmoothableArc>(new MnjSmoothableArc(**it)));//,attr)));
+  }
+  return error;
 }
 /////////////////////////////////////////////////////////
 std::shared_ptr<Segment> MnjSmoothableArc::GetSegment(void){

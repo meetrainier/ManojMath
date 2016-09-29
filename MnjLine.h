@@ -27,6 +27,7 @@ using namespace std;
 class MnjLine: public Segment {
 
 public:
+  
   using shared_ptr = std::shared_ptr<MnjLine> ;
 	
   using shared_ptr_vec = vector<std::shared_ptr<MnjLine>> ;
@@ -35,7 +36,7 @@ public:
   using shared_ptr_list = list<std::shared_ptr<MnjLine>> ;
   using shared_ptr_list_it = list<std::shared_ptr<MnjLine>>::iterator ;
 /*
-    typedef std::shared_ptr<MnjLine> shared_ptr;
+  typedef std::shared_ptr<MnjLine> shared_ptr;
 	
 	typedef vector<std::shared_ptr<MnjLine>> shared_ptr_vec;
 	typedef vector<std::shared_ptr<MnjLine>>::iterator shared_ptr_vec_it;
@@ -55,7 +56,7 @@ public:
   MnjLine(Segment::shared_ptr &iSeg1, Segment::shared_ptr& iSeg2);
   MnjLine(shared_ptr &iSeg1, shared_ptr& iSeg2);
 
-//	SegmentType GetType(){ return SegmentType::LINE;}
+  //SegmentType GetType(){ return SegmentType::LINE;}
 
 	void Set(MnjPoint<double> &s,MnjPoint<double> &e);
 	void GetStartPoint(MnjPoint<double> &p)const;
@@ -73,19 +74,17 @@ public:
   virtual MnjPoint<double> GetOtherEnd(const MnjPoint<double> &ip,int &oerror)const;
 
   //virtual bool IsSameGeometry(Segment *s,double &tol);
-	//////////////////////////////////////////////////////////////////
   double GetDistance(MnjPoint<double> &p)const;
   
-  //////////////////////////////////////////////////////////////////
   double GetLength(void) const;
 	// returns 0 when the two lines do not intersect 
 
 	int Intersect(MnjLine &line, MnjPoint<double> &pIntersection);
 	// returns 0 when the point is on line or will be projected beyond  
 	
-  int Project(const MnjPoint<double> &pIntersection, MnjPoint<double> &pProjection,double tol = .001);
+  int Project(const MnjPoint<double> &pIntersection, MnjPoint<double> &pProjection, double tol = .001);
 	MnjInfiniteLine GetPerpendicularBisector(const MnjPoint<double> &ipt_not_on_line,
-                                                    int error);
+                                                 int error);
  
   void GetEnds( 
 	      MnjPoint<double>  &p,
@@ -101,47 +100,45 @@ public:
 	      MnjPoint<double>  &oPoint
 	);
 
-   MnjDirection TangentAtEnd(MnjPoint<double> &p);
+  MnjDirection TangentAtEnd(MnjPoint<double> &p);
 
-   int GetPointOnLine(const MnjPoint<double>  &eitherEnd, 
-                      const double &distance_from_arg1,
-                            MnjPoint<double> &opt_on_line)const;
-//////////////////////////////////////////////////////////////////////////////////
+  int GetPointOnLine(const MnjPoint<double> &eitherEnd, 
+                     const double           &distance_from_arg1,
+                           MnjPoint<double> &opt_on_line)const;
+
   void GetPerpendicularAt(const MnjPoint<double> &ieitherEnd,
-                          const double &idistance_from_start,
-                              MnjInfiniteLine &operp_line);
-/////////////////////////////////////////////////////////////////////////////////
+                          const double           &idistance_from_start,
+                                MnjInfiniteLine  &operp_line);
 
   bool Transform( const Mnj4x4Matrix& tr );
   MnjPoint<double> StartPoint(void);
   MnjPoint<double> EndPoint(void);
   MnjVector Direction() const;
-//////////////////////////////////////////////
+
   bool ClosestPointTo( const MnjPoint<double>& point, double *t ) const;
-//////////////////////////////////////////////////////////////////////////////////////////////////
   MnjPoint<double> PointAt( double t ) const;
-/////////////////////////////////////////////////////////////////////////////////////////
+
   MnjInfiniteLine Normal(const MnjPoint<double> &ip,//a point on the line
-                           const MnjPoint<double> &iptToDefinePlane,//the normal to  line in 3d will be plane. A point input is necssary to define
+                         const MnjPoint<double> &iptToDefinePlane,//the normal to  line in 3d will be plane. A point input is necssary to define
                                                                     //an output line. The Point will be projected on the plane to create line.
-                           int &error );
- ///////////////////////////////////////////////////////////////////////////////////////
- MnjPlane Normal(const MnjPoint<double> &ip,//a point on the line
+                               int &error );
+  MnjPlane Normal(const MnjPoint<double> &ip,//a point on the line
                            int error );
- ///////////////////////////////////////////////////////////////////////////////////////
- int Partition(unsigned int n, list<shared_ptr> &l);
+  ///////////////////////////////////////////////////////////////////////////////////////
+  int Partition(unsigned int n, list<shared_ptr> &l);
 
- MnjDirection GetPerpendicularDirection(const MnjPoint<double> &ipt_not_on_line,
-                                                    int error);
- void GetMiddlePoint(MnjPoint<double> &m)const;
+  MnjDirection GetPerpendicularDirection(const MnjPoint<double> &ipt_not_on_line,
+                                               int error);
+  
+  void GetMiddlePoint(MnjPoint<double> &m)const;
 
- int GetAPointNotOnLine(MnjPoint<double> &o_pt_not_on_line)const;
- void GetPerpendicularBisector(MnjInfiniteLine &bisector);
- MnjDirection Tangent(void);
- int ResetThePoint(MnjPoint<double> &icornerPoint,MnjPoint<double> &ip);
+  int GetAPointNotOnLine(MnjPoint<double> &o_pt_not_on_line)const;
+  void GetPerpendicularBisector(MnjInfiniteLine &bisector);
+  MnjDirection Tangent(void);
+  int ResetThePoint(MnjPoint<double> &icornerPoint, MnjPoint<double> &ip);
 
+  void Flip(void);
 
- void Flip(void);
 #if _DEBUG 
 	virtual void Print(void)const;
 #endif 

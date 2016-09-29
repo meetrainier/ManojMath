@@ -62,6 +62,7 @@ Mnj4x4Matrix::Mnj4x4Matrix( const MnjPoint<double>& P,
 /////////////////////////////////////////////////////////////////////////////////////
 Mnj4x4Matrix Mnj4x4Matrix::Inverse( double* pivot ) const
 {
+
   Mnj4x4Matrix inv;
   double d = 0.0, p = 0.0;
   //int rank = 
@@ -69,6 +70,7 @@ Mnj4x4Matrix Mnj4x4Matrix::Inverse( double* pivot ) const
   if ( pivot )
     *pivot = p;
   return inv;
+
 }
 
 
@@ -152,20 +154,24 @@ const double* Mnj4x4Matrix::operator[](int i) const
 //major 
 void Mnj4x4Matrix::Translation( double x, double y, double z )
 {
+
   Identity();
   m_xform[0][3] = x;
   m_xform[1][3] = y;
   m_xform[2][3] = z;
   m_xform[3][3] = 1.0;
+
 }
 
 void Mnj4x4Matrix::Translation( const MnjPoint<double>& v )
 {
+
   Identity();
   m_xform[0][3] = v.x;
   m_xform[1][3] = v.y;
   m_xform[2][3] = v.z;
   m_xform[3][3] = 1.0;
+
 }
 
 void Mnj4x4Matrix::Translation( const MnjVector& v )
@@ -207,6 +213,7 @@ MnjVector Mnj4x4Matrix::operator*( const MnjVector& p ) const
 }
 Mnj4x4Matrix Mnj4x4Matrix::operator*( const Mnj4x4Matrix& rhs ) const
 {
+
   double m[4][4];
   const double* p = &rhs.m_xform[0][0];
 

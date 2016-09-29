@@ -174,11 +174,13 @@ void MnjLine::CreateParallelLine( double r,
 ////////////////////////////////////////////////////////////////////////////////////
 #if _DEBUG 
 void MnjLine::Print(void)const{
-cout << "Line: ";
-cout << "\tstart: ";
-	startPoint.Print();
-cout << "\tend: ";
-	endPoint.Print();
+
+  cout << "Line: ";
+  cout << "\tstart: ";
+  startPoint.Print();
+  cout << "\tend: ";
+  endPoint.Print();
+
 }
 #endif
 
@@ -223,11 +225,11 @@ MnjPoint<double> MnjLine::GetOtherEnd(const MnjPoint<double> &ip,int &oerror)con
       
   }
 ////////////////////////////////////////////////////////////////////////////////////
-int MnjLine::GetPointOnLine(const MnjPoint<double>  &eitherEnd, 
+int MnjLine::GetPointOnLine(const MnjPoint<double>  &eitherEnd,
                             const double &distance_from_arg1,
                                    MnjPoint<double> &opt_on_line)const {
 		int error = 0;
-		double factor = distance_from_arg1/GetLength();
+		auto factor = distance_from_arg1/GetLength();
 		if(factor > 1 || factor < 0){
 			error = -2;
         }
@@ -238,26 +240,27 @@ int MnjLine::GetPointOnLine(const MnjPoint<double>  &eitherEnd,
 		}
 		return error;
 }
+///////////////////////////////////////////////////////////////////////////////
 MnjInfiniteLine MnjLine::GetPerpendicularBisector(const MnjPoint<double> &ipt_not_on_line,
                                                     int error){
  // tbd:return error when the point is not on line
 
-    MnjPoint<double> m;
+  MnjPoint<double> m;
 	GetMiddlePoint(m);
 	MnjDirection dirAlongThisLine(startPoint,endPoint);
 	
-    MnjInfiniteLine thisLineAsInf(this);
-    MnjPoint<double> projectedPt;
+  MnjInfiniteLine thisLineAsInf(this);
+  MnjPoint<double> projectedPt;
 	thisLineAsInf.Project(ipt_not_on_line,projectedPt);
 	
     MnjDirection dir(projectedPt,ipt_not_on_line);
 	return MnjInfiniteLine(m,dir);
 //tbd?	GetParallelLine();
 }
-//////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
 void MnjLine::GetPerpendicularAt(const MnjPoint<double> &ieitherEnd,
-                        const double &idistance_from_start,
-                              MnjInfiniteLine &operp_line){
+                                 const double &idistance_from_start,
+                                       MnjInfiniteLine &operp_line){
      MnjPoint<double> p;
 		 GetPointOnLine(ieitherEnd,idistance_from_start,p);
 		 
@@ -270,24 +273,25 @@ void MnjLine::GetPerpendicularAt(const MnjPoint<double> &ieitherEnd,
 
 //////////////////////////////////////////////////////////////////////////////////
 int MnjLine::GetAPointNotOnLine(MnjPoint<double> &o_pt_not_on_line)const{
+
 	MnjPoint<double> m  ;
 	GetMiddlePoint(m);
 	MnjDirection dirAlongThisLine(startPoint,endPoint);
 	o_pt_not_on_line = m;
 	
-  double tmpx = o_pt_not_on_line.x+GetLength()/10;
+  auto tmpx = o_pt_not_on_line.x+GetLength()/10;
 	o_pt_not_on_line.SetX(tmpx);
 	MnjDirection tmpDir1(startPoint,o_pt_not_on_line);
-	double tmp1 = dirAlongThisLine.DotProduct(tmpDir1);
+	auto tmp1 = dirAlongThisLine.DotProduct(tmpDir1);
 
   if(tmp1!=0.0 && tmp1!=1.0){
 		return 0;
 	}else{
 		
-    double tmpy = o_pt_not_on_line.y+GetLength()/10 ;
+    auto tmpy = o_pt_not_on_line.y+GetLength()/10 ;
 		o_pt_not_on_line.SetY(tmpy);
 	  MnjDirection tmpDir2(startPoint,o_pt_not_on_line);
-		double tmp1 = dirAlongThisLine.DotProduct(tmpDir2);
+		auto tmp1 = dirAlongThisLine.DotProduct(tmpDir2);
 		if(tmp1!=0.0 && tmp1!=1.0){
 		  return 0;
 
@@ -394,36 +398,38 @@ MnjDirection MnjLine::GetPerpendicularDirection(const MnjPoint<double> &ipt_not_
                                  const MnjPoint<double> &iptToDefinePlane,//the normal to  line in 3d will be plane. A point input is necssary to define
                                                                     //an output line. The Point will be projected on the plane to create line.
                            int &error ){
-    MnjDirection dir = GetPerpendicularDirection(iptToDefinePlane,error); 
+    auto dir = GetPerpendicularDirection(iptToDefinePlane,error); 
     return   MnjInfiniteLine(ip,dir); 
 
  }
- ///////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////
 int MnjLine::Partition(unsigned int n, list<std::shared_ptr<MnjLine>> &l){
     
- int error =0;
+  int error =0;
     
-    if(n<=0 || l.size()> 0)
-        error = -1;
-    double num = n;
+  if(n<=0 || l.size()> 0)
+      error = -1;
+  double num = n;
 
-    if(!error){
-        for(  double i = 0; i < num ; i++ ) {
-            MnjPoint<double> stmp = startPoint + (endPoint -startPoint)*(i/n);
-            MnjPoint<double> etmp = startPoint + (endPoint -startPoint)*((i+1)/n);
-            std::shared_ptr<MnjLine> ltmp(new MnjLine(stmp,etmp));
-            l.push_back(ltmp);
-        }
-    }
-   return error;
+  if(!error){
+      for(  double i = 0; i < num ; i++ ) {
+          MnjPoint<double> stmp = startPoint + (endPoint -startPoint)*(i/n);
+          MnjPoint<double> etmp = startPoint + (endPoint -startPoint)*((i+1)/n);
+          std::shared_ptr<MnjLine> ltmp(new MnjLine(stmp,etmp));
+          l.push_back(ltmp);
+      }
+  }
+  return error;
 }
-  double MnjLine::GetLength(void) const{
+///////////////////////////////////////////////////////////////////////////////
+double MnjLine::GetLength(void) const{
 		 double d = 0;
 	     GeomUtils::GetDistance(startPoint,endPoint,d);
 		 return d;
-	}
-  MnjPoint<double> MnjLine::StartPoint(void){  return MnjPoint<double>(startPoint); }
- MnjPoint<double> MnjLine::EndPoint(void){  return MnjPoint<double>(endPoint); }
+}
+
+MnjPoint<double> MnjLine::StartPoint(void){  return MnjPoint<double>(startPoint); }
+MnjPoint<double> MnjLine::EndPoint(void){  return MnjPoint<double>(endPoint); }
  ///////////////////////////////////////////////////////////////////////////////
   MnjDirection MnjLine::Tangent(void){
       return Direction();
@@ -451,10 +457,10 @@ int MnjLine::Partition(unsigned int n, list<std::shared_ptr<MnjLine>> &l){
         startPoint  = endPoint;
         endPoint = tmp;
  }
- //////////////////////////////////////////////////////////////////////////////////
+ ///////////////////////////////////////////////////////////////////////////////
  int MnjLine::ResetThePoint(MnjPoint<double> &icornerPoint,MnjPoint<double> &ip){
-        double ds = GeomUtils::GetDistance(icornerPoint,startPoint);
-        double de = GeomUtils::GetDistance(icornerPoint,endPoint);
+        auto ds = GeomUtils::GetDistance(icornerPoint,startPoint);
+        auto de = GeomUtils::GetDistance(icornerPoint,endPoint);
         if(ds<de){
             startPoint = ip;
         }
@@ -463,9 +469,9 @@ int MnjLine::Partition(unsigned int n, list<std::shared_ptr<MnjLine>> &l){
         }
         return 0;
     }
- 
- MnjDirection MnjLine::TangentAtEnd(MnjPoint<double> &p){
-      int oerror=0;
+///////////////////////////////////////////////////////////////////////////////
+MnjDirection MnjLine::TangentAtEnd(MnjPoint<double> &p){
+    int oerror=0;
 	  MnjPoint<double> p2 = GetOtherEnd(p,oerror);
-      return (p2-p);
-	}
+    return (p2-p);
+}

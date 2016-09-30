@@ -8,7 +8,7 @@
 #include "MnjSmoothableLine.h"
 #include "MnjSmoothableArc.h"
 #include "TestMnjSmoother.h"
-
+#include "MnjSudoku.h"
 #include "MnjLine.h"
 //class MnjSmoothableLine;
 
@@ -57,6 +57,7 @@ int main(int argc, char *argv[]){
    //TestMnjLine testLine;
 
   //TestMnjSmoother<MnjSmoothableSegment,MnjSmoothableLine,MnjSmoothableArc> test;
+  sudoku_test1();
   TestMnjSmoother test;
   test.Test();
 

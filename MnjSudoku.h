@@ -57,10 +57,13 @@ public:
   bool ApplySmallSquareConstraints(int i, int j);
   bool ApplyColumnConstraints(int i, int j);
   bool ApplyRowConstraints(int i, int j);
-  bool IsComplete();
+  bool IsComplete()const;
   bool ApplyConstraints();
-  void SetElement(int row, int column, int value);
-  void MnjSudoku::SetElementFromIndex1(int r, int c, int val);
+  void SetElement(const int row, const int column, const int value);
+  void SetElementFromIndex1(const int r, const int c, const int val);
+
+  int GetElementFromIndex1(const int r, const int c) const;
+  int GetElement(const int r, const int c) const;
 
 private:
   //v999 board;

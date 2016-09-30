@@ -5,7 +5,8 @@
 //            
 #include <algorithm>
 #include <iostream>
-#include <vector>
+#include <assert.h>
+
 #include "MnjSudoku.h"
 
 using namespace std;
@@ -32,6 +33,14 @@ bool MnjSudoku::ApplyConstraints() {
 void MnjSudoku::SetElement(int row, int column, int value) {
   vi vec{value};
   board[row][column] = vec; 
+}
+
+int MnjSudoku::GetElementFromIndex1(const int r, const int c) const {
+  return GetElement(r-1,c-1);
+}
+
+int MnjSudoku::GetElement(const int r, const int c) const{
+  return board[r][c][0];
 }
 ///////////////////////////////
 void MnjSudoku::Solve1() {
@@ -190,7 +199,7 @@ bool MnjSudoku::ApplyRowConstraints(int row, int column) {
   return shrunk;
 }
 
-bool MnjSudoku::IsComplete() {
+bool MnjSudoku::IsComplete() const{
 
   bool result = true;
   
@@ -206,10 +215,11 @@ bool MnjSudoku::IsComplete() {
 
 }
 
-void MnjSudoku::SetElementFromIndex1(int r, int c, int val) {
+void MnjSudoku::SetElementFromIndex1(const int r, const int c, const int val) {
   SetElement(r-1,c-1,val);
 }
 void MnjSudoku::Debug::Print() {
+
   for (int i = 0; i < 9; ++i) {
     for (int j = 0; j < 9; ++j) {
       if (mps->board[i][j].size() > 1) {
@@ -218,9 +228,12 @@ void MnjSudoku::Debug::Print() {
       else if (1==mps->board[i][j].size()) {
         cout << mps->board[i][j][0] <<"\t" ; 
       }
+      if (2 == j % 3) { cout << "| " ; }
     }
     cout << endl;
+    if (2 == i % 3) { cout << "------------------------------------------------------------------------" << endl; }
   }
+
 }
 
 void sudoku_test1() {
@@ -286,6 +299,18 @@ void sudoku_test1() {
   s.Solve1();
   d.Print();
 
+  //Test first row
+  auto i13 = s.GetElementFromIndex1(1, 3);
+  assert(i13 == 1);
+
+  auto i17 = s.GetElementFromIndex1(1, 7);
+  assert(i17 == 7);
+
+  auto i18 = s.GetElementFromIndex1(1, 8);
+  assert(i18 == 3);
+
+  auto i19 = s.GetElementFromIndex1(1, 9);
+  assert(i19 == 5);
 }
 
 

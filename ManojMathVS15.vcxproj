@@ -91,6 +91,7 @@
     <ClCompile Include="MnjSmoothableSegment.cpp" />
     <ClCompile Include="MnjSmoother.cpp" />
     <ClCompile Include="MnjSmootherUtils.cpp" />
+    <ClCompile Include="MnjSudoku.cpp" />
     <ClCompile Include="MnjVector.cpp" />
     <ClCompile Include="Segment.cpp" />
     <ClCompile Include="TestGeomUtils.cpp" />
@@ -120,6 +121,7 @@
     <ClInclude Include="MnjSmoothableSegment.h" />
     <ClInclude Include="MnjSmoother.h" />
     <ClInclude Include="MnjSmootherUtils.h" />
+    <ClInclude Include="MnjSudoku.h" />
     <ClInclude Include="MnjVector.h" />
     <ClInclude Include="Segment.h" />
     <ClInclude Include="TestGeomUtils.h" />

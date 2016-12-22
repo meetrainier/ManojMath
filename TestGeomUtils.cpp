@@ -175,13 +175,13 @@ int GeomUtils::TestGeomUtils::TestLineLineIntersect()
 	flag = TestLineLineIntersect4();
 	return flag;
 }
-///////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
 int GeomUtils::TestGeomUtils::TestProject4(const MnjPoint<double> LineStart, const MnjPoint<double> LineEnd,
 				double tol ){
 	 MnjPoint<double> p=LineStart;
 	 MnjPoint<double> pProjection;
 		  
-     return GeomUtils::Project(LineStart, LineEnd, p,pProjection);
+     return GeomUtils::Project<dbl_3d_pt>(LineStart, LineEnd, p,pProjection);
 }
 //////////////////////////////////////////////////////////////////////////////////////
 int GeomUtils::TestGeomUtils::TestProject3(const MnjPoint<double> LineStart, const MnjPoint<double> LineEnd,
@@ -189,7 +189,7 @@ int GeomUtils::TestGeomUtils::TestProject3(const MnjPoint<double> LineStart, con
 	 MnjPoint<double> p(5,5,0);
 	 MnjPoint<double> pProjection;
 		  
-     return GeomUtils::Project(LineStart, LineEnd, p,pProjection);
+     return GeomUtils::Project<dbl_3d_pt>(LineStart, LineEnd, p,pProjection);
 }
 ////////////////////////////////////////////////////////////////////////////////////////
 int GeomUtils::TestGeomUtils::TestProject2(const MnjPoint<double> LineStart, const MnjPoint<double> LineEnd,
@@ -197,7 +197,7 @@ int GeomUtils::TestGeomUtils::TestProject2(const MnjPoint<double> LineStart, con
 	 MnjPoint<double> p(11,0,0);
 	 MnjPoint<double> pProjection;
 		  
-     return GeomUtils::Project(LineStart, LineEnd, p,pProjection);
+     return GeomUtils::Project<dbl_3d_pt>(LineStart, LineEnd, p,pProjection);
 }
 ///////////////////////////////////////////////////////////////////////////////////
 int GeomUtils::TestGeomUtils::TestProject1(const MnjPoint<double> LineStart, const MnjPoint<double> LineEnd,
@@ -205,7 +205,7 @@ int GeomUtils::TestGeomUtils::TestProject1(const MnjPoint<double> LineStart, con
 	 MnjPoint<double> p(1,0,0);
 	 MnjPoint<double> pProjection;
 		  
-     return GeomUtils::Project(LineStart, LineEnd, p,pProjection);
+     return GeomUtils::Project<MnjPoint<double>>(LineStart, LineEnd, p,pProjection);
 }
 ///////////////////////////////////////////////////////////////////////////////////
 int GeomUtils::TestGeomUtils::TestProject(){

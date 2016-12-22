@@ -24,29 +24,7 @@ Manoj 09/27/2016 Increasead use of "auto"
 
 using namespace std;
 
-int GeomUtils::Project(const dbl_3d_pt LineStart, 
-                       const dbl_3d_pt LineEnd,
-	                   const dbl_3d_pt &p, 
-					         dbl_3d_pt &pProjection,double tol ){
-   double LineMag;
-   double U;
-  //  MnjPoint<double> Intersection;
-     
-    GeomUtils::GetDistance( LineEnd, LineStart, LineMag );
- 
-    U = ( ( ( p.x - LineStart.x ) * ( LineEnd.x - LineStart.x ) ) +
-        ( ( p.y - LineStart.y ) * ( LineEnd.y - LineStart.y ) ) +
-        ( ( p.z - LineStart.z ) * ( LineEnd.z - LineStart.z ) ) ) /
-        ( LineMag * LineMag );
- 
-    if( U < 0.0f || U > 1.0f )
-        return 0;   // closest point does not fall within the line segment
- 
-    pProjection.x = LineStart.x + U * ( LineEnd.x - LineStart.x );
-    pProjection.y = LineStart.y + U * ( LineEnd.y - LineStart.y );
-    pProjection.z = LineStart.z + U * ( LineEnd.z - LineStart.z );
-	return 1;
-}
+///////////////////////////////////////////////////////////////////////////////////////////////
 int GeomUtils::LineLineIntersect(dbl_3d_pt & p1,dbl_3d_pt &p2,
 								        dbl_3d_pt & p3,dbl_3d_pt & p4,
 										dbl_3d_pt & pa,
@@ -120,11 +98,15 @@ int GeomUtils::LineLineIntersect(dbl_3d_pt & p1,dbl_3d_pt &p2,
    return 1 ;
 }
 
-void GeomUtils::GetDistance(const dbl_3d_pt &p1,const dbl_3d_pt &p2, 
-				 double& distance){
-distance = sqrt(pow((p1.x-p2.x),2) + pow((p1.y-p2.y),2) + pow((p1.z-p2.z),2));
+//void GeomUtils::GetDistance(const dbl_3d_pt &p1,const dbl_3d_pt &p2, 
+//				 double& distance){
+//distance = sqrt(pow((p1.x-p2.x),2) + pow((p1.y-p2.y),2) + pow((p1.z-p2.z),2));
+//}
+ template<class T>
+void GeomUtils::GetDistance(const T &p1, const T &p2,
+  double& distance) {
+  distance = sqrt(pow((p1.x - p2.x), 2) + pow((p1.y - p2.y), 2) + pow((p1.z - p2.z), 2));
 }
-
 
 int GeomUtils::DistancePointInfiniteLine( dbl_3d_pt &p, dbl_3d_pt &LineStart, dbl_3d_pt &LineEnd, double &od )
  {
@@ -155,27 +137,6 @@ void GetDistance(MnjPoint<T> &p1,MnjPoint<T> &p2,
 distance = sqrt(pow((p1.x-p2.x),2) + pow((p1.y-p2.y),2) + pow((p1.z-p2.z),2));
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////////
-void GetExactArcCenter(const double &x1,const double &y1,
-					   const double &x2,const double &y2, 
-		               const double &guessX, const double &guessY,//guessed center
-		               double &xc, double &yc ){
-						
-//let us say: equation of bisector is y = mx + c
-  int bisectorParallelToY = 0;
-  double m=0;
-  double c=0;
-  
-  GeomUtils::GetLineEquation(x1,y1,x2,y2,m,c, bisectorParallelToY );
-  
-  if( bisectorParallelToY )  {
-    xc = (x1+x2)/2;
-    yc = guessY;
-  }else {
-   xc = (guessX+m*guessY-c*m)/(1+m*m);//(guessX+guessY - c)/(1+m);
-   yc = (m*m*guessY +  m*guessX + c)/(1+m*m); //m*(guessX + guessY -c)/(1+m) + c;
-  }
-}
 
 ////////////////////////////////////////////////////////////////////////////////////
 void GeomUtils::GetDistance(const double &x1, const double &y1, const double &x2, const double &y2, 
@@ -1482,3 +1443,24 @@ list<shared_ptr<MnjSmoothableSegment>>::iterator GeomUtils::PrevIter( list<share
 
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////
+void GetExactArcCenter(const double &x1, const double &y1,
+  const double &x2, const double &y2,
+  const double &guessX, const double &guessY,//guessed center
+  double &xc, double &yc) {
+
+  //let us say: equation of bisector is y = mx + c
+  int bisectorParallelToY = 0;
+  double m = 0;
+  double c = 0;
+
+  GeomUtils::GetLineEquation(x1, y1, x2, y2, m, c, bisectorParallelToY);
+
+  if (bisectorParallelToY) {
+    xc = (x1 + x2) / 2;
+    yc = guessY;
+  }
+  else {
+    xc = (guessX + m*guessY - c*m) / (1 + m*m);//(guessX+guessY - c)/(1+m);
+    yc = (m*m*guessY + m*guessX + c) / (1 + m*m); //m*(guessX + guessY -c)/(1+m) + c;
+  }
+}

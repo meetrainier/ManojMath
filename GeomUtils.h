@@ -1,4 +1,5 @@
 //copyright(c) 2009- 2016 Manoj Lnu 
+// 12/21/2016 : converted Project to a template method
 #pragma once 
  
 #include <iostream>
@@ -106,10 +107,39 @@ public:
 	
 	/* 
 	Projects point p, on line segment defined by LineStart and LineEnd.
+  comments: cannot return auto , because soem uses are before the function is defined.
 	*/
-	static int Project(const dbl_3d_pt LineStart, const dbl_3d_pt LineEnd,
-	                   const dbl_3d_pt &p, 
-				dbl_3d_pt &pProjection, double tol = .001);
+
+
+  //template<class T>
+  //static int Project(T LineStart,  T LineEnd,
+  //  const T &p,
+  //  T &pProjection, double tol = .001);
+
+      template<class T>
+      static int Project(const T LineStart,
+                         const T LineEnd,
+      	                     const T &p, 
+      					                   T &pProjection, double tol =.001){
+         double LineMag;
+         double U;
+           
+          GeomUtils::GetDistance<T>( LineEnd, LineStart, LineMag );
+       
+          U = ( ( ( p.x - LineStart.x ) * ( LineEnd.x - LineStart.x ) ) +
+              ( ( p.y - LineStart.y ) * ( LineEnd.y - LineStart.y ) ) +
+              ( ( p.z - LineStart.z ) * ( LineEnd.z - LineStart.z ) ) ) /
+              ( LineMag * LineMag );
+       
+          if( U < 0.0f || U > 1.0f )
+              return 0;   // closest point does not fall within the line segment
+       
+          pProjection.x = LineStart.x + U * ( LineEnd.x - LineStart.x );
+          pProjection.y = LineStart.y + U * ( LineEnd.y - LineStart.y );
+          pProjection.z = LineStart.z + U * ( LineEnd.z - LineStart.z );
+      	return 1;
+      }
+
 	/*
 	  Role: Calculate the line segment PaPb that is the shortest route between
                 two lines P1P2 and P3P4. Calculate also the values of mua and mub where
@@ -160,9 +190,13 @@ public:
  	/*
 	Get distance between two points.
 	*/
-	static void GetDistance(const dbl_3d_pt& p1, const dbl_3d_pt &p2, 
-				      double&    distance); 
-							                  
+	//static void GetDistance(const dbl_3d_pt& p1, const dbl_3d_pt &p2, 
+	//			      double&    distance); 
+
+  template<class T>
+  static void GetDistance(const T& p1, const T &p2,
+    double&    distance); 
+
 	/*
 	Get distance between two points.
 	*/

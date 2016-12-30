@@ -54,9 +54,9 @@ public:
 
   void Solve();
   void Solve1();
-  bool ApplySmallSquareConstraints(int i, int j);
-  bool ApplyColumnConstraints(int i, int j);
-  bool ApplyRowConstraints(int i, int j);
+  auto ApplySmallSquareConstraints(int i, int j);
+  auto ApplyColumnConstraints(int i, int j);
+  auto ApplyRowConstraints(int i, int j);
   bool IsComplete()const;
   bool ApplyConstraints();
   void SetElement(const int row, const int column, const int value);

@@ -10,6 +10,71 @@
 #include "MnjSudoku.h"
 
 using namespace std;
+auto MnjSudoku::ApplyColumnConstraints(int row, int column) {
+
+  bool shrunk = false;
+
+  if (1 == board[row][column].size()) {
+
+    int val = board[row][column][0];
+    for (int i = 0; i < 9; ++i) {
+      if (board[row][i].size() > 1) {
+        auto it = remove_if(begin(board[row][i]), end(board[row][i]), [&val](int tmp) {return tmp == val; });
+        if (it != end(board[row][i])) {
+          board[row][i].erase(it, end(board[row][i]));
+          shrunk = true;
+        }
+      }//if the elements in the vec are more than one
+    }// for each column member
+
+  }// if the current index size is  exactly 1
+
+  return shrunk;
+
+}
+
+auto MnjSudoku::ApplyRowConstraints(int row, int column) {
+
+  bool shrunk = false;
+
+  if (1 == board[row][column].size()) {
+    int val = board[row][column][0];
+
+    for (int i = 0; i < 9; ++i) {
+
+      if (board[i][column].size() > 1) {
+        auto it = remove_if(begin(board[i][column]), end(board[i][column]), [&val](int tmp) {return tmp == val; });
+        if (it != end(board[i][column])) {
+          board[i][column].erase(it, end(board[i][column]));
+          shrunk = true;
+        }
+      }
+    }
+  }
+  return shrunk;
+}
+//////////////////////////////////////////////////////////
+auto MnjSudoku::ApplySmallSquareConstraints(int row, int column) {
+  bool shrunk = false;
+  int r = 3 * (row / 3);//imp: can be cached
+  int c = 3 * (column / 3);//imp: can be cached
+
+  if (1 == board[row][column].size()) {
+    int val = board[row][column][0];
+    for (int i = r; i < r + 3; ++i) {
+      for (int j = c; j < c + 3; ++j) {
+        if (board[i][j].size() > 1) {
+          auto it = remove_if(begin(board[i][j]), end(board[i][j]), [&val](int tmp) {return tmp == val; });
+          if (it != end(board[i][j])) {
+            board[i][j].erase(it, end(board[i][j]));
+            shrunk = true;
+          }
+        }
+      }
+    }
+  }
+  return shrunk;
+}
 
 bool MnjSudoku::ApplyConstraints() {
   
@@ -132,72 +197,8 @@ void MnjSudoku::Solve() {
 
 }
 */
+
 //////////////////////////////////////////////////////////
-bool MnjSudoku::ApplySmallSquareConstraints(int row, int column) {
-  bool shrunk = false;
-  int r = 3 * (row / 3);//imp: can be cached
-  int c = 3 * (column / 3);//imp: can be cached
-
-  if (1 == board[row][column].size()) {
-    int val = board[row][column][0];
-    for (int i = r; i < r + 3; ++i) {
-      for (int j = c; j < c + 3; ++j) {
-        if (board[i][j].size() > 1) {
-          auto it = remove_if(begin(board[i][j]), end(board[i][j]), [&val](int tmp) {return tmp == val; });
-          if (it != end(board[i][j])) {
-            board[i][j].erase(it, end(board[i][j]));
-            shrunk = true;
-          }
-        }
-      }
-    }
-  }
-  return shrunk;
-}
-//////////////////////////////////////////////////////////
-bool MnjSudoku::ApplyColumnConstraints(int row, int column) {
-  
-  bool shrunk = false; 
-
-  if (1 == board[row][column].size()) {
-
-    int val = board[row][column][0]; 
-    for (int i = 0; i < 9; ++i) {
-      if (board[row][i].size() > 1) {
-       auto it = remove_if(begin(board[row][i]), end(board[row][i]), [&val](int tmp) {return tmp == val; });
-       if (it != end(board[row][i]) ) {
-         board[row][i].erase(it,end(board[row][i]));
-         shrunk = true;
-       }
-      }//if the elements in the vec are more than one
-    }// for each column member
-
-  }// if the current index size is  exactly 1
-
-  return shrunk;
-
-}
-
-bool MnjSudoku::ApplyRowConstraints(int row, int column) {
-
-  bool shrunk = false; 
-
-  if (1 == board[row][column].size()) {
-    int val = board[row][column][0];
-
-    for (int i = 0; i < 9; ++i) {
-
-      if (board[i][column].size() > 1) {
-        auto it = remove_if(begin(board[i][column]), end(board[i][column]), [&val](int tmp) {return tmp == val; });
-        if (it != end(board[i][column])) {
-          board[i][column].erase(it, end(board[i][column]));
-          shrunk = true;
-        }
-      }
-    }
-  }
-  return shrunk;
-}
 
 bool MnjSudoku::IsComplete() const{
 

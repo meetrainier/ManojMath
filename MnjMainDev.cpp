@@ -2,7 +2,9 @@
 //copyright(c) 2009- 2016 Manoj Lnu 
 //#include <iostream>
 #include <functional>
-//#include <type_transform> //not in VS 10
+
+#include "TestGeomUtils.h"
+//#include "GeomUtils.h"
 #include "TestMnjSmoother.h"
 #include "MnjSmoothableSegment.h"
 #include "MnjSmoothableLine.h"
@@ -10,10 +12,9 @@
 #include "TestMnjSmoother.h"
 #include "MnjSudoku.h"
 #include "MnjLine.h"
-//class MnjSmoothableLine;
 
- //////////////////////////////////////////////////////////////////////////////////
-  // This function will obtain a reference to the parameter 'r' and increment it.
+//////////////////////////////////////////////////////////////////////////////////
+// This function will obtain a reference to the parameter 'r' and increment it.
 void f (int &r) { r++; }
 // Template function.
 template<class F, class P> void g (F f, P t) { f(t); }
@@ -57,10 +58,14 @@ int main(int argc, char *argv[]){
    //TestMnjLine testLine;
 
   //TestMnjSmoother<MnjSmoothableSegment,MnjSmoothableLine,MnjSmoothableArc> test;
-  sudoku_test1();
-  TestMnjSmoother test;
-  test.Test();
-
-
-  WrapperReference();
+  //sudoku_test1();
+  
+  //TestMnjSmoother test;
+  //test.Test();
+  
+  //WrapperReference();
+  
+   //GeomUtils::TestGeomUtils::TestLineLineIntersect();  
+   TestGeomUtils test;
+   test.Test();
 }

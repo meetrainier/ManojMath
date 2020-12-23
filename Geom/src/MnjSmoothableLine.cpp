@@ -54,7 +54,9 @@ MnjSmoothableLine::MnjSmoothableLine(boost::shared_ptr<MnjSmoothableSegment> &iS
 MnjSmoothableLine::MnjSmoothableLine(shared_ptr&iSeg1, shared_ptr&iSeg2,
                          ICSAttribute &iAttr){
 
-  MnjLine tmpLine(iSeg1->GetLine(),iSeg2->GetLine());
+  auto l1 = iSeg1->GetLine();
+  auto l2 = iSeg2->GetLine();
+  MnjLine tmpLine(l1,l2);
 	mline = tmpLine;
 	SetICSAttribute(iAttr);
   //mnj SetCorner(iSeg1->IsCorner());
@@ -65,8 +67,10 @@ MnjSmoothableLine::MnjSmoothableLine(shared_ptr&iSeg1, shared_ptr&iSeg2,
 MnjSmoothableLine::MnjSmoothableLine(shared_ptr&iSeg1, shared_ptr&iSeg2,
                          //ICSAttribute &iAttr,
                          MnjSmoothableSegment::SegmentChange iStatus){
-    
-  MnjLine tmpLine(iSeg1->GetLine(),iSeg2->GetLine());
+  auto l1 = iSeg1->GetLine();
+  auto l2 = iSeg2->GetLine();
+  MnjLine tmpLine(l1,l2);
+  //MnjLine tmpLine(iSeg1->GetLine(),iSeg2->GetLine());
 	mline = tmpLine;
 
 	MergeAndSetAttributes(iSeg1,iSeg2,iStatus);

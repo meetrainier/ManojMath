@@ -30,9 +30,9 @@ If the point in pointVec was (0,0,0 ), it will transform to the coordinate of po
 template <class T> 
 void MoveCoordinates(MnjPoint<T> &point, std::vector<MnjPoint<T>> &pointVec, std::vector<MnjPoint<T>> &opointVec){
 
-	std::vector<MnjPoint<T>>::iterator  it; 
+	//std::vector<MnjPoint<T>>::iterator  it; 
 	opointVec.empty();
-    for ( it=pointVec.begin(); it != pointVec.end() ; it++ ) 
+    for (auto it=pointVec.begin(); it != pointVec.end() ; it++ ) 
 	{
         opointVec.push_back(*it + point);
 	}

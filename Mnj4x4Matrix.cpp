@@ -28,7 +28,7 @@ Mnj4x4Matrix::Mnj4x4Matrix( const MnjPoint<double>& P,
 														 const MnjDirection& Y,
 														 const MnjDirection& Z)
 {
- Mnj4x4Matrix::Mnj4x4Matrix(P,
+ Mnj4x4Matrix(P,
 														 MnjVector(X),
 														 MnjVector(Y),
 														 MnjVector(Z));

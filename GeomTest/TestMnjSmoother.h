@@ -5,6 +5,8 @@
 //2016/09/29: Manoj : Some member function were made const
 //#include "MnjSmoothableSegment.h"
 #include <memory> 
+#include <cstring> 
+  
 #include "MnjArc.h"
 #include "MnjLine.h"
 //#include "MnjSmoothableArc.h"

@@ -268,7 +268,8 @@ void MnjLine::GetPerpendicularAt(const MnjPoint<double> &ieitherEnd,
 	GetPointOnLine(ieitherEnd,idistance_from_start,p);
 	MnjInfiniteLine lInf;
 	GetPerpendicularBisector(lInf);
-	operp_line.Set(p,lInf.GetDirection());
+	auto dir = lInf.GetDirection();
+	operp_line.Set(p,dir);
 
 }
 

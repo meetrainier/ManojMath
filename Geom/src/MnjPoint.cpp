@@ -19,7 +19,7 @@ MnjPoint<double>::MnjPoint( const float* p )
   }
 }
 */
-
+template<>
 MnjPoint<double>::MnjPoint( const double* p )
 {
   if (p) {
@@ -30,8 +30,9 @@ MnjPoint<double>::MnjPoint( const double* p )
   }
 }
 
-MnjPoint<double>::MnjPoint(double xx,double yy,double zz)
-{x=xx;y=yy;z=zz;}
+// template<>
+// MnjPoint<double>::MnjPoint(double xx,double yy,double zz)
+// {x=xx;y=yy;z=zz;}
 /////////////////////////////////////////////////////////////////
 template<>
 MnjPoint<double>::MnjPoint(const MnjPoint<double> &ip){
@@ -39,7 +40,8 @@ MnjPoint<double>::MnjPoint(const MnjPoint<double> &ip){
 	y = ip.y;
 	z = ip.z;
 }
-//operators 
+//operators
+template<>
 MnjPoint<double>& MnjPoint<double>::operator=(const float* p)
 {
   if ( p ) {
@@ -53,6 +55,7 @@ MnjPoint<double>& MnjPoint<double>::operator=(const float* p)
   return *this;
 }
 
+template<>
 MnjPoint<double>& MnjPoint<double>::operator=(const double* p)
 {
   if ( p ) {
@@ -66,6 +69,7 @@ MnjPoint<double>& MnjPoint<double>::operator=(const double* p)
   return *this;
 }
 
+template<>
 MnjPoint<double>& MnjPoint<double>::operator=(const MnjVector& v)
 {
   x = v.x;
@@ -74,6 +78,7 @@ MnjPoint<double>& MnjPoint<double>::operator=(const MnjVector& v)
   return *this;
 }
 
+template<>
 MnjPoint<double>& MnjPoint<double>::operator*=( double d)
 {
   x *= d;
@@ -82,6 +87,7 @@ MnjPoint<double>& MnjPoint<double>::operator*=( double d)
   return *this;
 }
 
+template<>
 MnjPoint<double>& MnjPoint<double>::operator/=(double d)
 {
   const double one_over_d = 1.0/d;
@@ -91,7 +97,8 @@ MnjPoint<double>& MnjPoint<double>::operator/=(double d)
   return *this;
 }
 
-MnjPoint<class T>& MnjPoint<T>::operator+=(const MnjPoint<T>& p)
+template<class T>
+MnjPoint<T>& MnjPoint<T>::operator+=(const MnjPoint<T>& p)
 {
   x += p.x;
   y += p.y;
@@ -99,7 +106,8 @@ MnjPoint<class T>& MnjPoint<T>::operator+=(const MnjPoint<T>& p)
   return *this;
 }
 
-MnjPoint<class T>& MnjPoint<class T >::operator+=(const MnjVector& v)
+template<class T>
+MnjPoint<T>& MnjPoint<T >::operator+=(const MnjVector& v)
 {
   x += v.x;
   y += v.y;
@@ -107,6 +115,7 @@ MnjPoint<class T>& MnjPoint<class T >::operator+=(const MnjVector& v)
   return *this;
 }
 
+template<>
 MnjPoint<double>& MnjPoint<double>::operator-=(const MnjPoint<double>& p)
 {
   x -= p.x;
@@ -115,6 +124,7 @@ MnjPoint<double>& MnjPoint<double>::operator-=(const MnjPoint<double>& p)
   return *this;
 }
 
+template<>
 MnjPoint<double>& MnjPoint<double>::operator-=(const MnjVector& v)
 {
   x -= v.x;
@@ -123,40 +133,47 @@ MnjPoint<double>& MnjPoint<double>::operator-=(const MnjVector& v)
   return *this;
 }
 
+template<>
 MnjPoint<double> MnjPoint<double>::operator*( int i ) const
 {
   double d = i;
   return MnjPoint<double>(x*d,y*d,z*d);
 }
 
+template<>
 MnjPoint<double> MnjPoint<double>::operator*( float f ) const
 {
   double d = f;
   return MnjPoint<double>(x*d,y*d,z*d);
 }
 
+template<>
 MnjPoint<double> MnjPoint<double>::operator*( double d ) const
 {
   return MnjPoint<double>(x*d,y*d,z*d);
 }
 
+template<>
 MnjPoint<double> MnjPoint<double>::operator/( int i ) const
 {
   const double one_over_d = 1.0/((double)i);
   return MnjPoint<double>(x*one_over_d,y*one_over_d,z*one_over_d);
 }
 ///////////////////////////////////////////////////////
+template<>
 MnjPoint<double> MnjPoint<double>::operator/( float f ) const
 {
   const double one_over_d = 1.0/((double)f);
   return MnjPoint<double>(x*one_over_d,y*one_over_d,z*one_over_d);
 }
 ///////////////////////////////////////////////////////////////////
+template<>
 MnjPoint<double> MnjPoint<double>::operator+( const MnjPoint<double>& p ) const
 {
   return MnjPoint<double>(x+p.x,y+p.y,z+p.z);
 }
 ////////////////////////////////////////////////////////////////////
+template<>
 MnjVector MnjPoint<double>::operator-( const MnjPoint<double>& p ) const
 {
   return MnjVector(x-p.x,y-p.y,z-p.z);
@@ -168,84 +185,99 @@ MnjPoint<double> MnjPoint::operator-( const MnjVector& v ) const
   return MnjPoint<double>(x-v.x,y-v.y,z-v.z);
 }
 */
+template<>
 bool MnjPoint<double>::operator==( const MnjPoint<double>& p ) const
 {
   return (x==p.x&&y==p.y&&z==p.z)?true:false;
 }
 
+template<>
 bool MnjPoint<double>::operator!=( const MnjPoint<double>& p ) const
 {
   return (x!=p.x||y!=p.y||z!=p.z)?true:false;
 }
 
+template<>
 bool MnjPoint<double>::operator<=( const MnjPoint<double>& p ) const
 {
   // dictionary order
   return ((x<p.x)?true:((x==p.x)?((y<p.y)?true:(y==p.y&&z<=p.z)?true:false):false));
 }
 
+template<>
 bool MnjPoint<double>::operator>=( const MnjPoint<double>& p ) const
 {
   // dictionary order
   return ((x>p.x)?true:((x==p.x)?((y>p.y)?true:(y==p.y&&z>=p.z)?true:false):false));
 }
 
+template<>
 bool MnjPoint<double>::operator<( const MnjPoint<double>& p ) const
 {
   // dictionary order
   return ((x<p.x)?true:((x==p.x)?((y<p.y)?true:(y==p.y&&z<p.z)?true:false):false));
 }
 
+template<>
 bool MnjPoint<double>::operator>( const MnjPoint<double>& p ) const
 {
   // dictionary order
   return ((x>p.x)?true:((x==p.x)?((y>p.y)?true:(y==p.y&&z>p.z)?true:false):false));
 }
 
+template<>
 double MnjPoint<double>::operator[](int i) const
 {
   return ( (i<=0)?x:((i>=2)?z:y) );
 }
 
+template<>
 double& MnjPoint<double>::operator[](int i)
 {
   double* pd = (i<=0)? &x : ( (i>=2) ?  &z : &y);
   return *pd;
 }
 
+template<>
 double MnjPoint<double>::DistanceTo( const MnjPoint<double>& p ) const
 {
   return (p - *this).Length();
 }
 
+template<>
 int MnjPoint<double>::MaximumCoordinateIndex() const
 {
   return (fabs(y)>fabs(x)) ? ((fabs(z)>fabs(y))?2:1) : ((fabs(z)>fabs(x))?2:0);
 }
 
+template<>
 double MnjPoint<double>::MaximumCoordinate() const
 {
   double c = fabs(x); if (fabs(y)>c) c=fabs(y); if (fabs(z)>c) c=fabs(z);
   return c;
 }
 
+template<>
 int MnjPoint<double>::MinimumCoordinateIndex() const
 {
   return (fabs(y)<fabs(x)) ? ((fabs(z)<fabs(y))?2:1) : ((fabs(z)<fabs(x))?2:0);
 }
 
+template<>
 double MnjPoint<double>::MinimumCoordinate() const
 {
   double c = fabs(x); if (fabs(y)<c) c=fabs(y); if (fabs(z)<c) c=fabs(z);
   return c;
 }
 
+template<>
 void MnjPoint<double>::Zero()
 {
   x = y = z = 0.0;
 }
 
 
+template<>
 double MnjPoint<double>::operator*(const MnjPoint<double>& h) const
 {
   return x*h.x + y*h.y + z*h.z;

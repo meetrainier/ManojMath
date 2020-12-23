@@ -81,7 +81,7 @@ MnjArc::MnjArc(const shared_ptr &iSeg1, const shared_ptr& iSeg2){
    //throw std::exception("Invalid Geometry Input for Arc");
    string msg("Invalid Geometry Input for Arc");
    Mnj::ErrorUtils::CreateErrorString(__FILE__, __LINE__,__FUNCTION__, msg,s);
-   throw std::exception(s.c_str());
+   throw std::runtime_error(s.c_str());
   }
 }
 //------------------------------------------------------------------------------
@@ -134,7 +134,7 @@ MnjArc::MnjArc(const std::shared_ptr<MnjLine> &iSeg1, const shared_ptr& iSeg2){
    //throw std::exception("Invalid Geometry Input for Arc");
    string msg("Invalid Geometry Input for Arc");
    Mnj::ErrorUtils::CreateErrorString(__FILE__, __LINE__,__FUNCTION__, msg,s);
-   throw std::exception(s.c_str());
+   throw std::runtime_error(s.c_str());
   }
 }
 /////////////////////////////////////////////////////
@@ -179,7 +179,7 @@ MnjArc::MnjArc(const shared_ptr &iSeg1, const MnjLine::shared_ptr& iSeg2){
    //throw std::exception("Invalid Geometry Input for Arc");
    string msg("Invalid Geometry Input for Arc");
    Mnj::ErrorUtils::CreateErrorString(__FILE__, __LINE__,__FUNCTION__, msg,s);
-   throw std::exception(s.c_str());
+   throw std::runtime_error(s.c_str());
   }
 }
 //--------------------------------------------------------------------
@@ -194,7 +194,7 @@ MnjArc::MnjArc(const dbl_3d_pt &ip1,
     string msg = "Start and End Point at different distance from center.";
     string s;
     Mnj::ErrorUtils::CreateErrorString(__FILE__, __LINE__,__FUNCTION__, msg,s);
-    throw std::exception(s.c_str());
+    throw std::runtime_error(s.c_str());
   }
 	
   startPoint  = ip1;
@@ -328,7 +328,6 @@ double MnjArc::GetAngle()const{
 
 }
 
-
 double MnjArc::GetAngle(const dbl_3d_pt &ip)const{
 
 	MnjDirection X(centerPoint,startPoint);
@@ -419,6 +418,7 @@ int MnjArc::ResetThePoint(dbl_3d_pt &icornerPoint,dbl_3d_pt &ip){
         }
         return 0;
     }
+
 /////////////////////////////////////////////////////////////////////////////////
   void MnjArc::Flip(void){
 
@@ -449,6 +449,7 @@ int MnjArc::SetSmallerArc(dbl_3d_pt &e1,dbl_3d_pt &c,dbl_3d_pt &e2){
       }
       
   }
+
 ///////////////////////////////////////////////////////////////////////////////////////////
 int MnjArc::Set(dbl_3d_pt &s,dbl_3d_pt &center,dbl_3d_pt &e){
  
@@ -465,7 +466,7 @@ int MnjArc::Set(dbl_3d_pt &s,dbl_3d_pt &center,dbl_3d_pt &e){
   if(error<0){
    string s;
    Mnj::ErrorUtils::CreateErrorString(__FILE__, __LINE__,__FUNCTION__, msg,s);
-   throw std::exception(s.c_str());
+   throw std::runtime_error(s.c_str());
   }
 
   SetStartPoint(s);
@@ -479,18 +480,22 @@ int MnjArc::Set(dbl_3d_pt &s,dbl_3d_pt &center,dbl_3d_pt &e){
 MnjDirection MnjArc::Tangent(dbl_3d_pt &ip) {
 	auto theta = GetAngle(ip);
 	//do not make it 1.001*theta (problem when 0==theta ) 
-	dbl_3d_pt &p1 =GetPointAtAngle(0.00001 + theta);
+	const dbl_3d_pt &p1 =GetPointAtAngle(0.00001 + theta);
 	return MnjDirection(ip,p1); 
 }
+
 ///////////////////////////////////////////////////////////////////////////
 MnjDirection MnjArc::TangentAtEnd(dbl_3d_pt &ip){
 	 auto theta = GetAngle(ip);
  
-	dbl_3d_pt &p1 =GetPointAtAngle(theta + 0.00001 );
+    dbl_3d_pt p;
+	const dbl_3d_pt &p1 =GetPointAtAngle(theta + 0.00001 );
+	p = p1;
     if(!IsPointOnArc(p1)){
-       p1 =GetPointAtAngle(theta - 0.00001 );
+      auto  p2 =GetPointAtAngle(theta - 0.00001 );
+	  p = p2;
     }
-	return MnjDirection(ip,p1); 
+	return MnjDirection(ip,p); 
 
  }
 ///////////////////////////////////////////////////////////////////////////////////////////

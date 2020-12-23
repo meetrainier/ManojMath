@@ -1,0 +1,17 @@
+g++ -g \
+	-I /c/Users/manoj/Manoj/Repos/ManojMath/Geom/includes \
+	-I /c/Users/manoj/Manoj/Repos/ManojMath/Geom  \
+	-I /c/Users/manoj/Manoj/Repos/ManojMath/GeomTest \
+	-I /c/Users/manoj/Manoj/Repos/ManojMath \
+	-fmax-errors=3 \
+	Geom/src/*.cpp \
+	Mnj4x4Matrix.cpp \
+	MnjMainDev.cpp \
+	GeomTest/TestGeomUtils.cpp \
+	GeomUtils.cpp \
+	-o test
+	#Geom/src/MnjSmoothableLine.cpp \
+	#Geom/src/MnjLine.cpp \
+	#Geom/src/MnjSmoothableSegment.cpp \
+	#GeomTest/TestMnjSmoother.cpp \
+#g++  -I. -o out MnjMainDev.cpp

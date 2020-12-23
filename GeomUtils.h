@@ -2,6 +2,7 @@
 // 12/21/2016 : converted Project to a template method
 #pragma once 
  
+#include <cstring>
 #include <iostream>
 #include <vector>
 #include <list>
@@ -429,7 +430,7 @@ public:
 		  const double &guessX, const double &guessY,//guessed center
 		  double &xc, double &yc);
 		  
-		  class TestGeomUtils{
+	 public:	  class TestGeomUtils{
 	public:
 
 		static int Test();

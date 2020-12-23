@@ -15,12 +15,11 @@ public:
 #include <vector>
 #include <iostream>
 class MnjVector;
-
 using namespace std;
 
 template <class T>    
 class MnjPoint     
- {
+{
 
 	public:
 		 double x,y,z;
@@ -137,11 +136,11 @@ bool operator>( const MnjPoint& p ) const;
   void Zero();
 
 		//MnjPoint<class T>& operator+(MnjVector &p);
-#ifdef _DEBUG 
+//#ifdef _DEBUG 
 		void Print()const{
 		   cout << x <<"\t" << y <<"\t"<< z << endl; 
 	    }
-#endif
+//#endif
 		
 		
 };
@@ -150,11 +149,12 @@ template <class T>
 void print(MnjPoint<T> &point){
 	cout << point.x << "\t" << point.y  <<"\t"<< point.z << endl;
 }
+
 template <class T> 
 void PrintPointVector(std::vector<MnjPoint<T>> &pointVec){
 	
-	std::vector<MnjPoint>::iterator it;
-	for (it = pointVec.begin(); it != pointVec.end(); it++  ) {
+	//std::vector<MnjPoint<T>>::iterator it;
+	for (auto it = pointVec.begin(); it != pointVec.end(); it++  ) {
 	  print(*it);
 	}
 }

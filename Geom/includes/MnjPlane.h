@@ -31,17 +31,17 @@ MnjPlane()
 ~MnjPlane()
 {}
 /////////////////////////////
-MnjPlane::MnjPlane(
+MnjPlane(
     const MnjPoint<double>&  P, // point on the plane
     const MnjVector& N  // non-zero normal to the plane
     );
-MnjPlane::MnjPlane(
+MnjPlane(
     const MnjPoint<double>&  P, // point on the plane
     const MnjVector& X, // non-zero vector in plane
     const MnjVector& Y  // another vector in the plane not parallel to X
     );
 
-MnjPlane::MnjPlane(
+MnjPlane(
     const MnjPoint<double>&  P, // point on the plane
     const MnjDirection& X, // non-zero vector in plane
     const MnjDirection& Y  // another vector in the plane not parallel to X
@@ -49,14 +49,14 @@ MnjPlane::MnjPlane(
 
 
 ///////////////////////////////////////////////
-bool MnjPlane::CreateFromFrame(
+bool CreateFromFrame(
     const MnjPoint<double>&  P, // point on the plane
     const MnjVector& X, // non-zero vector in plane
     const MnjVector& Y  // another non-zero vector in the plane
     );
 
 ///////////////////////////////////////////////
-bool MnjPlane::CreateFromNormal(
+bool CreateFromNormal(
     const MnjPoint<double>&  P, // point on the plane
     const MnjVector& N  // non-zero normal to the plane
     );

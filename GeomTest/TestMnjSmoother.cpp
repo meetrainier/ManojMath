@@ -1484,7 +1484,8 @@ void TestMnjSmoother::TestIsConnected(void){
 		 segVec.push_back(l);
 	}
     //make disconnected
-    segVec[5]->SetStartPoint(MnjPoint<double>(5000,0,0));
+	MnjPoint<double> p(5000.0,0.0,0.0);
+    segVec[5]->SetStartPoint(p);
     vector<std::shared_ptr<MnjSmoothableSegment>>::iterator it1;
     double od = -1;
     MnjSmoother s;

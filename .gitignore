@@ -213,3 +213,7 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
+#Added by me
+.vs/ManojMathVS15/v16/*.VC.db-shm
+.vs/ManojMathVS15/v16/*.VC.db-wal
+.vs/ManojMathVS15/v16/Browse.VC.opendb

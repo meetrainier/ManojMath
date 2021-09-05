@@ -1,5 +1,5 @@
 // Example program
-//This file is a collection of common problems involving binary form 
+//This file is a collection of common problems involving binary form. 
 
 #include <iostream>
 #include <string>

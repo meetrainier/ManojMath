@@ -10,7 +10,7 @@
 #include "MnjSmoothableLine.h"
 #include "MnjSmoothableArc.h"
 #include "TestMnjSmoother.h"
-#include "MnjSudoku.h"
+//#include "MnjSudoku.h" //tbd: create a similar main file to Test Game Apps
 #include "MnjLine.h"
 
 //////////////////////////////////////////////////////////////////////////////////

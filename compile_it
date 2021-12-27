@@ -1,14 +1,13 @@
-g++ -g \
+g++ -g -std=c++14 \
 	-I /c/Users/manoj/Manoj/Repos/ManojMath/Geom/includes \
 	-I /c/Users/manoj/Manoj/Repos/ManojMath/Geom  \
 	-I /c/Users/manoj/Manoj/Repos/ManojMath/GeomTest \
 	-I /c/Users/manoj/Manoj/Repos/ManojMath \
+    -I ./MnjSystem/includes\
 	-fmax-errors=3 \
 	Geom/src/*.cpp \
-	Mnj4x4Matrix.cpp \
-	MnjMainDev.cpp \
-	GeomTest/TestGeomUtils.cpp \
-	GeomUtils.cpp \
+	#GeomTest/TestGeomUtils.cpp \
+	GeomTest/*.cpp \
 	-o test
 	#Geom/src/MnjSmoothableLine.cpp \
 	#Geom/src/MnjLine.cpp \

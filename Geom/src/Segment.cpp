@@ -1,7 +1,7 @@
 //copyright(c) 2009- 2016 Manoj Lnu. All rights reserved. 
 #include <memory>
 #include "Segment.h"   
-#include "GeomUtils.h"   
+#include "GeomUtils.h"
 using namespace std; 
 
 MnjPoint<double> Segment::GetCommonPoint(std::shared_ptr<Segment> seg2,int &oerror){

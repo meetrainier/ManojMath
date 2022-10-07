@@ -54,7 +54,7 @@ public:
   virtual void GetEndPoint(MnjPoint<double> &p)const=0 ;
   virtual void GetEnds(MnjPoint<double> &s,MnjPoint<double> &e)const=0 ;
   virtual double GetMaxDistance(MnjPoint<double> &p)const=0;// do we really need it?
-  virtual  MnjPoint<double> Segment::GetCommonPoint(std::shared_ptr<Segment> seg2,int &oerror);
+  virtual MnjPoint<double> GetCommonPoint(std::shared_ptr<Segment> seg2,int &oerror);
   virtual MnjPoint<double> GetOtherEnd(const MnjPoint<double> &ip,int &oerror)const=0;
    //virtual SegmentType GetType()=0;
 

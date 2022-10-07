@@ -11,7 +11,7 @@ namespace Mnj {
 
  class ErrorUtils{
   public:
- static void CreateErrorString(char *file, int line_no,char *func, std::string &imsg,std::string &s) {
+ static void CreateErrorString(char *file, int line_no,const char *func, std::string &imsg,std::string &s) {
   
   s.append("File: ");
   s.append(file);

@@ -1,13 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30711.63
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ManojMathVS15", "ManojMathVS15.vcxproj", "{7CB0440D-89F9-4997-8A5E-F4B5B3706E2A}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BakerPrank", "..\BakerPrank\BakerPrank.vcxproj", "{1185B880-8CE2-486F-ACD5-A8DC49A8827F}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MnjGraph", "MnjGraph\MnjGraph.vcxproj", "{2598083B-F258-4C37-84F0-055ED07ED66B}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lThreads", "lThreads\lThreads.vcxproj", "{BA78B030-8B80-4F10-BA87-52C261C64356}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,8 +41,19 @@ Global
 		{2598083B-F258-4C37-84F0-055ED07ED66B}.Release|x64.Build.0 = Release|x64
 		{2598083B-F258-4C37-84F0-055ED07ED66B}.Release|x86.ActiveCfg = Release|Win32
 		{2598083B-F258-4C37-84F0-055ED07ED66B}.Release|x86.Build.0 = Release|Win32
+		{BA78B030-8B80-4F10-BA87-52C261C64356}.Debug|x64.ActiveCfg = Debug|x64
+		{BA78B030-8B80-4F10-BA87-52C261C64356}.Debug|x64.Build.0 = Debug|x64
+		{BA78B030-8B80-4F10-BA87-52C261C64356}.Debug|x86.ActiveCfg = Debug|Win32
+		{BA78B030-8B80-4F10-BA87-52C261C64356}.Debug|x86.Build.0 = Debug|Win32
+		{BA78B030-8B80-4F10-BA87-52C261C64356}.Release|x64.ActiveCfg = Release|x64
+		{BA78B030-8B80-4F10-BA87-52C261C64356}.Release|x64.Build.0 = Release|x64
+		{BA78B030-8B80-4F10-BA87-52C261C64356}.Release|x86.ActiveCfg = Release|Win32
+		{BA78B030-8B80-4F10-BA87-52C261C64356}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {62E2D791-CDE7-4AE8-8E04-5FD9CD172EEC}
 	EndGlobalSection
 EndGlobal

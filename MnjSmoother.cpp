@@ -544,7 +544,8 @@ int MnjSmoother::GetCenter(
         }
         //test that the point(s) are at distance r fron the circle. 
         shared_ptr_vec_pt pt_at_distance_r_from_arc_vec;
-        GeomUtils::GetPointsAtGivenDistanceFromArc(a->GetArc(),ir,  
+		auto arc1 = a->GetArc();
+        GeomUtils::GetPointsAtGivenDistanceFromArc(arc1,ir,  
                  can_project_pt_vec,
                  pt_at_distance_r_from_arc_vec);
         if(1==pt_at_distance_r_from_arc_vec.size()){ 

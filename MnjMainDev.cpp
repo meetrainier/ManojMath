@@ -10,6 +10,8 @@
 #include "TestMnjSmoother.h"
 #include "MnjSudoku.h"
 #include "MnjLine.h"
+#include "boostGeometryExample.h"
+
 //class MnjSmoothableLine;
 
  //////////////////////////////////////////////////////////////////////////////////
@@ -54,13 +56,14 @@ public:
 };
 ///////////////////////////////////////////////////////
 int main(int argc, char *argv[]){
-   //TestMnjLine testLine;
+   PointsInPolygon();
+  //TestMnjLine testLine;
 
   //TestMnjSmoother<MnjSmoothableSegment,MnjSmoothableLine,MnjSmoothableArc> test;
-  sudoku_test1();
-  TestMnjSmoother test;
-  test.Test();
+  //sudoku_test1();
+  //TestMnjSmoother test;
+  //test.Test();
 
 
-  WrapperReference();
+  //WrapperReference();
 }

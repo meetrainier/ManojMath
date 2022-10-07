@@ -1,4 +1,4 @@
-#pragma once;
+#pragma once
 //copyright(c) 2009- 2016 Manoj Lnu 
 //#define M_PI 3.1415926536
 

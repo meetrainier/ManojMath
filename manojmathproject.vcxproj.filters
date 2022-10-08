@@ -42,21 +42,6 @@
     <ClCompile Include="MnjInfiniteLine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="opennurbs_plane.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="opennurbs_circle.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="opennurbs_arc.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="opennurbs_crc.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="opennurbs_memory.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="TestMnjSmoother.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -103,6 +88,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="TestManojMath.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="boostGeometryExample.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -213,6 +201,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include=".\TestGeomUtils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="boostGeometryExample.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

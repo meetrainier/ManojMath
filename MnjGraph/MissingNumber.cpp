@@ -35,6 +35,7 @@ int findMissingNumber1(const string& numString, int maxNum, const char delim) {
 			// silently skipping non-numerics, 
 			// would want to ask client how to handle
 			// e.g. log it, re-throw, etc. 
+			std::cout << e.what() << std::endl;
 		}
 
 	};

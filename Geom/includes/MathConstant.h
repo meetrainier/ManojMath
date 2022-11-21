@@ -6,6 +6,10 @@
 #undef M_PI 
 #define M_PI 3.14159265358979323846264338327
 #endif 
+#ifndef M_PI
+#define M_PI 3.14159265358979323846264338327
+#endif
+
 #define MNJ_DEFAULT_ANGLE_TOLERANCE (M_PI/180.0)
 
 #define MNJ_IS_FINITE(x) (0x7FF0 != (*((unsigned short*)(&x) + 3) & 0x7FF0))

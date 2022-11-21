@@ -58,7 +58,14 @@ public:
 };
 ///////////////////////////////////////////////////////
 int main(int argc, char *argv[]){
-   PointsInPolygon();
+  using iPair = std::pair<int, int>;
+  std::vector<std::pair<int, iPair >> v;
+  v.push_back({ 1,{1,1} });
+  v.push_back({ 0, { 1,1 } });
+  std::sort(begin(v),end(v));
+  for (auto& x : v)
+    cout << x.first << " " << std::endl;
+   //PointsInPolygon();
   //TestMnjLine testLine;
 
   //TestMnjSmoother<MnjSmoothableSegment,MnjSmoothableLine,MnjSmoothableArc> test;
@@ -70,6 +77,7 @@ int main(int argc, char *argv[]){
   //WrapperReference();
   
    //GeomUtils::TestGeomUtils::TestLineLineIntersect();  
-   TestGeomUtils test;
-   test.Test();
+   //TestGeomUtils test;
+   //test.Test();
+  return 0;
 }

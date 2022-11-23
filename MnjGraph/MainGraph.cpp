@@ -1,5 +1,3 @@
-#include "GenericGraphHeader.h"
-/////Prim
 #include <vector>
 #include <queue>
 #include <unordered_set>
@@ -22,14 +20,15 @@ int CreatePQ(std::vector<vecI> edges, int vertex, std::priority_queue<vecI,std::
     return 0;
 }
 
-int FindTheOtherVertex(vecI e,int vertex)
+int FindTheOtherVertex(vecI e, std::unordered_set<int> set_of_vert_at_mst)
 {
-    if (e[0] == vertex)
-        return e[1];
-    else if (e[1] == vertex)
+    auto it0 = std::find(begin(set_of_vert_at_mst),end(set_of_vert_at_mst),e[0]);
+    if (it0 == end(set_of_vert_at_mst))
         return e[0];
-    else 
-        return -1;
+    auto it1 = std::find(begin(set_of_vert_at_mst), end(set_of_vert_at_mst), e[1]);
+    if (it0 == end(set_of_vert_at_mst))
+        return e[1];
+    return -1;
 }
 
 bool IsEligible(vecI e, std::unordered_set<int> set_of_vert_at_mst)
@@ -63,18 +62,46 @@ int prims(int n, std::vector<vecI> edges, int s)
         {
             
             current_e = pq.top();
+            pq.pop();
             if (IsEligible(current_e, set_of_vert_at_mst))
             {
                 weight += current_e[2];
                 break;
             }
+
         };
-        vertex = FindTheOtherVertex(current_e,vertex);
-        assert(-1 != vertex);
+        vertex = FindTheOtherVertex(current_e, set_of_vert_at_mst);
+        //assert(-1 != vertex);
     }
     return weight;
 }
-////Prim  ends 
+
+int TestPrims()
+{
+	//To creat eeasy test refer to : https://graphonline.ru/en/?q=en
+    {
+    std::vector<vecI> edges1{ {1,2,1},{1,3,2},{2,3,3} };
+    auto w1 = prims(3, edges1, 1);
+    assert(3==w1);
+    }
+    {
+        std::vector<vecI> edges2{ {1,2,1},
+            {2,3,1},
+            {3,4,1},
+            {4,5,1},
+            {5,1,1},
+
+            {1,6,2},
+            {2,6,3},
+            {3,6,4},
+            {4,6,5},
+            {5,6,6},
+        };
+        auto w = prims(6, edges2, 1);
+        assert(6 == w);
+    }
+    return 0;
+}
 
 int main() {
 

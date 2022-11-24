@@ -226,3 +226,11 @@ pip-log.txt
 /ManojMathVC19/.vs/ManojMathVC19/v16/Solution.VC.db-shm
 /ManojMathVC19/.vs/ManojMathVC19/v16/Solution.VC.db-wal
 /.vs/manojmathproject/v16/Browse.VC.db
+/Apps/AppsProj/AppsProj.vcxproj.filters
+/Geom/Geom/pch.h
+/Geom/Geom/pch.cpp
+/Apps/AppsProj/AppsProj.vcxproj
+/Geom/Geom/Geom.vcxproj.filters
+/Geom/Geom/Geom.vcxproj
+/GeomTest/GeomTestProj/GeomTestProj.vcxproj.filters
+/lmlpack/lmlpack.vcxproj.filters

@@ -3,7 +3,7 @@
 //9/29/2016 : Manoj : Print is a const method now. 
 #include <memory> 
 #include "MnjPoint.h"
-#include "Segment.h"
+#include "MnjSegment.h"
 #include "GeomUtils.h"
 #include "MnjDirection.h"
 using namespace std; 

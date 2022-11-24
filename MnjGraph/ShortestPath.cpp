@@ -11,14 +11,16 @@ using namespace std;
 bool isadjacent(string& a, string& b)
 {
 	int count = 0;  // to store count of differences
-	int n = a.length();
+	auto n = a.length();
 
 	// Iterate through all characters and return false
 	// if there are more than one mismatching characters
 	for (int i = 0; i < n; i++)
 	{
-		if (a[i] != b[i]) count++;
-		if (count > 1) return false;
+		if (a[i] != b[i]) 
+			count++;
+		if (count > 1)
+			return false;
 	}
 	return count == 1 ? true : false;
 }

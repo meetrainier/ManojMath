@@ -2,7 +2,8 @@
 //copyright(c) 2009- 2016 Manoj Lnu 
 //#include <iostream>
 #include <functional>
-
+//#include <bits/stdc++.h>
+#include <queue>
 #include "TestGeomUtils.h"
 //#include "GeomUtils.h"
 #include "TestMnjSmoother.h"
@@ -56,8 +57,40 @@ public:
   */
 
 };
+using vecI = std::vector<int>;
+void print(vecI vec)
+{
+  for (auto& x : vec)
+    cout << x << " ";
+  cout << std::endl;
+}
+
+void ShowPriorityQueueWorksOnVectorOfInts()
+{
+  vecI a{ 0, 1, 2};
+  vecI b{ -1, 1, 2 };
+  vecI c{ 1, 1, 2 };
+
+  std::priority_queue < vecI, std::vector<vecI>,  std::greater<vecI >> pq;
+  pq.push(a);
+  pq.push(b);
+  pq.push(c);
+
+  auto a1 = pq.top();
+  print(a1);
+  pq.pop();
+
+  auto b1 = pq.top();
+  print(b1);
+  pq.pop();
+
+  auto c1 = pq.top();
+  print(c1);
+}
+
 ///////////////////////////////////////////////////////
 int main(int argc, char *argv[]){
+  ShowPriorityQueueWorksOnVectorOfInts();
   using iPair = std::pair<int, int>;
   std::vector<std::pair<int, iPair >> v;
   v.push_back({ 1,{1,1} });

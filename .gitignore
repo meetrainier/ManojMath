@@ -224,8 +224,10 @@ pip-log.txt
 .vs/manojmathproject/v16/Browse.VC.db-wal
 .vs/manojmathproject/v16/Browse.VC.db-shm
 .vs/manojmathproject/v16/Browse.VC.db
-.vs/ManojMathVS13/v16/Browse.VC.db
 
+.vs/ManojMathVS15/v16/Solution.VC.db
+.vs/ManojMathVS15/v16/Browse.VC.db
+.vs/ManojMathVS13/v16/Browse.VC.db
 .vs/ManojMathVS13/v16/Browse.VC.db-shm
 
 ManojMathVC19/.vs/ManojMathVC19/v16/Browse.VC.db

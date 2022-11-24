@@ -18,6 +18,9 @@
     <ClInclude Include="GenericGraphHeader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="all_std.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MainGraph.cpp">
@@ -27,6 +30,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ShortestPath.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Prims.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

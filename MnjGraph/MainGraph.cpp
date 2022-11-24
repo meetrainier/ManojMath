@@ -4,12 +4,7 @@
 #include <cassert>
 
 using vecI = std::vector<int>;
-
-bool operator>(vecI& v1, vecI& v2)
-{
-    return (v1[2] > v2[2]);
-}
-
+/*
 int CreatePQ(std::vector<vecI> edges, int vertex, std::priority_queue<vecI,std::vector<vecI>, std::greater<vecI>>& pq)
 {
     for (auto& e : edges)
@@ -75,36 +70,10 @@ int prims(int n, std::vector<vecI> edges, int s)
     }
     return weight;
 }
-
-int TestPrims()
-{
-	//To creat eeasy test refer to : https://graphonline.ru/en/?q=en
-    {
-    std::vector<vecI> edges1{ {1,2,1},{1,3,2},{2,3,3} };
-    auto w1 = prims(3, edges1, 1);
-    assert(3==w1);
-    }
-    {
-        std::vector<vecI> edges2{ {1,2,1},
-            {2,3,1},
-            {3,4,1},
-            {4,5,1},
-            {5,1,1},
-
-            {1,6,2},
-            {2,6,3},
-            {3,6,4},
-            {4,6,5},
-            {5,6,6},
-        };
-        auto w = prims(6, edges2, 1);
-        assert(6 == w);
-    }
-    return 0;
-}
+*/
 
 int main() {
 
-	TestshortestChainLen(); 
+	//TestshortestChainLen(); 
 	return 0; 
 }

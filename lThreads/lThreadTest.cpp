@@ -79,7 +79,3 @@ void TestAsync()
 	Test3();
 }
 
-void TestThread()
-{
-
-}

@@ -7,7 +7,7 @@
 #include <list>
 #include <memory>
 
-#include "Segment.h" 
+#include "MnjSegment.h" 
 #include "MnjPoint.h"
 //#include "MnjInfiniteLine.h"
 //#include "MnjDirection.h"

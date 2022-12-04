@@ -42,7 +42,7 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -142,14 +142,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="all_std.h" />
+    <ClInclude Include="Edge.h" />
+    <ClInclude Include="EdgeWeightedGraph.h" />
     <ClInclude Include="GenericGraphHeader.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Bag.cpp" />
+    <ClCompile Include="Edge.cpp" />
+    <ClCompile Include="EdgeWeightedGraph.cpp" />
+    <ClCompile Include="Kruskal.cpp" />
     <ClCompile Include="MainGraph.cpp" />
     <ClCompile Include="MissingNumber.cpp" />
-    <ClCompile Include="Prims.cpp" />
+    <ClCompile Include="Prim2.cpp" />
     <ClCompile Include="ShortestPath.cpp" />
+    <ClCompile Include="UnionFind.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

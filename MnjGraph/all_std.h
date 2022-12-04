@@ -113,30 +113,13 @@
 //Numeric limits
 
 #include <cfloat>
-
-
 #include <cinttypes>
-
-
-
 #include <climits>
-
-
 #include <cstdint>
-
-
 #include <limits>
-
-
 //#include <stdfloat>
-
-
 #include <cassert>
-
-
 #include <cerrno>
-
-
 #include <exception>
 
 
@@ -145,26 +128,11 @@
 #include <system_error>
 #include <cctype>
 #include <charconv>
-
-
-
 #include <cstring>
-
-
 #include <cuchar>
-
-
-
-
 #include <cwchar>
-
-
 #include <cwctype>
-
-
 //#include <format>////(C++20)
-
-
 #include <string>
 #include <string_view>//(C++17)
 #include <array>

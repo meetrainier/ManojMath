@@ -57,8 +57,10 @@ double Pr(int n, std::vector<vecI> edges,int s )
   return weight;
 }
 
-int main() {
+extern void is_cyclic_directed_test();
 
+int main() {
+	is_cyclic_directed_test();
 	//TestshortestChainLen(); 
 	return 0;
 }

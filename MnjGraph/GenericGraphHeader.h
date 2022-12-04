@@ -1,12 +1,18 @@
 #pragma once
-#include <cassert>
-#include <iostream>
-#include <string>
-#include <queue>
-#include <set>
-#include <random>
-#include <stack> 
-#include <string> 
+//#include <cassert>
+//#include <iostream>
+//#include <string>
+//#include <queue>
+//#include <set>
+//#include <random>
+//#include <stack> 
+//#include <string> 
+
+using vecB = std::vector<bool>;
+using vecI = std::vector<int>;
+using vecVecI = std::vector<vecI>;
+
+using namespace std;
 
 #define LINUX_KEY
 

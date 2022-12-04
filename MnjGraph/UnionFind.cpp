@@ -1,4 +1,5 @@
 //Test status: WeightedQuickUnionUF_test() goood on 12/3/2022
+#include "all_std.h" 
 #include "GenericGraphHeader.h"
 
 using vecI = std::vector<int>;

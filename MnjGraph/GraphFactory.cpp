@@ -25,5 +25,25 @@ namespace GraphFactory
   void two_vertices_1_edge_dir_graph(int& V, int& E, vecVecI &adj) {}
   void two_vertices_2_edges_mutual_cycle_dir_graph(int& V, int& E, vecVecI &adj) {}
 
+  void triangle_undir_graph(int& V, vecVecI& adj)
+  {
+    V = 3;
+    adj = {
+      {1,2},
+    {0,2},
+    {0,1}
+    };
+  }
+
+  void v_shaped_undir_graph(int& V, vecVecI& adj)
+  {
+    V = 3;
+    adj = {
+    {1,2},
+    {0},
+    {0}
+    };
+  }
+
 
 };

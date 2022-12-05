@@ -152,6 +152,7 @@
     <ClCompile Include="Edge.cpp" />
     <ClCompile Include="EdgeWeightedGraph.cpp" />
     <ClCompile Include="GraphFactory.cpp" />
+    <ClCompile Include="is_cycle_undirected.cpp" />
     <ClCompile Include="is_cyclic_directed.cpp" />
     <ClCompile Include="Kruskal.cpp" />
     <ClCompile Include="MainGraph.cpp" />

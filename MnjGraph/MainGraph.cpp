@@ -58,9 +58,12 @@ double Pr(int n, std::vector<vecI> edges,int s )
 }
 
 extern void is_cyclic_directed_test();
+extern void is_cyclic_undirected_test();
 
 int main() {
-	is_cyclic_directed_test();
+	//is_cyclic_directed_test();
+	is_cyclic_undirected_test();
+
 	//TestshortestChainLen(); 
 	return 0;
 }

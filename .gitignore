@@ -214,6 +214,8 @@ pip-log.txt
 #Mr Developer
 .mr.developer.cfg
 #Added by me
+MnjGraph/MnjGraph.vcxproj.filters
+
 .vs/ManojMathVS13/v15/Browse.VC.db
 .vs/ManojMathVS13/v15/Browse.VC.db-shm
 

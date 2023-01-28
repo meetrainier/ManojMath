@@ -46,4 +46,21 @@ namespace GraphFactory
   }
 
 
+  void triangle_dir_graph(int& V, int &E, vecVecI& adj)
+  {
+    
+    adj = {
+      {1},
+      {2},
+      {0}
+    };
+    E = 0; 
+    for (auto& x : adj)
+    {
+      E += (int)x.size();
+    }
+    V = (int)adj.size();
+
+  }
+
 };

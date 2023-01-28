@@ -46,6 +46,7 @@ double Pr(int n, std::vector<vecI> edges,int s )
 	  auto e = pq.top();
 	  pq.pop();
 	  if (visited[e[0]] && visited[e[1]])
+
 		  continue;
 	  weight += e[2];
       if(!visited[e[0]])
@@ -59,11 +60,14 @@ double Pr(int n, std::vector<vecI> edges,int s )
 
 extern void is_cyclic_directed_test();
 extern void is_cyclic_undirected_test();
+//TestshortestChainLen(); 
+void test_hasCycle();
 
 int main() {
-	//is_cyclic_directed_test();
-	is_cyclic_undirected_test();
-
 	//TestshortestChainLen(); 
+	//is_cyclic_directed_test();
+	//is_cyclic_undirected_test();
+	test_hasCycle();
+
 	return 0;
 }

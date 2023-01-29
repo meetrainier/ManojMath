@@ -142,6 +142,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Digraph.h" />
     <ClInclude Include="Edge.h" />
     <ClInclude Include="EdgeWeightedGraph.h" />
     <ClInclude Include="GenericGraphHeader.h" />
@@ -149,6 +150,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Bag.cpp" />
+    <ClCompile Include="Digraph.cpp" />
+    <ClCompile Include="DirectedCycle.cpp" />
     <ClCompile Include="Edge.cpp" />
     <ClCompile Include="EdgeWeightedGraph.cpp" />
     <ClCompile Include="GraphFactory.cpp" />

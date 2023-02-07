@@ -18,7 +18,7 @@ using namespace std;
 
 
 //class MnjSmoothableLine;
-
+/**
 //////////////////////////////////////////////////////////////////////////////////
 // This function will obtain a reference to the parameter 'r' and increment it.
 void f (int &r) { r++; }
@@ -43,20 +43,20 @@ public:
 
   MnjLine l;
  }
- /*
- 	MnjLine(){ }
-  MnjLine(const MnjLine &l){ 
-         startPoint = l.startPoint;
-         endPoint = l.endPoint;
-  }
-
-  MnjLine(Segment &iSeg1, Segment &iSeg2);
-	MnjLine(MnjPoint<double> &s,MnjPoint<double> &e);
-//	SegmentType GetType(){ return SegmentType::LINE;}
-
-	void Set(MnjPoint<double> &s,MnjPoint<double> &e);
-	void GetStartPoint(MnjPoint<double> &p)const;
-  */
+// 
+// 	MnjLine(){ }
+//  MnjLine(const MnjLine &l){ 
+//         startPoint = l.startPoint;
+//         endPoint = l.endPoint;
+//  }
+//
+//  MnjLine(Segment &iSeg1, Segment &iSeg2);
+//	MnjLine(MnjPoint<double> &s,MnjPoint<double> &e);
+////	SegmentType GetType(){ return SegmentType::LINE;}
+//
+//	void Set(MnjPoint<double> &s,MnjPoint<double> &e);
+//	void GetStartPoint(MnjPoint<double> &p)const;
+  
 
 };
 using vecI = std::vector<int>;
@@ -67,28 +67,28 @@ void print(vecI vec)
   cout << std::endl;
 }
 
-void ShowPriorityQueueWorksOnVectorOfInts()
-{
-  vecI a{ 0, 1, 2};
-  vecI b{ -1, 1, 2 };
-  vecI c{ 1, 1, 2 };
-
-  std::priority_queue < vecI, std::vector<vecI>,  std::greater<vecI >> pq;
-  pq.push(a);
-  pq.push(b);
-  pq.push(c);
-
-  auto a1 = pq.top();
-  print(a1);
-  pq.pop();
-
-  auto b1 = pq.top();
-  print(b1);
-  pq.pop();
-
-  auto c1 = pq.top();
-  print(c1);
-}
+//void ShowPriorityQueueWorksOnVectorOfInts()
+//{
+//  vecI a{ 0, 1, 2};
+//  vecI b{ -1, 1, 2 };
+//  vecI c{ 1, 1, 2 };
+//
+//  std::priority_queue < vecI, std::vector<vecI>,  std::greater<vecI >> pq;
+//  pq.push(a);
+//  pq.push(b);
+//  pq.push(c);
+//
+//  auto a1 = pq.top();
+//  print(a1);
+//  pq.pop();
+//
+//  auto b1 = pq.top();
+//  print(b1);
+//  pq.pop();
+//
+//  auto c1 = pq.top();
+//  print(c1);
+//}
 extern  void DoesItHaveThePattern_test();
 
 
@@ -99,11 +99,11 @@ int find_substr(string substr, string str) {
   auto beginning = str.c_str();
   int i = 0;
   char* p = (char *)beginning;
-  while (p && '\0'!=p)
+  //tbd while (p && '\0'!=p)
   {
   p = strstr(p, substr.c_str());
-  if (!p)
-    break;
+  //tbd if (!p)
+   // break;
   cout << "A substring is at index:" << p - beginning << "\n";
   p++;
   };
@@ -345,10 +345,11 @@ bool are_balanced_bracket(string x)
   return (st.size() == 0);
   // Your code here
 }
+*/
 ///////////////////////////////////////////////////////
 int main(int argc, char *argv[]){
 
-  subArraySumVersion3_test();
+  //subArraySumVersion3_test();
   //subArraySumVersion2();
   //subArraySum_test();
   //DoesItHaveThePattern_test();

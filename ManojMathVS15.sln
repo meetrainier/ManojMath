@@ -1,0 +1,69 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33205.214
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ManojMathVS15", "ManojMathVS15.vcxproj", "{7CB0440D-89F9-4997-8A5E-F4B5B3706E2A}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MnjGraph", "MnjGraph\MnjGraph.vcxproj", "{2598083B-F258-4C37-84F0-055ED07ED66B}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lThreads", "lThreads\lThreads.vcxproj", "{BA78B030-8B80-4F10-BA87-52C261C64356}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Geom", "Geom\Geom\Geom.vcxproj", "{0033FC7B-2588-4D3C-AD7F-0869BAB9231C}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "boost_geom", "boost_geom\boost_geom.vcxproj", "{E414C6D8-A70D-4D7B-ABA5-A28D6CDB9ED3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7CB0440D-89F9-4997-8A5E-F4B5B3706E2A}.Debug|x64.ActiveCfg = Debug|Win32
+		{7CB0440D-89F9-4997-8A5E-F4B5B3706E2A}.Debug|x86.ActiveCfg = Debug|Win32
+		{7CB0440D-89F9-4997-8A5E-F4B5B3706E2A}.Debug|x86.Build.0 = Debug|Win32
+		{7CB0440D-89F9-4997-8A5E-F4B5B3706E2A}.Release|x64.ActiveCfg = Release|Win32
+		{7CB0440D-89F9-4997-8A5E-F4B5B3706E2A}.Release|x86.ActiveCfg = Release|Win32
+		{7CB0440D-89F9-4997-8A5E-F4B5B3706E2A}.Release|x86.Build.0 = Release|Win32
+		{2598083B-F258-4C37-84F0-055ED07ED66B}.Debug|x64.ActiveCfg = Debug|x64
+		{2598083B-F258-4C37-84F0-055ED07ED66B}.Debug|x64.Build.0 = Debug|x64
+		{2598083B-F258-4C37-84F0-055ED07ED66B}.Debug|x86.ActiveCfg = Debug|Win32
+		{2598083B-F258-4C37-84F0-055ED07ED66B}.Debug|x86.Build.0 = Debug|Win32
+		{2598083B-F258-4C37-84F0-055ED07ED66B}.Release|x64.ActiveCfg = Release|x64
+		{2598083B-F258-4C37-84F0-055ED07ED66B}.Release|x64.Build.0 = Release|x64
+		{2598083B-F258-4C37-84F0-055ED07ED66B}.Release|x86.ActiveCfg = Release|Win32
+		{2598083B-F258-4C37-84F0-055ED07ED66B}.Release|x86.Build.0 = Release|Win32
+		{BA78B030-8B80-4F10-BA87-52C261C64356}.Debug|x64.ActiveCfg = Debug|x64
+		{BA78B030-8B80-4F10-BA87-52C261C64356}.Debug|x64.Build.0 = Debug|x64
+		{BA78B030-8B80-4F10-BA87-52C261C64356}.Debug|x86.ActiveCfg = Debug|Win32
+		{BA78B030-8B80-4F10-BA87-52C261C64356}.Debug|x86.Build.0 = Debug|Win32
+		{BA78B030-8B80-4F10-BA87-52C261C64356}.Release|x64.ActiveCfg = Release|x64
+		{BA78B030-8B80-4F10-BA87-52C261C64356}.Release|x64.Build.0 = Release|x64
+		{BA78B030-8B80-4F10-BA87-52C261C64356}.Release|x86.ActiveCfg = Release|Win32
+		{BA78B030-8B80-4F10-BA87-52C261C64356}.Release|x86.Build.0 = Release|Win32
+		{0033FC7B-2588-4D3C-AD7F-0869BAB9231C}.Debug|x64.ActiveCfg = Debug|x64
+		{0033FC7B-2588-4D3C-AD7F-0869BAB9231C}.Debug|x64.Build.0 = Debug|x64
+		{0033FC7B-2588-4D3C-AD7F-0869BAB9231C}.Debug|x86.ActiveCfg = Debug|Win32
+		{0033FC7B-2588-4D3C-AD7F-0869BAB9231C}.Debug|x86.Build.0 = Debug|Win32
+		{0033FC7B-2588-4D3C-AD7F-0869BAB9231C}.Release|x64.ActiveCfg = Release|x64
+		{0033FC7B-2588-4D3C-AD7F-0869BAB9231C}.Release|x64.Build.0 = Release|x64
+		{0033FC7B-2588-4D3C-AD7F-0869BAB9231C}.Release|x86.ActiveCfg = Release|Win32
+		{0033FC7B-2588-4D3C-AD7F-0869BAB9231C}.Release|x86.Build.0 = Release|Win32
+		{E414C6D8-A70D-4D7B-ABA5-A28D6CDB9ED3}.Debug|x64.ActiveCfg = Debug|x64
+		{E414C6D8-A70D-4D7B-ABA5-A28D6CDB9ED3}.Debug|x64.Build.0 = Debug|x64
+		{E414C6D8-A70D-4D7B-ABA5-A28D6CDB9ED3}.Debug|x86.ActiveCfg = Debug|Win32
+		{E414C6D8-A70D-4D7B-ABA5-A28D6CDB9ED3}.Debug|x86.Build.0 = Debug|Win32
+		{E414C6D8-A70D-4D7B-ABA5-A28D6CDB9ED3}.Release|x64.ActiveCfg = Release|x64
+		{E414C6D8-A70D-4D7B-ABA5-A28D6CDB9ED3}.Release|x64.Build.0 = Release|x64
+		{E414C6D8-A70D-4D7B-ABA5-A28D6CDB9ED3}.Release|x86.ActiveCfg = Release|Win32
+		{E414C6D8-A70D-4D7B-ABA5-A28D6CDB9ED3}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {62E2D791-CDE7-4AE8-8E04-5FD9CD172EEC}
+	EndGlobalSection
+EndGlobal

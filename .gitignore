@@ -214,7 +214,11 @@ pip-log.txt
 #Mr Developer
 .mr.developer.cfg
 #Added by me
-MnjGraph/MnjGraph.vcxproj.filters
+
+#ref: https://www.toptal.com/developers/gitignore/api/visualstudio
+.vs/
+
+boost_geom/boost_geom.vcxproj.filters
 
 .vs/ManojMathVS13/v15/Browse.VC.db
 .vs/ManojMathVS13/v15/Browse.VC.db-shm

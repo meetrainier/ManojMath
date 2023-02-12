@@ -1,6 +1,6 @@
 #pragma once
 //#include <concepts>//(C++20)//Fundamental library concepts
-#include <coroutine>////(C++20)
+//#include <coroutine>////(C++20)
 
 //Coroutine support library
 //Utilities library

@@ -7,7 +7,7 @@ Manoj 09/27/2016 Increased use of "auto"
 #include <typeinfo> 
 
 #include "ErrorUtils.h"
-#include "Segment.h"
+#include "MnjSegment.h"
 #include "MnjArc.h"
 #include "MnjPoint.h"
 #include "GeomUtils.h"
@@ -133,7 +133,7 @@ MnjArc::MnjArc(const std::shared_ptr<MnjLine> &iSeg1, const shared_ptr& iSeg2){
    string s;
    //throw std::exception("Invalid Geometry Input for Arc");
    string msg("Invalid Geometry Input for Arc");
-   Mnj::ErrorUtils::CreateErrorString(__FILE__, __LINE__,__FUNCTION__, msg,s);
+   Mnj::ErrorUtils::CreateErrorString((char *)__FILE__, __LINE__,__FUNCTION__, msg,s);
    throw std::runtime_error(s.c_str());
   }
 }
@@ -178,7 +178,7 @@ MnjArc::MnjArc(const shared_ptr &iSeg1, const MnjLine::shared_ptr& iSeg2){
    string s;
    //throw std::exception("Invalid Geometry Input for Arc");
    string msg("Invalid Geometry Input for Arc");
-   Mnj::ErrorUtils::CreateErrorString(__FILE__, __LINE__,__FUNCTION__, msg,s);
+   Mnj::ErrorUtils::CreateErrorString((char *)__FILE__, __LINE__,__FUNCTION__, msg,s);
    throw std::runtime_error(s.c_str());
   }
 }
@@ -193,7 +193,7 @@ MnjArc::MnjArc(const dbl_3d_pt &ip1,
   if( fabs(d1-d2) > .001 ){
     string msg = "Start and End Point at different distance from center.";
     string s;
-    Mnj::ErrorUtils::CreateErrorString(__FILE__, __LINE__,__FUNCTION__, msg,s);
+    Mnj::ErrorUtils::CreateErrorString((char *)__FILE__, __LINE__,__FUNCTION__, msg,s);
     throw std::runtime_error(s.c_str());
   }
 	
@@ -465,7 +465,7 @@ int MnjArc::Set(dbl_3d_pt &s,dbl_3d_pt &center,dbl_3d_pt &e){
 	
   if(error<0){
    string s;
-   Mnj::ErrorUtils::CreateErrorString(__FILE__, __LINE__,__FUNCTION__, msg,s);
+   Mnj::ErrorUtils::CreateErrorString((char *)__FILE__, __LINE__,__FUNCTION__, msg,s);
    throw std::runtime_error(s.c_str());
   }
 

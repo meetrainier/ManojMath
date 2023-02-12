@@ -213,3 +213,54 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
+#Added by me
+
+#ref: https://www.toptal.com/developers/gitignore/api/visualstudio
+.vs/
+
+boost_geom/boost_geom.vcxproj.filters
+
+.vs/ManojMathVS13/v15/Browse.VC.db
+.vs/ManojMathVS13/v15/Browse.VC.db-shm
+
+.vs/ManojMathVS15/v16/*.VC.db-shm
+.vs/ManojMathVS15/v16/*.VC.db-wal
+.vs/ManojMathVS15/v16/Browse.VC.opendb
+.vs/manojmathproject/v16/Browse.VC.opendb
+.vs/manojmathproject/v16/Browse.VC.db-wal
+.vs/manojmathproject/v16/Browse.VC.db-shm
+.vs/manojmathproject/v16/Browse.VC.db
+
+.vs/ManojMathVS15/v16/Solution.VC.db
+.vs/ManojMathVS15/v16/Browse.VC.db
+.vs/ManojMathVS13/v16/Browse.VC.db
+.vs/ManojMathVS13/v16/Browse.VC.db-shm
+
+ManojMathVC19/.vs/ManojMathVC19/v16/Browse.VC.db
+ManojMathVC19/.vs/ManojMathVC19/v16/Browse.VC.db-shm
+ManojMathVC19/.vs/ManojMathVC19/v16/Browse.VC.db-wal
+ManojMathVC19/.vs/ManojMathVC19/v16/Browse.VC.opendb
+ManojMathVC19/.vs/ManojMathVC19/v16/Solution.VC.db
+ManojMathVC19/.vs/ManojMathVC19/v16/Solution.VC.db-shm
+ManojMathVC19/.vs/ManojMathVC19/v16/Solution.VC.db-wal
+
+/.vs/manojmathproject/v16/Browse.VC.opendb
+/.vs/manojmathproject/v16/Browse.VC.db-wal
+/.vs/manojmathproject/v16/Browse.VC.db-shm
+/.vs/manojmathproject/v16/Browse.VC.db
+/.vs/ManojMathVS13/v16/Browse.VC.db
+/.vs/ManojMathVS13/v16/Browse.VC.db-shm
+
+/ManojMathVC19/.vs/ManojMathVC19/v16/Browse.VC.db
+/ManojMathVC19/.vs/ManojMathVC19/v16/Browse.VC.db-shm
+/ManojMathVC19/.vs/ManojMathVC19/v16/Browse.VC.db-wal
+/ManojMathVC19/.vs/ManojMathVC19/v16/Browse.VC.opendb
+/ManojMathVC19/.vs/ManojMathVC19/v16/Solution.VC.db
+/ManojMathVC19/.vs/ManojMathVC19/v16/Solution.VC.db-shm
+/ManojMathVC19/.vs/ManojMathVC19/v16/Solution.VC.db-wal
+
+/.vs/ManojMathVS15/v16/Solution.VC.db
+/.vs/ProjectSettings.json
+/.vs/ManojMath/v16/Browse.VC.db
+/.vs/slnx.sqlite
+/.vs/VSWorkspaceState.json

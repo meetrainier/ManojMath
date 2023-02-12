@@ -8,6 +8,7 @@
 #include "MnjBiDirectionalMerge.h"
 #include "MnjSmoother.h"
 #include "MnjDirection.h"
+#include "MnjSegment.h"
 #include <cmath>
 using namespace std; 
 ///////////////////////////////////////////////////////////////////////////////////////////////

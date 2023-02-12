@@ -142,14 +142,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Digraph.h" />
     <ClInclude Include="Edge.h" />
     <ClInclude Include="EdgeWeightedGraph.h" />
     <ClInclude Include="GenericGraphHeader.h" />
+    <ClInclude Include="GraphFactory.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Bag.cpp" />
+    <ClCompile Include="Digraph.cpp" />
+    <ClCompile Include="DirectedCycle.cpp" />
     <ClCompile Include="Edge.cpp" />
     <ClCompile Include="EdgeWeightedGraph.cpp" />
+    <ClCompile Include="GraphFactory.cpp" />
+    <ClCompile Include="is_cycle_undirected.cpp" />
+    <ClCompile Include="is_cyclic_directed.cpp" />
     <ClCompile Include="Kruskal.cpp" />
     <ClCompile Include="MainGraph.cpp" />
     <ClCompile Include="MissingNumber.cpp" />

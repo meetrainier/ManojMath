@@ -659,18 +659,17 @@ bool are_balanced_bracket(string x)
     }
   }
   return (st.size() == 0);
-  // Your code here
-
-///////////////////////////////////////////////////////
+  }
+  */
+  ///////////////////////////////////////////////////////
 int main(int argc, char *argv[]){
 
-  subArraySumVersion3_test();
+  //subArraySumVersion3_test();
   //subArraySumVersion2();
   //subArraySum_test();
   //DoesItHaveThePattern_test();
   //test();
-int main(int argc, char *argv[]){
-  ShowPriorityQueueWorksOnVectorOfInts();
+  //ShowPriorityQueueWorksOnVectorOfInts();
   using iPair = std::pair<int, int>;
   std::vector<std::pair<int, iPair >> v;
   v.push_back({ 1,{1,1} });
@@ -678,7 +677,7 @@ int main(int argc, char *argv[]){
   std::sort(begin(v),end(v));
   for (auto& x : v)
     cout << x.first << " " << std::endl;
-    */
+    
    //PointsInPolygon();
   //TestMnjLine testLine;
 

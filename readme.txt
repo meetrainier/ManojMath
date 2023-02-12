@@ -1,9 +1,19 @@
-1. Compiles sucessfully with VS2013 : 
-2. Removed useless files.
-3. Status: All test cases of runs sucessfully: ManojMath-master\MnjMainDev.cpp
-4. boost dependecy removed. 
-TBD: 
-Add more test cases and test case data
+boost_geom 
+1. Compiles sucessfully with VS2022 in release and debug mode  
+2. boost 1_75 is used. 
 
-Loacyion of lin 11/19/2022
-ManojMath\x64\Debug\Geom.lib
+###########################################
+lThreads
+1. Compiles sucessfully with VS2022 in release and debug mode  
+
+###########################################
+ManojMathVs15
+1. Compiles sucessfully with VS2022 in release and debug mode
+
+###########################################
+MnjGraph 
+lThreads
+1. Compiles sucessfully with VS2022 in release and debug mode
+########
+Geom
+Not found 

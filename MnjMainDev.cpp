@@ -3,15 +3,15 @@
 //tbd: remove or move code so that main only contains the test method calls;
 #include "all_std.h" 
 
-#include "TestGeomUtils.h"
+//#include "TestGeomUtils.h"
 //#include "GeomUtils.h"
-#include "TestMnjSmoother.h"
-#include "MnjSmoothableSegment.h"
-#include "MnjSmoothableLine.h"
-#include "MnjSmoothableArc.h"
-#include "TestMnjSmoother.h"
-#include "MnjSudoku.h"
-#include "MnjLine.h"
+//#include "TestMnjSmoother.h"
+//#include "MnjSmoothableSegment.h"
+//#include "MnjSmoothableLine.h"
+//#include "MnjSmoothableArc.h"
+//#include "TestMnjSmoother.h"
+//#include "MnjSudoku.h"
+//#include "MnjLine.h"
 #include "boostGeometryExample.h"
 
 using namespace std;
@@ -98,7 +98,7 @@ void tetrahedron_circumcenter(
 
 
 //class MnjSmoothableLine;
-/**
+/*
 //////////////////////////////////////////////////////////////////////////////////
 // This function will obtain a reference to the parameter 'r' and increment it.
 void f (int &r) { r++; }
@@ -660,17 +660,17 @@ bool are_balanced_bracket(string x)
   }
   return (st.size() == 0);
   // Your code here
-
+}
+*/
 ///////////////////////////////////////////////////////
 int main(int argc, char *argv[]){
 
-  subArraySumVersion3_test();
+  //subArraySumVersion3_test();
   //subArraySumVersion2();
   //subArraySum_test();
   //DoesItHaveThePattern_test();
   //test();
-int main(int argc, char *argv[]){
-  ShowPriorityQueueWorksOnVectorOfInts();
+  //ShowPriorityQueueWorksOnVectorOfInts();
   using iPair = std::pair<int, int>;
   std::vector<std::pair<int, iPair >> v;
   v.push_back({ 1,{1,1} });
@@ -678,7 +678,7 @@ int main(int argc, char *argv[]){
   std::sort(begin(v),end(v));
   for (auto& x : v)
     cout << x.first << " " << std::endl;
-    */
+    
    //PointsInPolygon();
   //TestMnjLine testLine;
 

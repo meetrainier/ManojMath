@@ -27,6 +27,9 @@
     <ClInclude Include="GraphFactory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Digraph.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MainGraph.cpp">
@@ -63,6 +66,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="is_cycle_undirected.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Digraph.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DirectedCycle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

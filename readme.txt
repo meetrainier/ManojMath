@@ -1,16 +1,15 @@
 
 
-1. Reorganization of directory into geom aka engine , system and application level. 
+-Reorganization of directory into geom aka engine, system, application and test level. 
 
-Status: All test cases of runs successfully: ManojMath-master\MnjMainDev.cpp
+-Status: All test cases of runs successfully: ManojMath-master\MnjMainDev.cpp
 
-
-boost_geom 
-
-Geom
-
-lThreads
- compiles: debug ,release , VS 2022  
+The folowing compiles (debug ,release , VS 2022  , C++20 )
+--boost_geom 
+--Geom
+--lThreads
+--ManojMathVS15
+--MnjGraph 
 
 TBD: 
 1. Add GeomTest module. 

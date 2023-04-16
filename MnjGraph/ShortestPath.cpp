@@ -3,6 +3,7 @@
 // C++ program to find length of the shortest chain
 // transformation from source to target
 //#include<bits/stdc++.h>
+#include "all_std.h" 
 #include "GenericGraphHeader.h"
 
 using namespace std;

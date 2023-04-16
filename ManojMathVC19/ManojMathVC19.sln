@@ -1,0 +1,58 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31624.102
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Geom", "..\Geom\Geom\Geom.vcxproj", "{83225653-43A4-4BA8-AEE9-E4209083EDBD}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GeomTestProj", "..\GeomTest\GeomTestProj\GeomTestProj.vcxproj", "{B8376F36-B613-44C3-9500-C54524A729A8}"
+	ProjectSection(ProjectDependencies) = postProject
+		{83225653-43A4-4BA8-AEE9-E4209083EDBD} = {83225653-43A4-4BA8-AEE9-E4209083EDBD}
+		{F4AD078B-743A-4B2B-A85A-1EB993F8AAFC} = {F4AD078B-743A-4B2B-A85A-1EB993F8AAFC}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ApiProj", "..\Apps\AppsProj\AppsProj.vcxproj", "{F4AD078B-743A-4B2B-A85A-1EB993F8AAFC}"
+	ProjectSection(ProjectDependencies) = postProject
+		{83225653-43A4-4BA8-AEE9-E4209083EDBD} = {83225653-43A4-4BA8-AEE9-E4209083EDBD}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{83225653-43A4-4BA8-AEE9-E4209083EDBD}.Debug|x64.ActiveCfg = Debug|x64
+		{83225653-43A4-4BA8-AEE9-E4209083EDBD}.Debug|x64.Build.0 = Debug|x64
+		{83225653-43A4-4BA8-AEE9-E4209083EDBD}.Debug|x86.ActiveCfg = Debug|Win32
+		{83225653-43A4-4BA8-AEE9-E4209083EDBD}.Debug|x86.Build.0 = Debug|Win32
+		{83225653-43A4-4BA8-AEE9-E4209083EDBD}.Release|x64.ActiveCfg = Release|x64
+		{83225653-43A4-4BA8-AEE9-E4209083EDBD}.Release|x64.Build.0 = Release|x64
+		{83225653-43A4-4BA8-AEE9-E4209083EDBD}.Release|x86.ActiveCfg = Release|Win32
+		{83225653-43A4-4BA8-AEE9-E4209083EDBD}.Release|x86.Build.0 = Release|Win32
+		{B8376F36-B613-44C3-9500-C54524A729A8}.Debug|x64.ActiveCfg = Debug|x64
+		{B8376F36-B613-44C3-9500-C54524A729A8}.Debug|x64.Build.0 = Debug|x64
+		{B8376F36-B613-44C3-9500-C54524A729A8}.Debug|x86.ActiveCfg = Debug|Win32
+		{B8376F36-B613-44C3-9500-C54524A729A8}.Debug|x86.Build.0 = Debug|Win32
+		{B8376F36-B613-44C3-9500-C54524A729A8}.Release|x64.ActiveCfg = Release|x64
+		{B8376F36-B613-44C3-9500-C54524A729A8}.Release|x64.Build.0 = Release|x64
+		{B8376F36-B613-44C3-9500-C54524A729A8}.Release|x86.ActiveCfg = Release|Win32
+		{B8376F36-B613-44C3-9500-C54524A729A8}.Release|x86.Build.0 = Release|Win32
+		{F4AD078B-743A-4B2B-A85A-1EB993F8AAFC}.Debug|x64.ActiveCfg = Debug|x64
+		{F4AD078B-743A-4B2B-A85A-1EB993F8AAFC}.Debug|x64.Build.0 = Debug|x64
+		{F4AD078B-743A-4B2B-A85A-1EB993F8AAFC}.Debug|x86.ActiveCfg = Debug|Win32
+		{F4AD078B-743A-4B2B-A85A-1EB993F8AAFC}.Debug|x86.Build.0 = Debug|Win32
+		{F4AD078B-743A-4B2B-A85A-1EB993F8AAFC}.Release|x64.ActiveCfg = Release|x64
+		{F4AD078B-743A-4B2B-A85A-1EB993F8AAFC}.Release|x64.Build.0 = Release|x64
+		{F4AD078B-743A-4B2B-A85A-1EB993F8AAFC}.Release|x86.ActiveCfg = Release|Win32
+		{F4AD078B-743A-4B2B-A85A-1EB993F8AAFC}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9FD360B6-5422-4BA2-9D05-0D80EA0661B6}
+	EndGlobalSection
+EndGlobal

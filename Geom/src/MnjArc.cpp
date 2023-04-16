@@ -80,9 +80,7 @@ MnjArc::MnjArc(const shared_ptr &iSeg1, const shared_ptr& iSeg2){
    string s;
    //throw std::exception("Invalid Geometry Input for Arc");
    string msg("Invalid Geometry Input for Arc");
-   const char* pFILE = __FILE__;
-   //Mnj::ErrorUtils::CreateErrorString(__FILE__, __LINE__,__FUNCTION__, msg,s);
-   Mnj::ErrorUtils::CreateErrorString((char *)pFILE, __LINE__,__FUNCTION__, msg,s);
+   Mnj::ErrorUtils::CreateErrorString(__FILE__, __LINE__,__FUNCTION__, msg,s);
    throw std::runtime_error(s.c_str());
   }
 }

@@ -18,7 +18,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		readme.txt = readme.txt
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "boost_geom", "boost_geom\boost_geom.vcxproj", "{E414C6D8-A70D-4D7B-ABA5-A28D6CDB9ED3}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SatLearnC", "SatLearnC\SatLearnC.vcxproj", "{146C86D9-EBD1-4004-90BB-8A8E796919FC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -50,14 +50,6 @@ Global
 		{BA78B030-8B80-4F10-BA87-52C261C64356}.Release|x64.Build.0 = Release|x64
 		{BA78B030-8B80-4F10-BA87-52C261C64356}.Release|x86.ActiveCfg = Release|Win32
 		{BA78B030-8B80-4F10-BA87-52C261C64356}.Release|x86.Build.0 = Release|Win32
-		{0033FC7B-2588-4D3C-AD7F-0869BAB9231C}.Debug|x64.ActiveCfg = Debug|x64
-		{0033FC7B-2588-4D3C-AD7F-0869BAB9231C}.Debug|x64.Build.0 = Debug|x64
-		{0033FC7B-2588-4D3C-AD7F-0869BAB9231C}.Debug|x86.ActiveCfg = Debug|Win32
-		{0033FC7B-2588-4D3C-AD7F-0869BAB9231C}.Debug|x86.Build.0 = Debug|Win32
-		{0033FC7B-2588-4D3C-AD7F-0869BAB9231C}.Release|x64.ActiveCfg = Release|x64
-		{0033FC7B-2588-4D3C-AD7F-0869BAB9231C}.Release|x64.Build.0 = Release|x64
-		{0033FC7B-2588-4D3C-AD7F-0869BAB9231C}.Release|x86.ActiveCfg = Release|Win32
-		{0033FC7B-2588-4D3C-AD7F-0869BAB9231C}.Release|x86.Build.0 = Release|Win32
 		{83225653-43A4-4BA8-AEE9-E4209083EDBD}.Debug|x64.ActiveCfg = Debug|x64
 		{83225653-43A4-4BA8-AEE9-E4209083EDBD}.Debug|x64.Build.0 = Debug|x64
 		{83225653-43A4-4BA8-AEE9-E4209083EDBD}.Debug|x86.ActiveCfg = Debug|Win32
@@ -74,6 +66,14 @@ Global
 		{E414C6D8-A70D-4D7B-ABA5-A28D6CDB9ED3}.Release|x64.Build.0 = Release|x64
 		{E414C6D8-A70D-4D7B-ABA5-A28D6CDB9ED3}.Release|x86.ActiveCfg = Release|Win32
 		{E414C6D8-A70D-4D7B-ABA5-A28D6CDB9ED3}.Release|x86.Build.0 = Release|Win32
+		{146C86D9-EBD1-4004-90BB-8A8E796919FC}.Debug|x64.ActiveCfg = Debug|x64
+		{146C86D9-EBD1-4004-90BB-8A8E796919FC}.Debug|x64.Build.0 = Debug|x64
+		{146C86D9-EBD1-4004-90BB-8A8E796919FC}.Debug|x86.ActiveCfg = Debug|Win32
+		{146C86D9-EBD1-4004-90BB-8A8E796919FC}.Debug|x86.Build.0 = Debug|Win32
+		{146C86D9-EBD1-4004-90BB-8A8E796919FC}.Release|x64.ActiveCfg = Release|x64
+		{146C86D9-EBD1-4004-90BB-8A8E796919FC}.Release|x64.Build.0 = Release|x64
+		{146C86D9-EBD1-4004-90BB-8A8E796919FC}.Release|x86.ActiveCfg = Release|Win32
+		{146C86D9-EBD1-4004-90BB-8A8E796919FC}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

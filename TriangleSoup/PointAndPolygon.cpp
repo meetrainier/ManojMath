@@ -48,22 +48,3 @@ bool point_on_polygon(const Point3d& point, const Polygon& polygon) {
   return false;  // The point does not lie on any of the polygon's edges
 }
 
-// Example usage
-//int main() {
-//  // Define a polygon (square in this case)
-//  Polygon polygon = { {{0, 0, 0}, {4, 0, 0}, {4, 4, 0}, {0, 4, 0}} };
-//
-//  // Define some points to test
-//  Point3d point1 = { 2, 0, 0 };  // On the bottom edge
-//  Point3d point2 = { 4, 2, 0 };  // On the right edge
-//  Point3d point3 = { 2, 2, 0 };  // Inside the polygon
-//  Point3d point4 = { 5, 0, 0 };  // Outside the polygon
-//
-//  // Test points
-//  cout << "Point 1 on polygon: " << point_in_polygon(point1, polygon) << endl;  // Expected: true
-//  cout << "Point 2 on polygon: " << point_in_polygon(point2, polygon) << endl;  // Expected: true
-//  cout << "Point 3 on polygon: " << point_in_polygon(point3, polygon) << endl;  // Expected: false
-//  cout << "Point 4 on polygon: " << point_in_polygon(point4, polygon) << endl;  // Expected: false
-//
-//  return 0;
-//}

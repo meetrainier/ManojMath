@@ -48,3 +48,8 @@ int group_triangles_with_respect_to_prism(vector<Point3d>& vec_points, vector<ar
   Prism& prism, Prism_Triangle_Groups& triangle_groups);
 
 bool point_on_polygon(const Point3d& point, const Polygon& polygon);
+
+struct Triangle {
+  array<Point3d, 3> vertices;
+};
+int split_triangle_with_prism(const Triangle& triangle, const Prism& prism, vector<Polygon>& vec_polygons);

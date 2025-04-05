@@ -60,90 +60,6 @@ TEST(group_triangles_with_respect_to_prism_test,convex_polygon) {
 
 }
 
-
-// Helper function to check if a point is inside a polygon using ray-casting
-//bool point_in_polygon(const Point3d& point, const Polygon& polygon) {
-//  int crossings = 0;
-//  size_t n = polygon.vec_points.size();
-//  for (size_t i = 0; i < n; ++i) {
-//    const Point3d& p1 = polygon.vec_points[i];
-//    const Point3d& p2 = polygon.vec_points[(i + 1) % n];
-//    // Check if the ray from the point crosses the edge of the polygon
-//    if (((p1.y > point.y) != (p2.y > point.y)) &&
-//      (point.x < (p2.x - p1.x) * (point.y - p1.y) / (p2.y - p1.y) + p1.x)) {
-//      crossings++;
-//    }
-//  }
-//  // If the number of crossings is odd, the point is inside the polygon
-//  return (crossings % 2 == 1);
-//}
-//
-//// Function to check if a point is on the vertical surface of the prism
-//bool point_on_prism_surface(const Point3d& point, const Prism& prism) {
-//  // Check if the point is on the base polygon or on the top face
-//  return point_in_polygon(point, prism.base_polygon) &&
-//    (point.z == 0 || fabs(point.z - prism.height) < 1e-9);
-//}
-//
-//// Function to check if all points of the triangle lie within the prism
-//bool triangle_in_prism(const array<size_t, 3>& triangle, const vector<Point3d>& vec_points, const Prism& prism) {
-//  for (size_t i = 0; i < 3; ++i) {
-//    const Point3d& p = vec_points[triangle[i]];
-//    if (!point_in_polygon(p, prism.base_polygon) || p.z < 0 || p.z > prism.height) {
-//      return false;
-//    }
-//  }
-//  return true;
-//}
-//
-//// Function to check if a triangle is on the prism surface
-//bool triangle_on_prism(const array<size_t, 3>& triangle, const vector<Point3d>& vec_points, const Prism& prism) {
-//  for (size_t i = 0; i < 3; ++i) {
-//    const Point3d& p = vec_points[triangle[i]];
-//    if (!point_on_prism_surface(p, prism)) {
-//      return false;
-//    }
-//  }
-//  return true;
-//}
-
-// Function to check if a triangle intersects the prism
-//bool triangle_intersects_prism(const array<size_t, 3>& triangle, const vector<Point3d>& vec_points, const Prism& prism) {
-//  bool has_inside = false, has_outside = false;
-//  for (size_t i = 0; i < 3; ++i) {
-//    const Point3d& p = vec_points[triangle[i]];
-//    if (point_in_polygon(p, prism.base_polygon) && p.z >= 0 && p.z <= prism.height) {
-//      has_inside = true;
-//    }
-//    else {
-//      has_outside = true;
-//    }
-//    if (has_inside && has_outside) {
-//      return true;
-//    }
-//  }
-//  return false;
-//}
-
-// Main function to group triangles
-//int group_triangles(vector<Point3d>& vec_points, vector<array<size_t, 3>>& vec_triangles, Prism& prism, Prism_Triangle_Groups& triangle_groups) {
-//  for (size_t i = 0; i < vec_triangles.size(); ++i) {
-//    const array<size_t, 3>& triangle = vec_triangles[i];
-//
-//    if (triangle_in_prism(triangle, vec_points, prism)) {
-//      triangle_groups.in_prism.push_back(i);
-//    }
-//    else if (triangle_on_prism(triangle, vec_points, prism)) {
-//      triangle_groups.on_prism.push_back(i);
-//    }
-//    else if (triangle_intersects_prism(triangle, vec_points, prism)) {
-//      triangle_groups.intersecting_prism.push_back(i);
-//    }
-//  }
-//
-//  return 0;  // Success
-//}
-
 // Example usage with a concave polygon base
 TEST(group_triangles_with_respect_to_prism_test, concave_polygon) {
   // Define points of a concave polygon (XY-plane)
@@ -200,5 +116,85 @@ TEST(group_triangles_with_respect_to_prism_test, concave_polygon) {
   }
   cout << endl;
 
+}
+
+TEST(PrismTriangleIntersection, TriangleFullyInsidePrism) {
+  // Triangle fully inside the prism
+  Triangle triangle = { {{{1, 1, 1}, {2, 1, 1}, {1.5, 2, 1}}} };
+  Polygon base_polygon = { {{0, 0, 0}, {3, 0, 0}, {3, 3, 0}, {0, 3, 0}} };
+  Prism prism = { base_polygon, 3.0 };  // Height of the prism is 3
+
+  vector<Polygon> result;
+  int status = split_triangle_with_prism(triangle, prism, result);
+
+  EXPECT_EQ(status, 0);
+  EXPECT_EQ(result.size(), 1);  // Should generate one polygon
+}
+
+TEST(PrismTriangleIntersection, TrianglePartiallyIntersecting) {
+  // Triangle partially intersecting the prism
+  Triangle triangle = { {{{1, 1, 1}, {2, 1, 4}, {1.5, 2, 1}}} };  // One vertex outside the prism (z = 4)
+  Polygon base_polygon = { {{0, 0, 0}, {3, 0, 0}, {3, 3, 0}, {0, 3, 0}} };
+  Prism prism = { base_polygon, 3.0 };  // Height of the prism is 3
+
+  vector<Polygon> result;
+  int status = split_triangle_with_prism(triangle, prism, result);
+
+  EXPECT_EQ(status, 0);
+  EXPECT_EQ(result.size(), 1);  // Should generate one polygon
+  // Further checks can be done to verify the vertices of the resulting polygon
+}
+
+TEST(PrismTriangleIntersection, TriangleOutsidePrism) {
+  // Triangle fully outside the prism
+  Triangle triangle = { {{{4, 4, 4}, {5, 4, 4}, {4.5, 5, 4}}} };  // Entire triangle outside the prism
+  Polygon base_polygon = { {{0, 0, 0}, {3, 0, 0}, {3, 3, 0}, {0, 3, 0}} };
+  Prism prism = { base_polygon, 3.0 };  // Height of the prism is 3
+
+  vector<Polygon> result;
+  int status = split_triangle_with_prism(triangle, prism, result);
+
+  EXPECT_EQ(status, 0);
+  EXPECT_EQ(result.size(), 0);  // No polygons should be generated
+}
+
+TEST(PrismTriangleIntersection, LargeTriangleAroundPrism) {
+  // A triangle large enough to contain the entire prism
+  Triangle triangle = { {{{-10, -10, 1.5}, {10, -10, 1.5}, {0, 10, 1.5}}} };
+  Polygon base_polygon = { {{0, 0, 0}, {3, 0, 0}, {3, 3, 0}, {0, 3, 0}} };
+  Prism prism = { base_polygon, 3.0 };  // Height of the prism is 3
+
+  vector<Polygon> result;
+  int status = split_triangle_with_prism(triangle, prism, result);
+
+  EXPECT_EQ(status, 0);
+  EXPECT_EQ(result.size(), 1);  // Should generate one polygon
+
+  // The resulting polygon should have the same shape as the base polygon of the prism
+  EXPECT_EQ(result[0].vec_points.size(), 4);  // The prism's base polygon has 4 points
+}
+
+#include <gtest/gtest.h>
+#include <vector>
+
+using namespace std;
+
+TEST(PrismTriangleIntersection, LargeTriangleAroundConcavePrism) {
+  // A large triangle that intersects the concave prism
+  Triangle triangle = { {{{-10, -10, 1.5}, {10, -10, 1.5}, {0, 10, 1.5}}} };
+
+  // Define a concave base polygon (U-shape)
+  Polygon concave_polygon = { {{0, 0, 0}, {3, 0, 0}, {3, 1, 0}, {1, 1, 0}, {1, 3, 0}, {0, 3, 0}} };
+
+  Prism prism = { concave_polygon, 3.0 };  // Height of the prism is 3
+
+  vector<Polygon> result;
+  int status = split_triangle_with_prism(triangle, prism, result);
+
+  EXPECT_EQ(status, 0);
+  EXPECT_EQ(result.size(), 1);  // Should generate one polygon
+
+  // The resulting polygon should match the shape of the concave cross-section of the prism
+  EXPECT_EQ(result[0].vec_points.size(), concave_polygon.vec_points.size());  // Same number of vertices as base polygon
 }
 
